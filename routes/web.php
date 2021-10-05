@@ -18,14 +18,14 @@ Route::get('/cls', function() {
         $run = Artisan::call('cache:clear');
         $run = Artisan::call('config:cache');
         Session::flush();
-        return 'FINISHED';  
+        return 'FINISHED';
     });
 Route::get('/migrate', function() {
-    
+
         $run = Artisan::call('migrate:fresh --seed');
-       
-        return 'Complete';  
-    }); 
+
+        return 'Complete';
+    });
 
 
 
@@ -33,6 +33,8 @@ Route::get('/migrate', function() {
 Route::get('/', function () {
     return view('welcome');
 });
+// checking
+Route::view('/header','checkingheader');
 
 
 
@@ -54,7 +56,7 @@ Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
     Route::get('/chat', function () {
         return view('admin/chat');
     });
-    
+
 	Route::post('/save_ws', [App\Http\Controllers\admin::class, 'save_ws']);
     Route::get('/view_ws', [App\Http\Controllers\admin::class, 'view_ws']);
     Route::get('/sup_del/{id}', [App\Http\Controllers\admin::class, 'sup_del']);
@@ -66,13 +68,13 @@ Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
     Route::post('/update_user/{id}', [App\Http\Controllers\admin::class, 'update_user']);
     Route::post('/setting_update', [App\Http\Controllers\admin::class, 'setting_update']);
     Route::post('/password', [App\Http\Controllers\admin::class, 'password']);
-    
 
 
 
-	
 
-	
+
+
+
 
 
 });
