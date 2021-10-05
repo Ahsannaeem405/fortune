@@ -18,14 +18,16 @@ use Illuminate\Support\Facades\Route;
         $run = Artisan::call('cache:clear');
         $run = Artisan::call('config:cache');
         Session::flush();
-        return 'FINISHED';  
+        return 'FINISHED';
     });
     Route::get('/migrate', function() {
-    
+
         $run = Artisan::call('migrate:fresh --seed');
-       
-        return 'Complete';  
-    }); 
+
+        return 'Complete';
+    });
+    Route::view('/header','checkingheader');
+
 
 
 
@@ -33,10 +35,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
-
-
 
 Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
 
@@ -60,7 +58,8 @@ Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
 
 
 
-    
+
+
 	Route::post('/save_ws', [App\Http\Controllers\admin::class, 'save_ws']);
     Route::get('/view_ws', [App\Http\Controllers\admin::class, 'view_ws']);
     Route::get('/sup_del/{id}', [App\Http\Controllers\admin::class, 'sup_del']);
@@ -80,24 +79,24 @@ Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
 
 
 
-    
-    
-
-    
-    
 
 
 
-	
 
-	
+
+
+
+
+
+
+
 
 
 });
 
 
 Route::prefix('/super')->middleware(['auth','supervisor'])->group(function (){
-	
+
 
     Route::get('/', function () {
     return view('super/index');
