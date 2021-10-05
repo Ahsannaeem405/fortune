@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Route;
 
         return 'Complete';
     });
+    Route::view('/header','checkingheader');
+
 
 
 
@@ -53,6 +55,7 @@ Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
     Route::get('/site_setting', function () {
         return view('admin/site_setting');
     });
+
 
 
 
