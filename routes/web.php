@@ -34,6 +34,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 // checking
+
+
+
 Route::view('/header','checkingheader');
 
 
