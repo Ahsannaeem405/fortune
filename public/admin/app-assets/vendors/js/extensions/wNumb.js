@@ -78,7 +78,7 @@ var
 
 		var originalInput = input, inputIsNegative, inputPieces, inputBase, inputDecimals = '', output = '';
 
-		// Apply students encoder to the input.
+		// Apply user encoder to the input.
 		// Expected outcome: number.
 		if ( encoder ) {
 			input = encoder(input);
@@ -156,7 +156,7 @@ var
 			output += postfix;
 		}
 
-		// Run the output through a students-specified post-formatter.
+		// Run the output through a user-specified post-formatter.
 		if ( edit ) {
 			output = edit ( output, originalInput );
 		}
@@ -233,7 +233,7 @@ var
 		// Covert to number.
 		output = Number(output);
 
-		// Run the students-specified post-decoder.
+		// Run the user-specified post-decoder.
 		if ( decoder ) {
 			output = decoder(output);
 		}

@@ -3,6 +3,8 @@
 <html class="loading" lang="en" data-textdirection="ltr">
 
 <head id="Head1" runat="server">
+
+@section("css_link") 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -34,7 +36,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/css/custom.css') }}">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css" id="theme-styles">
     <link rel="stylesheet" type="text/css" href="{{asset('admin//app-assets/css/plugins/forms/wizard.css')}}">
-
+@show
     <!-- END: Page CSS-->
     @yield('css')
 
@@ -66,6 +68,28 @@
 
 <div class="sidenav-overlay"></div>
 <div class="drag-target"></div>
+
+@php $site=App\Models\site_setting::all(); @endphp
+
+
+
+<footer class="footer footer-static footer-light">
+        <p class="clearfix blue-grey lighten-2 mb-0">
+
+            @if($site[0]->footer != null)
+             <span class="float-md-left d-block d-md-inline-block mt-25">{{$site[0]->footer}}</span><span class="float-md-right d-none d-md-block"><i class="feather icon-heart pink"></i></span>
+            
+
+           
+            @else
+             <span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT © 2020<a class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Fortune,</a>All rights Reserved</span>
+             <span class="float-md-right d-none d-md-block"><i class="feather icon-heart pink"></i></span>
+            
+
+            @endif
+        </p>
+    </footer>
+@section("js_link")
 
 <script src="{{ asset('admin/app-assets/vendors/js/vendors.min.js') }}"></script>
 <script src="{{asset('admin/app-assets/js/scripts/datatables/datatable.js') }}"></script>
@@ -108,6 +132,12 @@
 <script src="{{asset('admin/app-assets/vendors/js/extensions/jquery.steps.min.js')}}"></script>
 <script src="{{asset('admin/app-assets/vendors/js/forms/validation/jquery.validate.min.js')}}"></script>
 <script src="{{asset('admin/app-assets/js/scripts/forms/wizard-steps.js')}}"></script>
+ <script src="{{ asset('admin/app-assets/js/scripts/pages/app-chat.js')}}"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.min.js"></script>
+ <script src="{{asset('tableHTMLExport.js')}}"></script>
+@show
 @yield('js')
 
 
@@ -117,11 +147,23 @@
 
     @if(session('success'))
     toastr.success("{{ session('success') }}");
-    @elseif(session('error'))
-    toastr.error("{{ session('error') }}");
     @endif
+
+    @if(session('errors'))
+   
+            @foreach ($errors->all() as $error)
+            toastr.error("{{$error}}");
+                
+            @endforeach
+    @endif
+
+
+
+
+
     $('.dropify').dropify();
 </script>
+
 
 
 

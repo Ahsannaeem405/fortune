@@ -15,8 +15,8 @@ $(function () {
   }
 
   // User list scroll
-  if ($('.email-students-list').length > 0) {
-    var users_list = new PerfectScrollbar(".email-students-list");
+  if ($('.email-user-list').length > 0) {
+    var users_list = new PerfectScrollbar(".email-user-list");
   }
 
   // Email detail section
@@ -33,7 +33,7 @@ $(function () {
   // if it is a touch device
 else {
   $(".sidebar-menu-list").css("overflow", "scroll");
-  $(".email-students-list").css("overflow", "scroll");
+  $(".email-user-list").css("overflow", "scroll");
   $(".email-scroll-area").css("overflow", "scroll");
   $(".modal-dialog-scrollable .modal-body").css("overflow", "scroll");
 }
@@ -74,7 +74,7 @@ else {
   });
 
   // Email Right sidebar toggle
-  $('.email-app-list .email-students-list li').on('click', function (e) {
+  $('.email-app-list .email-user-list li').on('click', function (e) {
     $('.app-content .email-app-details').toggleClass('show');
   });
 
@@ -105,50 +105,50 @@ else {
   });
 
   // On checkbox click stop propogation
-  $(".email-students-list .vs-checkbox-con input").on("click", function (e) {
+  $(".email-user-list .vs-checkbox-con input").on("click", function (e) {
     e.stopPropagation();
   });
 
   // Select all checkbox
   $(document).on("click", ".email-app-list .selectAll input", function () {
-    $(".students-action .vs-checkbox-con input").prop('checked', this.checked);
+    $(".user-action .vs-checkbox-con input").prop('checked', this.checked);
   });
 
   // Delete Mail from list
   $(".email-application .mail-delete").on("click", function () {
-    $(".email-application .students-action .vs-checkbox-con input:checked").closest("li").remove();
+    $(".email-application .user-action .vs-checkbox-con input:checked").closest("li").remove();
     $(".email-application .selectAll input").prop('checked', "");
   });
 
   // Mark mail unread
   $(".email-application .mail-unread").on("click", function () {
-    $(".email-application .students-action .vs-checkbox-con input:checked").closest("li").removeClass("mail-read");
+    $(".email-application .user-action .vs-checkbox-con input:checked").closest("li").removeClass("mail-read");
   });
 
   // Filter
   $(".email-app-list #email-search").on("keyup", function () {
     var value = $(this).val().toLowerCase();
     if (value != "") {
-      $(".email-students-list .users-list-wrapper li").filter(function () {
+      $(".email-user-list .users-list-wrapper li").filter(function () {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
       });
-      var tbl_row = $(".email-students-list .users-list-wrapper li:visible").length; //here tbl_test is table name
+      var tbl_row = $(".email-user-list .users-list-wrapper li:visible").length; //here tbl_test is table name
 
       //Check if table has row or not
       if (tbl_row == 0) {
-        $('.email-students-list .no-results').addClass('show');
+        $('.email-user-list .no-results').addClass('show');
       }
       else {
-        if ($('.email-students-list .no-results').hasClass('show')) {
-          $('.email-students-list .no-results').removeClass('show');
+        if ($('.email-user-list .no-results').hasClass('show')) {
+          $('.email-user-list .no-results').removeClass('show');
         }
       }
     }
     else {
       // If filter box is empty
-      $(".email-students-list .users-list-wrapper li").show();
-      if ($('.email-students-list .no-results').hasClass('show')) {
-        $('.email-students-list .no-results').removeClass('show');
+      $(".email-user-list .users-list-wrapper li").show();
+      if ($('.email-user-list .no-results').hasClass('show')) {
+        $('.email-user-list .no-results').removeClass('show');
       }
     }
   });

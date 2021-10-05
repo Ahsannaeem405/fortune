@@ -30,10 +30,18 @@
                                                         <td>{{$row->name}}</td>
                                                         <td>{{$row->email}}</td>
                                                         <td>{{$row->phone}}</td>
-                                                        <td>Supervisor</td>
+                                                        <td>
+                                                        @if($row->role==2)
+
+                                                        Supervisor
+                                                        @else
+                                                        Worker
+                                                        @endif
+
+                                                        </td>
                                                         <td>
                                                             <a href="{{url('admins/sup_edit/' .$row->id)}}">
-                                                            <button class="btn btn-info">Edit</button></a>
+                                                            <button class="btn btn-info"  style="min-width: 103px !important;">Edit</button></a>
                                                             <a  href="{{url('admins/sup_del/' .$row->id)}}">
                                                             <button class="btn btn-danger">Delete</button>
                                                             </a>

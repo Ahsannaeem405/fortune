@@ -627,8 +627,8 @@ $(window).on("load", function () {
 (function ($) {
   "use strict";
   // Chat area
-  if ($('.chat-application .students-chats').length > 0) {
-    var chat_user = new PerfectScrollbar(".students-chats", { wheelPropagation: false });
+  if ($('.chat-application .user-chats').length > 0) {
+    var chat_user = new PerfectScrollbar(".user-chats", { wheelPropagation: false });
   }
 
 })(jQuery);

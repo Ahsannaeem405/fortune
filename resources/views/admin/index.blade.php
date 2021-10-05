@@ -15,7 +15,7 @@
 @endphp
 
 <section id="basic-datatable">
-    <div class="row">
+   <div class="row">
         <div class="col-lg-3 col-sm-6 col-12">
             <div class="card">
                 <div class="card-header d-flex flex-column align-items-start pb-0">
@@ -24,8 +24,8 @@
                             <i class="feather icon-users text-primary font-medium-5"></i>
                         </div>
                     </div>
-                    <h2 class="text-bold-700 mt-1">{{$count_user}}</h2>
-                    <p class="mb-2">User</p>
+                    <h2 class="text-bold-700 mt-1 ml-1">{{$count_user}}</h2>
+                    <p class="mb-2 ml-1">User</p>
                 </div>
             </div>
         </div>
@@ -37,8 +37,8 @@
                             <i class="fa fa-user text-success font-medium-5"></i>
                         </div>
                     </div>
-                    <h2 class="text-bold-700 mt-1">{{$count_sup}}</h2>
-                    <p class="mb-2">Supervisor</p>
+                    <h2 class="text-bold-700 mt-1 ml-1">{{$count_sup}}</h2>
+                    <p class="mb-2 ml-1">Supervisor</p>
                 </div>
                 
             </div>
@@ -51,8 +51,8 @@
                             <i class="fa fa-user-secret text-danger font-medium-5"></i>
                         </div>
                     </div>
-                    <h2 class="text-bold-700 mt-1">{{$count_wok}}</h2>
-                    <p class="mb-2">Worker</p>
+                    <h2 class="text-bold-700 mt-1 ml-1">{{$count_wok}}</h2>
+                    <p class="mb-2 ml-1">Worker</p>
                 </div>
                 
             </div>
@@ -65,8 +65,8 @@
                             <i class="feather icon-package text-warning font-medium-5"></i>
                         </div>
                     </div>
-                    <h2 class="text-bold-700 mt-1">	&infin;</h2>
-                    <p class="mb-2">Points</p>
+                    <h2 class="text-bold-700 mt-1 ml-1">    &infin;</h2>
+                    <p class="mb-2 ml-1">Points</p>
                 </div>
                 
             </div>
@@ -97,7 +97,7 @@
                                
                                 <td>
                                     <a href="{{url('admins/user_edit/' .$row->id)}}">
-                                    <button class="btn btn-info">Edit</button></a>
+                                    <button class="btn btn-info" style="min-width: 103px !important;">Edit</button></a>
                                     <a  href="{{url('admins/user_del/' .$row->id)}}">
                                     <button class="btn btn-danger">Delete</button>
                                     </a>

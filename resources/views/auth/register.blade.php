@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" name="myForm"> 
                         @csrf
 
                         <div class="form-group row">
@@ -60,10 +60,18 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
+                         <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Date Of Birth</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="date" class="form-control date" name="dob" required autocomplete="new-password">
+
+                            </div>
+                        </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="button" class="btn btn-primary submit">
                                     {{ __('Register') }}
                                 </button>
                             </div>
@@ -74,4 +82,31 @@
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $('.submit').on('click',function(){
+        var enteredDate=$('.date').val();
+        var utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+
+
+
+  var years = new Date(new Date() - new Date(enteredDate)).getFullYear() - 1970;
+
+
+    if(years >= 18)
+    {
+
+        document.forms["myForm"].submit();
+
+
+    }
+    else{
+        alert('Sorry You are under 18');
+    }
+
+      
+   
+    })
+</script>
 @endsection

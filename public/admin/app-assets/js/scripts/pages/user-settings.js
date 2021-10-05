@@ -1,5 +1,5 @@
 /*=========================================================================================
-    File Name: students-settings.js
+    File Name: user-settings.js
     Description: User Settings jQuery Plugin Intialization
     --------------------------------------------------------------------------------------
     Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template

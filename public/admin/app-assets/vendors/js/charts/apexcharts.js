@@ -208,7 +208,7 @@
         }
 
         return array;
-      } // to extend defaults with students options
+      } // to extend defaults with user options
       // credit: http://stackoverflow.com/questions/27936772/deep-object-merging-in-es6-es7#answer-34749873
 
     }, {
@@ -2582,7 +2582,7 @@
             followCursor: false,
             // when disabled, the tooltip will show on top of the series instead of mouse position
             intersect: false,
-            // when enabled, tooltip will only show when students directly hovers over point
+            // when enabled, tooltip will only show when user directly hovers over point
             inverseOrder: false,
             custom: undefined,
             fillSeriesColor: false,
@@ -2599,7 +2599,7 @@
               show: true,
               format: 'dd MMM',
               // dd/MM, dd MMM yy, dd MMM yyyy
-              formatter: undefined // a custom students supplied formatter function
+              formatter: undefined // a custom user supplied formatter function
 
             },
             y: {
@@ -3304,7 +3304,7 @@
           contextMethod: context.addYaxisAnnotation
         });
         return context;
-      } // The addXaxisAnnotation method requires a parent class, and students calling this method externally on the chart instance may not specify parent, hence a different method
+      } // The addXaxisAnnotation method requires a parent class, and user calling this method externally on the chart instance may not specify parent, hence a different method
 
     }, {
       key: "addXaxisAnnotationExternal",
@@ -4568,7 +4568,7 @@
       key: "checkComboSeries",
       value: function checkComboSeries(series) {
         var comboCharts = false;
-        var comboChartsHasBars = false; // if students specified a type in series too, turn on comboCharts flag
+        var comboChartsHasBars = false; // if user specified a type in series too, turn on comboCharts flag
 
         if (series.length && typeof series[0].type !== 'undefined') {
           comboCharts = true;
@@ -4613,7 +4613,7 @@
   }();
 
   /**
-   * ApexCharts Config Class for extending students options with pre-defined ApexCharts config.
+   * ApexCharts Config Class for extending user options with pre-defined ApexCharts config.
    *
    * @module Config
    **/
@@ -4718,7 +4718,7 @@
 
           if (opts.chart.stacked && opts.chart.stackType === '100%') {
             defaults.stacked100();
-          } // If students has specified a dark theme, make the tooltip dark too
+          } // If user has specified a dark theme, make the tooltip dark too
 
 
           this.checkForDarkTheme(window.Apex); // check global window Apex options
@@ -4738,11 +4738,11 @@
 
           newDefaults = Utils.extend(config, chartDefaults);
         } // config should cascade in this fashion
-        // default-config < global-apex-variable-config < students-defined-config
+        // default-config < global-apex-variable-config < user-defined-config
         // get GLOBALLY defined options and merge with the default config
 
 
-        var mergedWithDefaultConfig = Utils.extend(newDefaults, window.Apex); // get the merged config and extend with students defined config
+        var mergedWithDefaultConfig = Utils.extend(newDefaults, window.Apex); // get the merged config and extend with user defined config
 
         config = Utils.extend(mergedWithDefaultConfig, opts); // some features are not supported. those mismatches should be handled
 
@@ -4762,11 +4762,11 @@
         if (opts.yaxis.constructor !== Array && window.Apex.yaxis && window.Apex.yaxis.constructor !== Array) {
           opts.yaxis = Utils.extend(opts.yaxis, window.Apex.yaxis);
         } // as we can't extend nested object's array with extend, we need to do it first
-        // students can provide either an array or object in yaxis config
+        // user can provide either an array or object in yaxis config
 
 
         if (opts.yaxis.constructor !== Array) {
-          // convert the yaxis to array if students supplied object
+          // convert the yaxis to array if user supplied object
           opts.yaxis = [Utils.extend(options.yAxis, opts.yaxis)];
         } else {
           opts.yaxis = Utils.extendArray(opts.yaxis, options.yAxis);
@@ -4891,7 +4891,7 @@
 
         if (config.chart.group && config.yaxis[0].labels.minWidth === 0) {
           console.warn('It looks like you have multiple charts in synchronization. You must provide yaxis.labels.minWidth which must be EQUAL for all grouped charts to prevent incorrect behaviour.');
-        } // if students supplied array for stroke width, it will only be applicable to line/area charts, for any other charts, revert back to Number
+        } // if user supplied array for stroke width, it will only be applicable to line/area charts, for any other charts, revert back to Number
 
 
         if (Array.isArray(config.stroke.width)) {
@@ -4960,11 +4960,11 @@
           animationEnded: false,
           isTouchDevice: 'ontouchstart' in window || navigator.msMaxTouchPoints,
           isDirty: false,
-          // chart has been updated after the initial render. This is different than dataChanged property. isDirty means students manually called some method to update
+          // chart has been updated after the initial render. This is different than dataChanged property. isDirty means user manually called some method to update
           isExecCalled: false,
-          // whether students updated the chart through the exec method
+          // whether user updated the chart through the exec method
           initialConfig: null,
-          // we will store the first config students has set to go back when students finishes interactions like zooming and come out of it
+          // we will store the first config user has set to go back when user finishes interactions like zooming and come out of it
           lastXAxis: [],
           lastYAxis: [],
           series: [],
@@ -4991,20 +4991,20 @@
           seriesNames: [],
           // same as labels, used in non axis charts
           noLabelsProvided: false,
-          // if students didn't provide any categories/labels or x values, fallback to 1,2,3,4...
+          // if user didn't provide any categories/labels or x values, fallback to 1,2,3,4...
           allSeriesCollapsed: false,
           collapsedSeries: [],
-          // when students collapses a series, it goes into this array
+          // when user collapses a series, it goes into this array
           collapsedSeriesIndices: [],
           // this stores the index of the collapsedSeries instead of whole object for quick access
           ancillaryCollapsedSeries: [],
-          // when students collapses an "alwaysVisible" series, it goes into this array
+          // when user collapses an "alwaysVisible" series, it goes into this array
           ancillaryCollapsedSeriesIndices: [],
           // this stores the index of the ancillaryCollapsedSeries whose y-axis is always visible
           risingSeries: [],
-          // when students re-opens a collapsed series, it goes here
+          // when user re-opens a collapsed series, it goes here
           dataFormatXNumeric: false,
-          // boolean value to indicate students has passed numeric x values
+          // boolean value to indicate user has passed numeric x values
           capturedSeriesIndex: -1,
           capturedDataPointIndex: -1,
           selectedDataPoints: [],
@@ -5085,10 +5085,10 @@
           isDataXYZ: false,
           // bool: data was provided in a {[x,y,z]} pattern
           resized: false,
-          // bool: students has resized
+          // bool: user has resized
           resizeTimer: null,
           // timeout function to make a small delay before
-          // drawing when students resized
+          // drawing when user resized
           comboCharts: false,
           // bool: whether it's a combination of line/column
           comboChartsHasBars: false,
@@ -5104,7 +5104,7 @@
           // some way to get x value depending on mouse pointer
           seriesYvalues: [],
           // we will need this when deciding which series
-          // students hovered on
+          // user hovered on
           seriesCandleO: [],
           // candle stick open values
           seriesCandleH: [],
@@ -5127,7 +5127,7 @@
           easing: null,
           // function: animation effect to apply
           zoomed: false,
-          // whether students has zoomed or not
+          // whether user has zoomed or not
           gridWidth: 0,
           // drawable width of actual graphs (series paths)
           gridHeight: 0,
@@ -5179,7 +5179,7 @@
   }();
 
   /**
-   * ApexCharts Base Class for extending students options with pre-defined ApexCharts config.
+   * ApexCharts Base Class for extending user options with pre-defined ApexCharts config.
    *
    * @module Base
    **/
@@ -5591,7 +5591,7 @@
         var dataPointIndex = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
         var w = this.w;
         var pStyle = this.getMarkerStyle(seriesIndex);
-        var pSize = w.globals.markers.size[seriesIndex]; // discrete markers is an option where students can specify a particular marker with different size and color
+        var pSize = w.globals.markers.size[seriesIndex]; // discrete markers is an option where user can specify a particular marker with different size and color
 
         if (dataPointIndex !== null && w.config.markers.discrete.length) {
           w.config.markers.discrete.map(function (marker) {
@@ -6084,7 +6084,7 @@
     }
     /** primary draw method which is called on bar object
      * @memberof Bar
-     * @param {array} series - students supplied series values
+     * @param {array} series - user supplied series values
      * @param {int} seriesIndex - the index by which series will be drawn on the svg
      * @return {node} element which is supplied to parent chart draw method for appending
      **/
@@ -6377,7 +6377,7 @@
         this.totalItems = 0;
         this.seriesLen = 0;
         this.visibleI = -1;
-        this.visibleItems = 1; // number of visible bars after students zoomed in/out
+        this.visibleItems = 1; // number of visible bars after user zoomed in/out
 
         for (var sl = 0; sl < series.length; sl++) {
           if (series[sl].length > 0) {
@@ -7514,7 +7514,7 @@
         };
       }
       /*
-       * When students clicks on legends, the collapsed series will be filled with [0,0,0,...,0]
+       * When user clicks on legends, the collapsed series will be filled with [0,0,0,...,0]
        * We need to make sure, that the last series is not [0,0,0,...,0]
        * as we need to draw shapes on the last series (for stacked bars/columns only)
        * Hence, we are collecting all inner arrays in series which has [0,0,0...,0]
@@ -10036,7 +10036,7 @@
 
         if (w.config.xaxis.type === 'datetime') {
           if (w.config.xaxis.labels.formatter === undefined) {
-            // if students has not specified a custom formatter, use the default tooltip.x.format
+            // if user has not specified a custom formatter, use the default tooltip.x.format
             if (w.config.tooltip.x.formatter === undefined) {
               var datetimeObj = new DateTime(this.ctx);
               return datetimeObj.formatDate(new Date(val), w.config.tooltip.x.format, true, true);
@@ -10117,7 +10117,7 @@
 
         if (w.config.tooltip.z.formatter !== undefined) {
           w.globals.ttZFormatter = w.config.tooltip.z.formatter;
-        } // legend formatter - if students wants to append any global values of series to legend text
+        } // legend formatter - if user wants to append any global values of series to legend text
 
 
         if (w.config.legend.formatter !== undefined) {
@@ -10615,7 +10615,7 @@
         var yaxis = w.globals.dom.baseEl.querySelectorAll(".apexcharts-yaxis");
         yaxis = Utils.listToArray(yaxis);
         yaxis.forEach(function (y, index) {
-          var yaxe = w.config.yaxis[index]; // proceed only if students has specified alignment
+          var yaxe = w.config.yaxis[index]; // proceed only if user has specified alignment
 
           if (yaxe.labels.align !== undefined) {
             var yAxisInner = w.globals.dom.baseEl.querySelector(".apexcharts-yaxis[rel='".concat(index, "'] .apexcharts-yaxis-texts-g"));
@@ -10695,7 +10695,7 @@
           this.setGridCoordsForNonAxisCharts(lgRect);
         }
 
-        this.titleSubtitleOffset(); // after calculating everything, apply padding set by students
+        this.titleSubtitleOffset(); // after calculating everything, apply padding set by user
 
         gl.gridHeight = gl.gridHeight - w.config.grid.padding.top - w.config.grid.padding.bottom;
         gl.gridWidth = gl.gridWidth - w.config.grid.padding.left - w.config.grid.padding.right - this.xPadRight - this.xPadLeft;
@@ -11051,7 +11051,7 @@
         }); //  get the longest string from the labels array and also apply label formatter to it
 
         var val = labels.reduce(function (a, b) {
-          // if undefined, maybe students didn't pass the datetime(x) values
+          // if undefined, maybe user didn't pass the datetime(x) values
           if (typeof a === 'undefined') {
             console.error('You have possibly supplied invalid Date format. Please supply a valid JavaScript Date');
             return 0;
@@ -11154,9 +11154,9 @@
         var labelPad = 10;
         w.config.yaxis.map(function (yaxe, index) {
           if (yaxe.show && yaxe.labels.show && w.globals.yAxisScale[index].result.length) {
-            var lbFormatter = w.globals.yLabelFormatters[index]; // the second parameter -1 is the index of tick which students can use in the formatter
+            var lbFormatter = w.globals.yLabelFormatters[index]; // the second parameter -1 is the index of tick which user can use in the formatter
 
-            var val = lbFormatter(w.globals.yAxisScale[index].niceMax, -1); // if students has specified a custom formatter, and the result is null or empty, we need to discard the formatter and take the value as it is.
+            var val = lbFormatter(w.globals.yAxisScale[index].niceMax, -1); // if user has specified a custom formatter, and the result is null or empty, we need to discard the formatter and take the value as it is.
 
             if (typeof val === 'undefined' || val.length === 0) {
               val = w.globals.yAxisScale[index].niceMax;
@@ -11439,7 +11439,7 @@
         var activeIndex = 0;
 
         if (w.globals.series.length > 1) {
-          // active series flag is required to know if students has not deactivated via legend click
+          // active series flag is required to know if user has not deactivated via legend click
           var firstActiveSeriesIndex = w.globals.series.map(function (series, index) {
             if (series.length > 0 && w.config.series[index].type !== 'bar' && w.config.series[index].type !== 'column') {
               return index;
@@ -11465,7 +11465,7 @@
         var activeIndex = 0;
 
         if (w.config.series.length > 1) {
-          // active series flag is required to know if students has not deactivated via legend click
+          // active series flag is required to know if user has not deactivated via legend click
           var firstActiveSeriesIndex = w.config.series.map(function (series, index) {
             if (series.data && series.data.length > 0) {
               return index;
@@ -11657,7 +11657,7 @@
           titleText.node.setAttribute('class', 'apexcharts-title-text');
           w.globals.dom.Paper.add(titleText);
         }
-      } // When students clicks on legends, the collapsed series is filled with [0,0,0,...,0]
+      } // When user clicks on legends, the collapsed series is filled with [0,0,0,...,0]
       // This is because we don't want to alter the series' length as it is used at many places
 
     }, {
@@ -12124,7 +12124,7 @@
                 w.globals.collapsedSeriesIndices.push(realIndex);
                 var removeIndexOfRising = w.globals.risingSeries.indexOf(realIndex);
                 w.globals.risingSeries.splice(removeIndexOfRising, 1);
-              } // TODO: AVOID mutating the students's config object below
+              } // TODO: AVOID mutating the user's config object below
 
 
               w.config.series[realIndex].data = [];
@@ -12754,7 +12754,7 @@
         } else {
           // the first value in the current series is null
           if (w.config.chart.stacked && i > 0 && typeof series[i][0] === 'undefined') {
-            // check for undefined value (undefined value will occur when we clear the series while students clicks on legend to hide serieses)
+            // check for undefined value (undefined value will occur when we clear the series while user clicks on legend to hide serieses)
             for (var s = i - 1; s >= 0; s--) {
               // for loop to get to 1st previous value until we get it
               if (series[s][0] !== null && typeof series[s][0] !== 'undefined') {
@@ -13153,7 +13153,7 @@
         }
 
         if (yMin > yMax) {
-          // if somehow due to some wrong config, students sent max less than min,
+          // if somehow due to some wrong config, user sent max less than min,
           // adjust the min/max again
           console.warn('yaxis.min cannot be greater than yaxis.max');
           yMax = yMin + 0.1;
@@ -13326,7 +13326,7 @@
           gl.yAxisScale[index] = this.logarithmicScale(index, minY, maxY, y.tickAmount ? y.tickAmount : Math.floor(Math.log10(maxY)));
         } else {
           if (maxY === -Number.MAX_VALUE || !Utils.isNumber(maxY)) {
-            // no data in the chart. Either all series collapsed or students passed a blank array
+            // no data in the chart. Either all series collapsed or user passed a blank array
             gl.yAxisScale[index] = this.linearScale(0, 5, 5);
           } else {
             // there is some data. Turn off the allSeriesCollapsed flag
@@ -13782,7 +13782,7 @@
         }
 
         cnf.yaxis.map(function (yaxe, index) {
-          // override all min/max values by students defined values (y axis)
+          // override all min/max values by user defined values (y axis)
           if (yaxe.max !== undefined) {
             if (typeof yaxe.max === 'number') {
               gl.maxYArr[index] = yaxe.max;
@@ -13804,7 +13804,7 @@
 
             gl.minY = gl.minYArr[index];
           }
-        }); // for horizontal bar charts, we need to check xaxis min/max as students may have specified there
+        }); // for horizontal bar charts, we need to check xaxis min/max as user may have specified there
 
         if (gl.isBarHorizontal) {
           if (cnf.xaxis.min !== undefined && typeof cnf.xaxis.min === 'number') {
@@ -13904,7 +13904,7 @@
             ticks = gl.series[gl.maxValsInArrayIndex].length - 1;
           } else {
             ticks = cnf.xaxis.tickAmount;
-          } // override all min/max values by students defined values (x axis)
+          } // override all min/max values by user defined values (x axis)
 
 
           if (cnf.xaxis.max !== undefined && typeof cnf.xaxis.max === 'number') {
@@ -14880,7 +14880,7 @@
           i: []
         };
         gl.series.map(function (series, st) {
-          // if students has specified a particular type for particular series
+          // if user has specified a particular type for particular series
           if (typeof ser[st].type !== 'undefined') {
             if (ser[st].type === 'column' || ser[st].type === 'bar') {
               w.config.plotOptions.bar.horizontal = false; // horizontal bars not supported in mixed charts, hence forcefully set to false
@@ -14900,7 +14900,7 @@
               candlestickSeries.series.push(series);
               candlestickSeries.i.push(st);
             } else {
-              // students has specified type, but it is not valid (other than line/area/column)
+              // user has specified type, but it is not valid (other than line/area/column)
               console.warn('You have specified an unrecognized chart type. Available types for this propery are line/area/column/bar/scatter/bubble');
             }
 
@@ -15183,7 +15183,7 @@
     }, {
       key: "isMultipleY",
       value: function isMultipleY() {
-        // students has supplied an array in yaxis property. So, turn on multipleYAxis flag
+        // user has supplied an array in yaxis property. So, turn on multipleYAxis flag
         if (this.w.config.yaxis.constructor === Array && this.w.config.yaxis.length > 1) {
           this.w.globals.isMultipleYAxis = true;
           return true;
@@ -15294,7 +15294,7 @@
           var isXDate = !!dt.isValidDate(ser[activeI].data[_j2].x.toString());
 
           if (isXString || isXDate) {
-            // students supplied '01/01/2017' or a date string (a JS date object is not supported)
+            // user supplied '01/01/2017' or a date string (a JS date object is not supported)
             if (isXString) {
               if (cnf.xaxis.type === 'datetime' && !gl.isRangeData) {
                 this.twoDSeriesX.push(dt.parseDate(ser[activeI].data[_j2].x));
@@ -15479,14 +15479,14 @@
             }
           } else {
             if (cnf.xaxis.type === 'datetime') {
-              // students didn't supplied [{x,y}] or [[x,y]], but single array in data.
+              // user didn't supplied [{x,y}] or [[x,y]], but single array in data.
               // Also labels/categories were supplied differently
               gl.isXNumeric = true;
               var dates = cnf.labels.length > 0 ? cnf.labels.slice() : cnf.xaxis.categories.slice();
 
               for (var j = 0; j < dates.length; j++) {
                 if (typeof dates[j] === 'string') {
-                  // students provided date strings
+                  // user provided date strings
                   var isDate = dt.isValidDate(dates[j]);
 
                   if (isDate) {
@@ -15495,7 +15495,7 @@
                     throw new Error('You have provided invalid Date format. Please provide a valid JavaScript Date');
                   }
                 } else {
-                  // students provided timestamps
+                  // user provided timestamps
                   if (String(dates[j]).length !== 13) {
                     throw new Error('Please provide a valid JavaScript timestamp');
                   } else {
@@ -15551,9 +15551,9 @@
       }
       /** User possibly set string categories in xaxis.categories or labels prop
        * Or didn't set xaxis labels at all - in which case we manually do it.
-       * If students passed series data as [[3, 2], [4, 5]] or [{ x: 3, y: 55 }],
+       * If user passed series data as [[3, 2], [4, 5]] or [{ x: 3, y: 55 }],
        * this shouldn't be called
-       * @param {array} ser - the series which students passed to the config
+       * @param {array} ser - the series which user passed to the config
        */
 
     }, {
@@ -15563,16 +15563,16 @@
         var gl = this.w.globals;
 
         if (cnf.xaxis.categories.length > 0) {
-          // students provided labels in xaxis.category prop
+          // user provided labels in xaxis.category prop
           gl.labels = cnf.xaxis.categories;
         } else if (cnf.labels.length > 0) {
-          // students provided labels in labels props
+          // user provided labels in labels props
           gl.labels = cnf.labels.slice();
         } else if (this.fallbackToCategory) {
-          // students provided labels in x prop in [{ x: 3, y: 55 }] data, and those labels are already stored in gl.labels[0], so just re-arrange the gl.labels array
+          // user provided labels in x prop in [{ x: 3, y: 55 }] data, and those labels are already stored in gl.labels[0], so just re-arrange the gl.labels array
           gl.labels = gl.labels[0];
         } else {
-          // students didn't provided any labels, fallback to 1-2-3-4-5
+          // user didn't provided any labels, fallback to 1-2-3-4-5
           var labelArr = [];
 
           if (gl.axisCharts) {
@@ -15591,7 +15591,7 @@
 
             gl.isXNumeric = true;
           } // no series to pull labels from, put a 0-10 series
-          // possibly, students collapsed all series. Hence we can't work with above calc
+          // possibly, user collapsed all series. Hence we can't work with above calc
 
 
           if (labelArr.length === 0) {
@@ -15603,11 +15603,11 @@
           } // Finally, pass the labelArr in gl.labels which will be printed on x-axis
 
 
-          gl.labels = labelArr; // Turn on this global flag to indicate no labels were provided by students
+          gl.labels = labelArr; // Turn on this global flag to indicate no labels were provided by user
 
           gl.noLabelsProvided = true;
         }
-      } // Segregate students provided data into appropriate vars
+      } // Segregate user provided data into appropriate vars
 
     }, {
       key: "parseData",
@@ -15629,7 +15629,7 @@
           this.parseDataNonAxisCharts(ser);
         }
 
-        this.coreUtils.getLargestSeries(); // set Null values to 0 in all series when students hides/shows some series
+        this.coreUtils.getLargestSeries(); // set Null values to 0 in all series when user hides/shows some series
 
         if (cnf.chart.type === 'bar' && cnf.chart.stacked) {
           var series = new Series(this.ctx);
@@ -15728,8 +15728,8 @@
 
         if (!w.config.chart.brush.enabled) {
           return;
-        } // if students has not defined a custom function for selection - we handle the brush chart
-        // otherwise we leave it to the students to define the functionality for selection
+        } // if user has not defined a custom function for selection - we handle the brush chart
+        // otherwise we leave it to the user to define the functionality for selection
 
 
         if (typeof w.config.chart.events.selection !== 'function') {
@@ -16557,7 +16557,7 @@
       this.ctx = ctx;
       this.w = ctx.w;
     } // the opts parameter if not null has to be set overriding everything
-    // as the opts is set by students externally
+    // as the opts is set by user externally
 
 
     _createClass(Responsive, [{
@@ -16683,7 +16683,7 @@
           w.globals.colors = monoArr.slice();
         }
 
-        var defaultColors = w.globals.colors.slice(); // if students specfied less colors than no. of series, push the same colors again
+        var defaultColors = w.globals.colors.slice(); // if user specfied less colors than no. of series, push the same colors again
 
         this.pushExtraColors(w.globals.colors); // The Border colors
 
@@ -16840,7 +16840,7 @@
      ** This function will return both capturedseries index as well as inner index of that series
      * @memberof Utils
      * @param {object}
-     * - hoverArea = the rect on which students hovers
+     * - hoverArea = the rect on which user hovers
      * - elGrid = dimensions of the hover rect (it can be different than hoverarea)
      */
 
@@ -17572,7 +17572,7 @@
         }
       }
       /**
-       ** AxisTooltip is the small rectangle which appears on x axis with x value, when students moves
+       ** AxisTooltip is the small rectangle which appears on x axis with x value, when user moves
        * @memberof Position
        * @param {int} - cx = point's x position, wherever point's x is, you need to move
        */
@@ -18572,7 +18572,7 @@
         }
 
         if (w.config.markers.size === 0 || w.globals.markers.largestSize === 0) {
-          // when students don't want to show points all the time, but only on when hovering on series
+          // when user don't want to show points all the time, but only on when hovering on series
           this.marker.drawDynamicPoints(this);
         } // no visible series, exit
 
@@ -18817,7 +18817,7 @@
         var _this2 = this;
 
         var chartGroups = [];
-        var w = this.w; // if students has more than one charts in group, we need to sync
+        var w = this.w; // if user has more than one charts in group, we need to sync
 
         if (w.config.chart.group) {
           chartGroups = this.ctx.getGroupedCharts();
@@ -19855,7 +19855,7 @@
           var _gridRectDim = me.gridRect.getBoundingClientRect();
 
           if (me.w.globals.mousedown) {
-            // students released the drag, now do all the calculations
+            // user released the drag, now do all the calculations
             me.endX = me.clientX - _gridRectDim.left;
             me.endY = me.clientY - _gridRectDim.top;
             me.dragX = Math.abs(me.endX - me.startX);
@@ -19951,7 +19951,7 @@
         if (this.dragged || w.globals.selection !== null) {
           var scalingAttrs = {
             transform: 'translate(' + translateX + ', ' + translateY + ')' // change styles based on zoom or selection
-            // zoom is Enabled and students has dragged, so draw blue rect
+            // zoom is Enabled and user has dragged, so draw blue rect
 
           };
 
@@ -20017,10 +20017,10 @@
         var selectionRect = {};
 
         if (Math.abs(selectionWidth + startX) > w.globals.gridWidth) {
-          // students dragged the mouse outside drawing area to the right
+          // user dragged the mouse outside drawing area to the right
           selectionWidth = w.globals.gridWidth - startX;
         } else if (me.clientX - gridRectDim.left < 0) {
-          // students dragged the mouse outside drawing area to the left
+          // user dragged the mouse outside drawing area to the left
           selectionWidth = startX;
         } // inverse selection X
 
@@ -20141,8 +20141,8 @@
 
         if (me.dragged && (me.dragX > 10 || me.dragY > 10) && xLowestValue !== xHighestValue) {
           if (w.globals.zoomEnabled) {
-            var yaxis = Utils.clone(w.globals.initialConfig.yaxis); // before zooming in/out, store the last yaxis and xaxis range, so that when students hits the RESET button, we get the original range
-            // also - make sure students is not already zoomed in/out - otherwise we will store zoomed values in lastAxis
+            var yaxis = Utils.clone(w.globals.initialConfig.yaxis); // before zooming in/out, store the last yaxis and xaxis range, so that when user hits the RESET button, we get the original range
+            // also - make sure user is not already zoomed in/out - otherwise we will store zoomed values in lastAxis
 
             if (!w.globals.zoomed) {
               w.globals.lastXAxis = Utils.clone(w.config.xaxis);
@@ -22061,7 +22061,7 @@
             eased: eased,
             fx: this,
             situation: this.situation
-          }); // the students may call stop or finish in the during callback
+          }); // the user may call stop or finish in the during callback
           // so make sure that we still have a valid situation
 
           if (!this.situation) {
@@ -22081,7 +22081,7 @@
             });
 
             if (!this.situations.length) {
-              this.target().fire('allfinished'); // Recheck the length since the students may call animate in the afterAll callback
+              this.target().fire('allfinished'); // Recheck the length since the user may call animate in the afterAll callback
 
               if (!this.situations.length) {
                 this.target().off('.fx'); // there shouldnt be any binding left, but to make sure...
@@ -25060,7 +25060,7 @@
 
           var rbox = this.members[0].rbox(this.members[0].doc());
           this.each(function () {
-            // students rbox for correct position and visual representation
+            // user rbox for correct position and visual representation
             rbox = rbox.merge(this.rbox(this.doc()));
           });
           return rbox;
@@ -25496,7 +25496,7 @@
         },
         // Merge effect
         merge: function() {
-          //pass the array of arguments to the constructor because we dont know if the students gave us an array as the first arguemnt or wether they listed the effects in the arguments
+          //pass the array of arguments to the constructor because we dont know if the user gave us an array as the first arguemnt or wether they listed the effects in the arguments
           var args = [undefined];
           for(var i in arguments) args.push(arguments[i]);
           return this.put(new (SVG.MergeEffect.bind.apply(SVG.MergeEffect,args)))
@@ -26482,7 +26482,7 @@
       this.el.on('touchstart.drag', function(e){ _this.start(e); });
     };
 
-    // transforms one point from screen to students coords
+    // transforms one point from screen to user coords
     DragHandler.prototype.transformPoint = function(event, offset){
         event = event || window.event;
         var touches = event.changedTouches && event.changedTouches[0] || event;
@@ -27517,7 +27517,7 @@
     }
   }
 
-  var css = ".apexcharts-canvas {\n  position: relative;\n  students-select: none;\n  /* cannot give overflow: hidden as it will crop tooltips which overflow outside chart area */\n}\n\n/* scrollbar is not visible by default for legend, hence forcing the visibility */\n.apexcharts-canvas ::-webkit-scrollbar {\n  -webkit-appearance: none;\n  width: 6px;\n}\n.apexcharts-canvas ::-webkit-scrollbar-thumb {\n  border-radius: 4px;\n  background-color: rgba(0,0,0,.5);\n  box-shadow: 0 0 1px rgba(255,255,255,.5);\n  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);\n}\n.apexcharts-canvas.dark {\n  background: #343F57;\n}\n\n.apexcharts-inner {\n  position: relative;\n}\n\n.legend-mouseover-inactive {\n  transition: 0.15s ease all;\n  opacity: 0.20;\n}\n\n.apexcharts-series-collapsed {\n  opacity: 0;\n}\n\n.apexcharts-gridline, .apexcharts-text {\n  pointer-events: none;\n}\n\n.apexcharts-tooltip {\n  border-radius: 5px;\n  box-shadow: 2px 2px 6px -4px #999;\n  cursor: default;\n  font-size: 14px;\n  left: 62px;\n  opacity: 0;\n  pointer-events: none;\n  position: absolute;\n  top: 20px;\n  overflow: hidden;\n  white-space: nowrap;\n  z-index: 12;\n  transition: 0.15s ease all;\n}\n.apexcharts-tooltip.light {\n  border: 1px solid #e3e3e3;\n  background: rgba(255, 255, 255, 0.96);\n}\n.apexcharts-tooltip.dark {\n  color: #fff;\n  background: rgba(30,30,30, 0.8);\n}\n.apexcharts-tooltip * {\n  font-family: inherit;\n}\n\n.apexcharts-tooltip .apexcharts-marker,\n.apexcharts-area-series .apexcharts-area,\n.apexcharts-line {\n  pointer-events: none;\n}\n\n.apexcharts-tooltip.active {\n  opacity: 1;\n  transition: 0.15s ease all;\n}\n\n.apexcharts-tooltip-title {\n  padding: 6px;\n  font-size: 15px;\n  margin-bottom: 4px;\n}\n.apexcharts-tooltip.light .apexcharts-tooltip-title {\n  background: #ECEFF1;\n  border-bottom: 1px solid #ddd;\n}\n.apexcharts-tooltip.dark .apexcharts-tooltip-title {\n  background: rgba(0, 0, 0, 0.7);\n  border-bottom: 1px solid #333;\n}\n\n.apexcharts-tooltip-text-value,\n.apexcharts-tooltip-text-z-value {\n  display: inline-block;\n  font-weight: 600;\n  margin-left: 5px;\n}\n\n.apexcharts-tooltip-text-z-label:empty,\n.apexcharts-tooltip-text-z-value:empty {\n  display: none;\n}\n\n.apexcharts-tooltip-text-value, \n.apexcharts-tooltip-text-z-value {\n  font-weight: 600;\n}\n\n.apexcharts-tooltip-marker {\n  width: 12px;\n  height: 12px;\n  position: relative;\n  top: 0px;\n  margin-right: 10px;\n  border-radius: 50%;\n}\n\n.apexcharts-tooltip-series-group {\n  padding: 0 10px;\n  display: none;\n  text-align: left;\n  justify-content: left;\n  align-items: center;\n}\n\n.apexcharts-tooltip-series-group.active .apexcharts-tooltip-marker {\n  opacity: 1;\n}\n.apexcharts-tooltip-series-group.active, .apexcharts-tooltip-series-group:last-child {\n  padding-bottom: 4px;\n}\n.apexcharts-tooltip-series-group-hidden {\n  opacity: 0;\n  height: 0;\n  line-height: 0;\n  padding: 0 !important;\n}\n.apexcharts-tooltip-y-group {\n  padding: 6px 0 5px;\n}\n.apexcharts-tooltip-candlestick {\n  padding: 4px 8px;\n}\n.apexcharts-tooltip-candlestick > div {\n  margin: 4px 0;\n}\n.apexcharts-tooltip-candlestick span.value {\n  font-weight: bold;\n}\n\n.apexcharts-tooltip-rangebar {\n  padding: 5px 8px;\n}\n\n.apexcharts-tooltip-rangebar .category {\n  font-weight: 600;\n  color: #777;\n}\n\n.apexcharts-tooltip-rangebar .series-name {\n  font-weight: bold;\n  display: block;\n  margin-bottom: 5px;\n}\n\n.apexcharts-xaxistooltip {\n  opacity: 0;\n  padding: 9px 10px;\n  pointer-events: none;\n  color: #373d3f;\n  font-size: 13px;\n  text-align: center;\n  border-radius: 2px;\n  position: absolute;\n  z-index: 10;\n\tbackground: #ECEFF1;\n  border: 1px solid #90A4AE;\n  transition: 0.15s ease all;\n}\n\n.apexcharts-xaxistooltip.dark {\n  background: rgba(0, 0, 0, 0.7);\n  border: 1px solid rgba(0, 0, 0, 0.5);\n  color: #fff;\n}\n\n.apexcharts-xaxistooltip:after, .apexcharts-xaxistooltip:before {\n\tleft: 50%;\n\tborder: solid transparent;\n\tcontent: \" \";\n\theight: 0;\n\twidth: 0;\n\tposition: absolute;\n\tpointer-events: none;\n}\n\n.apexcharts-xaxistooltip:after {\n\tborder-color: rgba(236, 239, 241, 0);\n\tborder-width: 6px;\n\tmargin-left: -6px;\n}\n.apexcharts-xaxistooltip:before {\n\tborder-color: rgba(144, 164, 174, 0);\n\tborder-width: 7px;\n\tmargin-left: -7px;\n}\n\n.apexcharts-xaxistooltip-bottom:after, .apexcharts-xaxistooltip-bottom:before {\n  bottom: 100%;\n}\n\n.apexcharts-xaxistooltip-top:after, .apexcharts-xaxistooltip-top:before {\n  top: 100%;\n}\n\n.apexcharts-xaxistooltip-bottom:after {\n  border-bottom-color: #ECEFF1;\n}\n.apexcharts-xaxistooltip-bottom:before {\n  border-bottom-color: #90A4AE;\n}\n\n.apexcharts-xaxistooltip-bottom.dark:after {\n  border-bottom-color: rgba(0, 0, 0, 0.5);\n}\n.apexcharts-xaxistooltip-bottom.dark:before {\n  border-bottom-color: rgba(0, 0, 0, 0.5);\n}\n\n.apexcharts-xaxistooltip-top:after {\n  border-top-color:#ECEFF1\n}\n.apexcharts-xaxistooltip-top:before {\n  border-top-color: #90A4AE;\n}\n.apexcharts-xaxistooltip-top.dark:after {\n  border-top-color:rgba(0, 0, 0, 0.5);\n}\n.apexcharts-xaxistooltip-top.dark:before {\n  border-top-color: rgba(0, 0, 0, 0.5);\n}\n\n\n.apexcharts-xaxistooltip.active {\n  opacity: 1;\n  transition: 0.15s ease all;\n}\n\n.apexcharts-yaxistooltip {\n  opacity: 0;\n  padding: 4px 10px;\n  pointer-events: none;\n  color: #373d3f;\n  font-size: 13px;\n  text-align: center;\n  border-radius: 2px;\n  position: absolute;\n  z-index: 10;\n\tbackground: #ECEFF1;\n  border: 1px solid #90A4AE;\n}\n\n.apexcharts-yaxistooltip.dark {\n  background: rgba(0, 0, 0, 0.7);\n  border: 1px solid rgba(0, 0, 0, 0.5);\n  color: #fff;\n}\n\n.apexcharts-yaxistooltip:after, .apexcharts-yaxistooltip:before {\n\ttop: 50%;\n\tborder: solid transparent;\n\tcontent: \" \";\n\theight: 0;\n\twidth: 0;\n\tposition: absolute;\n\tpointer-events: none;\n}\n.apexcharts-yaxistooltip:after {\n\tborder-color: rgba(236, 239, 241, 0);\n\tborder-width: 6px;\n\tmargin-top: -6px;\n}\n.apexcharts-yaxistooltip:before {\n\tborder-color: rgba(144, 164, 174, 0);\n\tborder-width: 7px;\n\tmargin-top: -7px;\n}\n\n.apexcharts-yaxistooltip-left:after, .apexcharts-yaxistooltip-left:before {\n  left: 100%;\n}\n\n.apexcharts-yaxistooltip-right:after, .apexcharts-yaxistooltip-right:before {\n  right: 100%;\n}\n\n.apexcharts-yaxistooltip-left:after {\n  border-left-color: #ECEFF1;\n}\n.apexcharts-yaxistooltip-left:before {\n  border-left-color: #90A4AE;\n}\n.apexcharts-yaxistooltip-left.dark:after {\n  border-left-color: rgba(0, 0, 0, 0.5);\n}\n.apexcharts-yaxistooltip-left.dark:before {\n  border-left-color: rgba(0, 0, 0, 0.5);\n}\n\n.apexcharts-yaxistooltip-right:after {\n  border-right-color: #ECEFF1;\n}\n.apexcharts-yaxistooltip-right:before {\n  border-right-color: #90A4AE;\n}\n.apexcharts-yaxistooltip-right.dark:after {\n  border-right-color: rgba(0, 0, 0, 0.5);\n}\n.apexcharts-yaxistooltip-right.dark:before {\n  border-right-color: rgba(0, 0, 0, 0.5);\n}\n\n.apexcharts-yaxistooltip.active {\n  opacity: 1;\n}\n.apexcharts-yaxistooltip-hidden {\n  display: none;\n}\n\n.apexcharts-xcrosshairs, .apexcharts-ycrosshairs {\n  pointer-events: none;\n  opacity: 0;\n  transition: 0.15s ease all;\n}\n\n.apexcharts-xcrosshairs.active, .apexcharts-ycrosshairs.active {\n  opacity: 1;\n  transition: 0.15s ease all;\n}\n\n.apexcharts-ycrosshairs-hidden {\n  opacity: 0;\n}\n\n.apexcharts-zoom-rect {\n  pointer-events: none;\n}\n.apexcharts-selection-rect {\n  cursor: move;\n}\n\n.svg_select_points, .svg_select_points_rot {\n  opacity: 0;\n  visibility: hidden;\n}\n.svg_select_points_l, .svg_select_points_r {\n  cursor: ew-resize;\n  opacity: 1;\n  visibility: visible;\n  fill: #888;\n}\n.apexcharts-canvas.zoomable .hovering-zoom {\n  cursor: crosshair\n}\n.apexcharts-canvas.zoomable .hovering-pan {\n  cursor: move\n}\n\n.apexcharts-xaxis,\n.apexcharts-yaxis {\n  pointer-events: none;\n}\n\n.apexcharts-zoom-icon, \n.apexcharts-zoom-in-icon,\n.apexcharts-zoom-out-icon,\n.apexcharts-reset-zoom-icon, \n.apexcharts-pan-icon, \n.apexcharts-selection-icon,\n.apexcharts-menu-icon, \n.apexcharts-toolbar-custom-icon {\n  cursor: pointer;\n  width: 20px;\n  height: 20px;\n  line-height: 24px;\n  color: #6E8192;\n  text-align: center;\n}\n\n\n.apexcharts-zoom-icon svg, \n.apexcharts-zoom-in-icon svg,\n.apexcharts-zoom-out-icon svg,\n.apexcharts-reset-zoom-icon svg,\n.apexcharts-menu-icon svg {\n  fill: #6E8192;\n}\n.apexcharts-selection-icon svg {\n  fill: #444;\n  transform: scale(0.76)\n}\n\n.dark .apexcharts-zoom-icon svg, \n.dark .apexcharts-zoom-in-icon svg,\n.dark .apexcharts-zoom-out-icon svg,\n.dark .apexcharts-reset-zoom-icon svg, \n.dark .apexcharts-pan-icon svg, \n.dark .apexcharts-selection-icon svg,\n.dark .apexcharts-menu-icon svg, \n.dark .apexcharts-toolbar-custom-icon svg{\n  fill: #f3f4f5;\n}\n\n.apexcharts-canvas .apexcharts-zoom-icon.selected svg, \n.apexcharts-canvas .apexcharts-selection-icon.selected svg, \n.apexcharts-canvas .apexcharts-reset-zoom-icon.selected svg {\n  fill: #008FFB;\n}\n.light .apexcharts-selection-icon:not(.selected):hover svg,\n.light .apexcharts-zoom-icon:not(.selected):hover svg, \n.light .apexcharts-zoom-in-icon:hover svg, \n.light .apexcharts-zoom-out-icon:hover svg, \n.light .apexcharts-reset-zoom-icon:hover svg, \n.light .apexcharts-menu-icon:hover svg {\n  fill: #333;\n}\n\n.apexcharts-selection-icon, .apexcharts-menu-icon {\n  position: relative;\n}\n.apexcharts-reset-zoom-icon {\n  margin-left: 5px;\n}\n.apexcharts-zoom-icon, .apexcharts-reset-zoom-icon, .apexcharts-menu-icon {\n  transform: scale(0.85);\n}\n\n.apexcharts-zoom-in-icon, .apexcharts-zoom-out-icon {\n  transform: scale(0.7)\n}\n\n.apexcharts-zoom-out-icon {\n  margin-right: 3px;\n}\n\n.apexcharts-pan-icon {\n  transform: scale(0.62);\n  position: relative;\n  left: 1px;\n  top: 0px;\n}\n.apexcharts-pan-icon svg {\n  fill: #fff;\n  stroke: #6E8192;\n  stroke-width: 2;\n}\n.apexcharts-pan-icon.selected svg {\n  stroke: #008FFB;\n}\n.apexcharts-pan-icon:not(.selected):hover svg {\n  stroke: #333;\n}\n\n.apexcharts-toolbar {\n  position: absolute;\n  z-index: 11;\n  top: 0px;\n  right: 3px;\n  max-width: 176px;\n  text-align: right;\n  border-radius: 3px;\n  padding: 0px 6px 2px 6px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center; \n}\n\n.apexcharts-toolbar svg {\n  pointer-events: none;\n}\n\n.apexcharts-menu {\n  background: #fff;\n  position: absolute;\n  top: 100%;\n  border: 1px solid #ddd;\n  border-radius: 3px;\n  padding: 3px;\n  right: 10px;\n  opacity: 0;\n  min-width: 110px;\n  transition: 0.15s ease all;\n  pointer-events: none;\n}\n\n.apexcharts-menu.open {\n  opacity: 1;\n  pointer-events: all;\n  transition: 0.15s ease all;\n}\n\n.apexcharts-menu-item {\n  padding: 6px 7px;\n  font-size: 12px;\n  cursor: pointer;\n}\n.light .apexcharts-menu-item:hover {\n  background: #eee;\n}\n.dark .apexcharts-menu {\n  background: rgba(0, 0, 0, 0.7);\n  color: #fff;\n}\n\n@media screen and (min-width: 768px) {\n  .apexcharts-toolbar {\n    /*opacity: 0;*/\n  }\n\n  .apexcharts-canvas:hover .apexcharts-toolbar {\n    opacity: 1;\n  } \n}\n\n.apexcharts-datalabel.hidden {\n  opacity: 0;\n}\n\n.apexcharts-pie-label,\n.apexcharts-datalabel, .apexcharts-datalabel-label, .apexcharts-datalabel-value {\n  cursor: default;\n  pointer-events: none;\n}\n\n.apexcharts-pie-label-delay {\n  opacity: 0;\n  animation-name: opaque;\n  animation-duration: 0.3s;\n  animation-fill-mode: forwards;\n  animation-timing-function: ease;\n}\n\n.apexcharts-canvas .hidden {\n  opacity: 0;\n}\n\n.apexcharts-hide .apexcharts-series-points {\n  opacity: 0;\n}\n\n.apexcharts-area-series .apexcharts-series-markers .apexcharts-marker.no-pointer-events,\n.apexcharts-line-series .apexcharts-series-markers .apexcharts-marker.no-pointer-events, .apexcharts-radar-series path, .apexcharts-radar-series polygon {\n  pointer-events: none;\n}\n\n/* markers */\n\n.apexcharts-marker {\n  transition: 0.15s ease all;\n}\n\n@keyframes opaque {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}";
+  var css = ".apexcharts-canvas {\n  position: relative;\n  user-select: none;\n  /* cannot give overflow: hidden as it will crop tooltips which overflow outside chart area */\n}\n\n/* scrollbar is not visible by default for legend, hence forcing the visibility */\n.apexcharts-canvas ::-webkit-scrollbar {\n  -webkit-appearance: none;\n  width: 6px;\n}\n.apexcharts-canvas ::-webkit-scrollbar-thumb {\n  border-radius: 4px;\n  background-color: rgba(0,0,0,.5);\n  box-shadow: 0 0 1px rgba(255,255,255,.5);\n  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);\n}\n.apexcharts-canvas.dark {\n  background: #343F57;\n}\n\n.apexcharts-inner {\n  position: relative;\n}\n\n.legend-mouseover-inactive {\n  transition: 0.15s ease all;\n  opacity: 0.20;\n}\n\n.apexcharts-series-collapsed {\n  opacity: 0;\n}\n\n.apexcharts-gridline, .apexcharts-text {\n  pointer-events: none;\n}\n\n.apexcharts-tooltip {\n  border-radius: 5px;\n  box-shadow: 2px 2px 6px -4px #999;\n  cursor: default;\n  font-size: 14px;\n  left: 62px;\n  opacity: 0;\n  pointer-events: none;\n  position: absolute;\n  top: 20px;\n  overflow: hidden;\n  white-space: nowrap;\n  z-index: 12;\n  transition: 0.15s ease all;\n}\n.apexcharts-tooltip.light {\n  border: 1px solid #e3e3e3;\n  background: rgba(255, 255, 255, 0.96);\n}\n.apexcharts-tooltip.dark {\n  color: #fff;\n  background: rgba(30,30,30, 0.8);\n}\n.apexcharts-tooltip * {\n  font-family: inherit;\n}\n\n.apexcharts-tooltip .apexcharts-marker,\n.apexcharts-area-series .apexcharts-area,\n.apexcharts-line {\n  pointer-events: none;\n}\n\n.apexcharts-tooltip.active {\n  opacity: 1;\n  transition: 0.15s ease all;\n}\n\n.apexcharts-tooltip-title {\n  padding: 6px;\n  font-size: 15px;\n  margin-bottom: 4px;\n}\n.apexcharts-tooltip.light .apexcharts-tooltip-title {\n  background: #ECEFF1;\n  border-bottom: 1px solid #ddd;\n}\n.apexcharts-tooltip.dark .apexcharts-tooltip-title {\n  background: rgba(0, 0, 0, 0.7);\n  border-bottom: 1px solid #333;\n}\n\n.apexcharts-tooltip-text-value,\n.apexcharts-tooltip-text-z-value {\n  display: inline-block;\n  font-weight: 600;\n  margin-left: 5px;\n}\n\n.apexcharts-tooltip-text-z-label:empty,\n.apexcharts-tooltip-text-z-value:empty {\n  display: none;\n}\n\n.apexcharts-tooltip-text-value, \n.apexcharts-tooltip-text-z-value {\n  font-weight: 600;\n}\n\n.apexcharts-tooltip-marker {\n  width: 12px;\n  height: 12px;\n  position: relative;\n  top: 0px;\n  margin-right: 10px;\n  border-radius: 50%;\n}\n\n.apexcharts-tooltip-series-group {\n  padding: 0 10px;\n  display: none;\n  text-align: left;\n  justify-content: left;\n  align-items: center;\n}\n\n.apexcharts-tooltip-series-group.active .apexcharts-tooltip-marker {\n  opacity: 1;\n}\n.apexcharts-tooltip-series-group.active, .apexcharts-tooltip-series-group:last-child {\n  padding-bottom: 4px;\n}\n.apexcharts-tooltip-series-group-hidden {\n  opacity: 0;\n  height: 0;\n  line-height: 0;\n  padding: 0 !important;\n}\n.apexcharts-tooltip-y-group {\n  padding: 6px 0 5px;\n}\n.apexcharts-tooltip-candlestick {\n  padding: 4px 8px;\n}\n.apexcharts-tooltip-candlestick > div {\n  margin: 4px 0;\n}\n.apexcharts-tooltip-candlestick span.value {\n  font-weight: bold;\n}\n\n.apexcharts-tooltip-rangebar {\n  padding: 5px 8px;\n}\n\n.apexcharts-tooltip-rangebar .category {\n  font-weight: 600;\n  color: #777;\n}\n\n.apexcharts-tooltip-rangebar .series-name {\n  font-weight: bold;\n  display: block;\n  margin-bottom: 5px;\n}\n\n.apexcharts-xaxistooltip {\n  opacity: 0;\n  padding: 9px 10px;\n  pointer-events: none;\n  color: #373d3f;\n  font-size: 13px;\n  text-align: center;\n  border-radius: 2px;\n  position: absolute;\n  z-index: 10;\n\tbackground: #ECEFF1;\n  border: 1px solid #90A4AE;\n  transition: 0.15s ease all;\n}\n\n.apexcharts-xaxistooltip.dark {\n  background: rgba(0, 0, 0, 0.7);\n  border: 1px solid rgba(0, 0, 0, 0.5);\n  color: #fff;\n}\n\n.apexcharts-xaxistooltip:after, .apexcharts-xaxistooltip:before {\n\tleft: 50%;\n\tborder: solid transparent;\n\tcontent: \" \";\n\theight: 0;\n\twidth: 0;\n\tposition: absolute;\n\tpointer-events: none;\n}\n\n.apexcharts-xaxistooltip:after {\n\tborder-color: rgba(236, 239, 241, 0);\n\tborder-width: 6px;\n\tmargin-left: -6px;\n}\n.apexcharts-xaxistooltip:before {\n\tborder-color: rgba(144, 164, 174, 0);\n\tborder-width: 7px;\n\tmargin-left: -7px;\n}\n\n.apexcharts-xaxistooltip-bottom:after, .apexcharts-xaxistooltip-bottom:before {\n  bottom: 100%;\n}\n\n.apexcharts-xaxistooltip-top:after, .apexcharts-xaxistooltip-top:before {\n  top: 100%;\n}\n\n.apexcharts-xaxistooltip-bottom:after {\n  border-bottom-color: #ECEFF1;\n}\n.apexcharts-xaxistooltip-bottom:before {\n  border-bottom-color: #90A4AE;\n}\n\n.apexcharts-xaxistooltip-bottom.dark:after {\n  border-bottom-color: rgba(0, 0, 0, 0.5);\n}\n.apexcharts-xaxistooltip-bottom.dark:before {\n  border-bottom-color: rgba(0, 0, 0, 0.5);\n}\n\n.apexcharts-xaxistooltip-top:after {\n  border-top-color:#ECEFF1\n}\n.apexcharts-xaxistooltip-top:before {\n  border-top-color: #90A4AE;\n}\n.apexcharts-xaxistooltip-top.dark:after {\n  border-top-color:rgba(0, 0, 0, 0.5);\n}\n.apexcharts-xaxistooltip-top.dark:before {\n  border-top-color: rgba(0, 0, 0, 0.5);\n}\n\n\n.apexcharts-xaxistooltip.active {\n  opacity: 1;\n  transition: 0.15s ease all;\n}\n\n.apexcharts-yaxistooltip {\n  opacity: 0;\n  padding: 4px 10px;\n  pointer-events: none;\n  color: #373d3f;\n  font-size: 13px;\n  text-align: center;\n  border-radius: 2px;\n  position: absolute;\n  z-index: 10;\n\tbackground: #ECEFF1;\n  border: 1px solid #90A4AE;\n}\n\n.apexcharts-yaxistooltip.dark {\n  background: rgba(0, 0, 0, 0.7);\n  border: 1px solid rgba(0, 0, 0, 0.5);\n  color: #fff;\n}\n\n.apexcharts-yaxistooltip:after, .apexcharts-yaxistooltip:before {\n\ttop: 50%;\n\tborder: solid transparent;\n\tcontent: \" \";\n\theight: 0;\n\twidth: 0;\n\tposition: absolute;\n\tpointer-events: none;\n}\n.apexcharts-yaxistooltip:after {\n\tborder-color: rgba(236, 239, 241, 0);\n\tborder-width: 6px;\n\tmargin-top: -6px;\n}\n.apexcharts-yaxistooltip:before {\n\tborder-color: rgba(144, 164, 174, 0);\n\tborder-width: 7px;\n\tmargin-top: -7px;\n}\n\n.apexcharts-yaxistooltip-left:after, .apexcharts-yaxistooltip-left:before {\n  left: 100%;\n}\n\n.apexcharts-yaxistooltip-right:after, .apexcharts-yaxistooltip-right:before {\n  right: 100%;\n}\n\n.apexcharts-yaxistooltip-left:after {\n  border-left-color: #ECEFF1;\n}\n.apexcharts-yaxistooltip-left:before {\n  border-left-color: #90A4AE;\n}\n.apexcharts-yaxistooltip-left.dark:after {\n  border-left-color: rgba(0, 0, 0, 0.5);\n}\n.apexcharts-yaxistooltip-left.dark:before {\n  border-left-color: rgba(0, 0, 0, 0.5);\n}\n\n.apexcharts-yaxistooltip-right:after {\n  border-right-color: #ECEFF1;\n}\n.apexcharts-yaxistooltip-right:before {\n  border-right-color: #90A4AE;\n}\n.apexcharts-yaxistooltip-right.dark:after {\n  border-right-color: rgba(0, 0, 0, 0.5);\n}\n.apexcharts-yaxistooltip-right.dark:before {\n  border-right-color: rgba(0, 0, 0, 0.5);\n}\n\n.apexcharts-yaxistooltip.active {\n  opacity: 1;\n}\n.apexcharts-yaxistooltip-hidden {\n  display: none;\n}\n\n.apexcharts-xcrosshairs, .apexcharts-ycrosshairs {\n  pointer-events: none;\n  opacity: 0;\n  transition: 0.15s ease all;\n}\n\n.apexcharts-xcrosshairs.active, .apexcharts-ycrosshairs.active {\n  opacity: 1;\n  transition: 0.15s ease all;\n}\n\n.apexcharts-ycrosshairs-hidden {\n  opacity: 0;\n}\n\n.apexcharts-zoom-rect {\n  pointer-events: none;\n}\n.apexcharts-selection-rect {\n  cursor: move;\n}\n\n.svg_select_points, .svg_select_points_rot {\n  opacity: 0;\n  visibility: hidden;\n}\n.svg_select_points_l, .svg_select_points_r {\n  cursor: ew-resize;\n  opacity: 1;\n  visibility: visible;\n  fill: #888;\n}\n.apexcharts-canvas.zoomable .hovering-zoom {\n  cursor: crosshair\n}\n.apexcharts-canvas.zoomable .hovering-pan {\n  cursor: move\n}\n\n.apexcharts-xaxis,\n.apexcharts-yaxis {\n  pointer-events: none;\n}\n\n.apexcharts-zoom-icon, \n.apexcharts-zoom-in-icon,\n.apexcharts-zoom-out-icon,\n.apexcharts-reset-zoom-icon, \n.apexcharts-pan-icon, \n.apexcharts-selection-icon,\n.apexcharts-menu-icon, \n.apexcharts-toolbar-custom-icon {\n  cursor: pointer;\n  width: 20px;\n  height: 20px;\n  line-height: 24px;\n  color: #6E8192;\n  text-align: center;\n}\n\n\n.apexcharts-zoom-icon svg, \n.apexcharts-zoom-in-icon svg,\n.apexcharts-zoom-out-icon svg,\n.apexcharts-reset-zoom-icon svg,\n.apexcharts-menu-icon svg {\n  fill: #6E8192;\n}\n.apexcharts-selection-icon svg {\n  fill: #444;\n  transform: scale(0.76)\n}\n\n.dark .apexcharts-zoom-icon svg, \n.dark .apexcharts-zoom-in-icon svg,\n.dark .apexcharts-zoom-out-icon svg,\n.dark .apexcharts-reset-zoom-icon svg, \n.dark .apexcharts-pan-icon svg, \n.dark .apexcharts-selection-icon svg,\n.dark .apexcharts-menu-icon svg, \n.dark .apexcharts-toolbar-custom-icon svg{\n  fill: #f3f4f5;\n}\n\n.apexcharts-canvas .apexcharts-zoom-icon.selected svg, \n.apexcharts-canvas .apexcharts-selection-icon.selected svg, \n.apexcharts-canvas .apexcharts-reset-zoom-icon.selected svg {\n  fill: #008FFB;\n}\n.light .apexcharts-selection-icon:not(.selected):hover svg,\n.light .apexcharts-zoom-icon:not(.selected):hover svg, \n.light .apexcharts-zoom-in-icon:hover svg, \n.light .apexcharts-zoom-out-icon:hover svg, \n.light .apexcharts-reset-zoom-icon:hover svg, \n.light .apexcharts-menu-icon:hover svg {\n  fill: #333;\n}\n\n.apexcharts-selection-icon, .apexcharts-menu-icon {\n  position: relative;\n}\n.apexcharts-reset-zoom-icon {\n  margin-left: 5px;\n}\n.apexcharts-zoom-icon, .apexcharts-reset-zoom-icon, .apexcharts-menu-icon {\n  transform: scale(0.85);\n}\n\n.apexcharts-zoom-in-icon, .apexcharts-zoom-out-icon {\n  transform: scale(0.7)\n}\n\n.apexcharts-zoom-out-icon {\n  margin-right: 3px;\n}\n\n.apexcharts-pan-icon {\n  transform: scale(0.62);\n  position: relative;\n  left: 1px;\n  top: 0px;\n}\n.apexcharts-pan-icon svg {\n  fill: #fff;\n  stroke: #6E8192;\n  stroke-width: 2;\n}\n.apexcharts-pan-icon.selected svg {\n  stroke: #008FFB;\n}\n.apexcharts-pan-icon:not(.selected):hover svg {\n  stroke: #333;\n}\n\n.apexcharts-toolbar {\n  position: absolute;\n  z-index: 11;\n  top: 0px;\n  right: 3px;\n  max-width: 176px;\n  text-align: right;\n  border-radius: 3px;\n  padding: 0px 6px 2px 6px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center; \n}\n\n.apexcharts-toolbar svg {\n  pointer-events: none;\n}\n\n.apexcharts-menu {\n  background: #fff;\n  position: absolute;\n  top: 100%;\n  border: 1px solid #ddd;\n  border-radius: 3px;\n  padding: 3px;\n  right: 10px;\n  opacity: 0;\n  min-width: 110px;\n  transition: 0.15s ease all;\n  pointer-events: none;\n}\n\n.apexcharts-menu.open {\n  opacity: 1;\n  pointer-events: all;\n  transition: 0.15s ease all;\n}\n\n.apexcharts-menu-item {\n  padding: 6px 7px;\n  font-size: 12px;\n  cursor: pointer;\n}\n.light .apexcharts-menu-item:hover {\n  background: #eee;\n}\n.dark .apexcharts-menu {\n  background: rgba(0, 0, 0, 0.7);\n  color: #fff;\n}\n\n@media screen and (min-width: 768px) {\n  .apexcharts-toolbar {\n    /*opacity: 0;*/\n  }\n\n  .apexcharts-canvas:hover .apexcharts-toolbar {\n    opacity: 1;\n  } \n}\n\n.apexcharts-datalabel.hidden {\n  opacity: 0;\n}\n\n.apexcharts-pie-label,\n.apexcharts-datalabel, .apexcharts-datalabel-label, .apexcharts-datalabel-value {\n  cursor: default;\n  pointer-events: none;\n}\n\n.apexcharts-pie-label-delay {\n  opacity: 0;\n  animation-name: opaque;\n  animation-duration: 0.3s;\n  animation-fill-mode: forwards;\n  animation-timing-function: ease;\n}\n\n.apexcharts-canvas .hidden {\n  opacity: 0;\n}\n\n.apexcharts-hide .apexcharts-series-points {\n  opacity: 0;\n}\n\n.apexcharts-area-series .apexcharts-series-markers .apexcharts-marker.no-pointer-events,\n.apexcharts-line-series .apexcharts-series-markers .apexcharts-marker.no-pointer-events, .apexcharts-radar-series path, .apexcharts-radar-series polygon {\n  pointer-events: none;\n}\n\n/* markers */\n\n.apexcharts-marker {\n  transition: 0.15s ease all;\n}\n\n@keyframes opaque {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}";
   styleInject(css);
 
   /*
@@ -27924,7 +27924,7 @@
       _classCallCheck(this, ApexCharts);
 
       this.opts = opts;
-      this.ctx = this; // Pass the students supplied options to the Base Class where these options will be extended with defaults. The returned object from Base Class will become the config object in the entire codebase.
+      this.ctx = this; // Pass the user supplied options to the Base Class where these options will be extended with defaults. The returned object from Base Class will become the config object in the entire codebase.
 
       this.w = new Base(opts).init();
       this.el = el;
@@ -27937,7 +27937,7 @@
       this.windowResizeHandler = this.windowResize.bind(this);
     }
     /**
-     * The primary method students will call to render the chart.
+     * The primary method user will call to render the chart.
      */
 
 
@@ -28094,7 +28094,7 @@
           this.series.handleNoData();
         }
 
-        this.setupEventHandlers(); // Handle the data inputted by students and set some of the global variables (for eg, if data is datetime / numeric / category). Don't calculate the range / min / max at this time
+        this.setupEventHandlers(); // Handle the data inputted by user and set some of the global variables (for eg, if data is datetime / numeric / category). Don't calculate the range / min / max at this time
 
         this.core.parseData(ser); // this is a good time to set theme colors first
 
@@ -28274,12 +28274,12 @@
                 data: s.data ? s.data : w.config.series[i] && w.config.series[i].data
               });
             });
-          } // students updated the series via updateOptions() function.
+          } // user updated the series via updateOptions() function.
           // Hence, we need to reset axis min/max to avoid zooming issues
 
 
           this.revertDefaultAxisMinMax();
-        } // students has set x-axis min/max externally - hence we need to forcefully set the xaxis min/max
+        } // user has set x-axis min/max externally - hence we need to forcefully set the xaxis min/max
 
 
         if (options$$1.xaxis) {
@@ -28329,7 +28329,7 @@
         }
 
         if (this.w.globals.isExecCalled) {
-          // If the students called exec method, we don't want to get grouped charts as students specifically provided a chartID to update
+          // If the user called exec method, we don't want to get grouped charts as user specifically provided a chartID to update
           charts = [this];
           this.w.globals.isExecCalled = false;
         }
@@ -28353,7 +28353,7 @@
             w.config = Utils.extend(w.config, options$$1);
 
             if (overwriteInitialConfig) {
-              // we need to forget the lastXAxis and lastYAxis is students forcefully overwriteInitialConfig. If we do not do this, and next time when students zooms the chart after setting yaxis.min/max or xaxis.min/max - the stored lastXAxis will never allow the chart to use the updated min/max by students.
+              // we need to forget the lastXAxis and lastYAxis is user forcefully overwriteInitialConfig. If we do not do this, and next time when user zooms the chart after setting yaxis.min/max or xaxis.min/max - the stored lastXAxis will never allow the chart to use the updated min/max by user.
               w.globals.lastXAxis = [];
               w.globals.lastYAxis = []; // After forgetting lastAxes, we need to restore the new config in initialConfig/initialSeries
 
@@ -28410,7 +28410,7 @@
         var overwriteInitialSeries = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
         var w = this.w;
         this.w.globals.shouldAnimate = animate;
-        w.globals.dataChanged = true; // if students has collapsed some series with legend, we need to clear those
+        w.globals.dataChanged = true; // if user has collapsed some series with legend, we need to clear those
 
         if (w.globals.allSeriesCollapsed) {
           w.globals.allSeriesCollapsed = false;
@@ -28451,7 +28451,7 @@
         return this.update();
       }
       /**
-       * Get all charts in the same "group" (including the instance which is called upon) to sync them when students zooms in/out or pan.
+       * Get all charts in the same "group" (including the instance which is called upon) to sync them when user zooms in/out or pan.
        */
 
     }, {
@@ -28560,8 +28560,8 @@
       }
       /**
        * This function reverts the yaxis and xaxis min/max values to what it was when the chart was defined.
-       * This function fixes an important bug where a students might load a new series after zooming in/out of previous series which resulted in wrong min/max
-       * Also, this should never be called internally on zoom/pan - the reset should only happen when students calls the updateSeries() function externally
+       * This function fixes an important bug where a user might load a new series after zooming in/out of previous series which resulted in wrong min/max
+       * Also, this should never be called internally on zoom/pan - the reset should only happen when user calls the updateSeries() function externally
        */
 
     }, {
@@ -28572,7 +28572,7 @@
         w.config.xaxis.max = w.globals.lastXAxis.max;
         w.config.yaxis.map(function (yaxe, index) {
           if (w.globals.zoomed) {
-            // if students has zoomed, and this function is called
+            // if user has zoomed, and this function is called
             // then we need to get the lastAxis min and max
             if (typeof w.globals.lastYAxis[index] !== 'undefined') {
               yaxe.min = w.globals.lastYAxis[index].min;
@@ -28676,7 +28676,7 @@
         window.removeResizeListener(this.el.parentNode, this.parentResizeCallback.bind(this));
       }
       /**
-       * Allows the students to provide data attrs in the element and the chart will render automatically when this method is called by searching for the elements containing 'data-apexcharts' attribute
+       * Allows the user to provide data attrs in the element and the chart will render automatically when this method is called by searching for the elements containing 'data-apexcharts' attribute
        */
 
     }, {
@@ -28869,12 +28869,12 @@
     }, {
       key: "setCurrentLocaleValues",
       value: function setCurrentLocaleValues(localeName) {
-        var locales = this.w.config.chart.locales; // check if students has specified locales in global Apex variable
+        var locales = this.w.config.chart.locales; // check if user has specified locales in global Apex variable
         // if yes - then extend those with local chart's locale
 
         if (window.Apex.chart && window.Apex.chart.locales && window.Apex.chart.locales.length > 0) {
           locales = this.w.config.chart.locales.concat(window.Apex.chart.locales);
-        } // find the locale from the array of locales which students has set (either by chart.defaultLocale or by calling setLocale() method.)
+        } // find the locale from the array of locales which user has set (either by chart.defaultLocale or by calling setLocale() method.)
 
 
         var selectedLocale = locales.filter(function (c) {
@@ -28939,7 +28939,7 @@
       }
       /**
        * This static method allows users to call chart methods without necessarily from the
-       * instance of the chart in case students has assigned chartID to the targetted chart.
+       * instance of the chart in case user has assigned chartID to the targetted chart.
        * The chartID is used for mapping the instance stored in Apex._chartInstances global variable
        *
        * This is helpful in cases when you don't have reference of the chart instance

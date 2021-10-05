@@ -1,5 +1,5 @@
 /*=========================================================================================
-    File Name: students-profile.js
+    File Name: user-profile.js
     Description: User Profile jQuery Plugin Intialization
     --------------------------------------------------------------------------------------
     Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template

@@ -4,7 +4,7 @@
     ----------------------------------------------------------------------------------------
     Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
     Author: Pixinvent
-    Author URL: hhttp://www.themeforest.net/students/pixinvent
+    Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 (function(window, document, $) {
   'use strict';

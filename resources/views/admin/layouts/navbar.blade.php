@@ -15,10 +15,11 @@
                             <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">Profile</span><span class="user-status text-success">{{ Auth::user()->name }}</span></div><span><img class="round" src="{{url('upload/images/' .Auth::user()->file)  }}" alt="avatar" height="40" width="40"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{{ url('admins/site_setting') }}"><i class="feather icon-settings"></i>Site Setting</a>
                             <a class="dropdown-item" href="{{ url('admins/setting') }}"><i class="feather icon-user"></i>Setting</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"><i class="feather icon-user"></i>Logout</a>
+                                                     document.getElementById('logout-form').submit();"><i class="feather icon-log-out"></i>Logout</a>
                                                       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="">
                                                        @csrf
                                                       </form>

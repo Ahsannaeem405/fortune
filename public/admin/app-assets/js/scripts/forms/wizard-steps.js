@@ -31,7 +31,7 @@ $(".icons-tab-steps").steps({
         finish: 'Submit'
     },
     onFinished: function (event, currentIndex) {
-       // alert("Form submitted.");
+        alert("Form submitted.");
     }
 });
 
@@ -54,7 +54,7 @@ $(".steps-validation").steps({
             return true;
         }
 
-        // Needed in some cases if the students went back (clean up)
+        // Needed in some cases if the user went back (clean up)
         if (currentIndex < newIndex) {
             // To remove error styles
             form.find(".body:eq(" + newIndex + ") label.error").remove();
@@ -68,8 +68,7 @@ $(".steps-validation").steps({
         return form.valid();
     },
     onFinished: function (event, currentIndex) {
-
-        form.submit();
+        alert("Submitted!");
     }
 });
 

@@ -4,7 +4,7 @@
 	----------------------------------------------------------------------------------------
 	Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
 	Author: Pixinvent
-	Author URL: hhttp://www.themeforest.net/students/pixinvent
+	Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 $(document).ready(function () {
@@ -54,8 +54,8 @@ $(document).ready(function () {
   });
 
   tour.addStep('step-3', {
-    text: 'Click here for students options.',
-    attachTo: '.dropdown-students-link img bottom',
+    text: 'Click here for user options.',
+    attachTo: '.dropdown-user-link img bottom',
     buttons: [
 
       {
