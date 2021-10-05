@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
         return 'Complete';
     });
     Route::view('/header','checkingheader');
+    Route::view('/login1','login');
+
 
 
 
