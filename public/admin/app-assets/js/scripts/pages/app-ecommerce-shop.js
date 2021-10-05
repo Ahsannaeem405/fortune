@@ -119,7 +119,7 @@ $(document).ready(function () {
         if (currentIndex > newIndex) {
           return true;
         }
-        // Needed in some cases if the students went back (clean up)
+        // Needed in some cases if the user went back (clean up)
         if (currentIndex < newIndex) {
           // To remove error styles
           checkoutValidation.find(".body:eq(" + newIndex + ") label.error").remove();
@@ -137,7 +137,7 @@ $(document).ready(function () {
     $(".place-order, .delivery-address").on("click", function () {
       $(".checkout-tab-steps").steps("next", {});
     });
-    // check if students has entered valid cvv
+    // check if user has entered valid cvv
     $(".btn-cvv").on("click", function () {
       if ($(".input-cvv").val().length == 3) {
         toastr.success('Success', 'Payment received Successfully', { "positionClass": "toast-bottom-right" });

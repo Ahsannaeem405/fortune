@@ -18,7 +18,7 @@
     // Browser globals.
     else if ( typeof window == 'object' )
         window.Picker = factory( jQuery )
-
+    
     else this.Picker = factory( jQuery )
 
 }(function( $ ) {
@@ -646,7 +646,7 @@ function PickerConstructor( ELEMENT, NAME, COMPONENT, OPTIONS ) {
                 }
             )
 
-            // Mousedown handler to capture when the students starts interacting
+            // Mousedown handler to capture when the user starts interacting
             // with the picker. This is used in working around a bug in Chrome 73.
             .on('mousedown', function() {
               STATE.handlingOpen = true;

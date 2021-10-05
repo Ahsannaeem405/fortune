@@ -1542,7 +1542,7 @@ typeof navigator === "object" && (function (global, factory) {
             return false;
           }
 
-          var test = '___test'; // Try to use it (it might be disabled, e.g. students is in private mode)
+          var test = '___test'; // Try to use it (it might be disabled, e.g. user is in private mode)
           // see: https://github.com/sampotts/plyr/issues/131
 
           window.localStorage.setItem(test, test);
@@ -2540,7 +2540,7 @@ typeof navigator === "object" && (function (global, factory) {
         });
     }, */
     // Get current selected caption language
-    // TODO: rework this to students the getter in the API?
+    // TODO: rework this to user the getter in the API?
     // Set a list of available captions languages
     setCaptionsMenu: function setCaptionsMenu() {
       var _this7 = this;
@@ -3280,9 +3280,9 @@ typeof navigator === "object" && (function (global, factory) {
         });
       } // Get and set initial data
       // The "preferred" options are not realized unless / until the wanted language has a match
-      // * languages: Array of students's browser languages.
-      // * language:  The language preferred by students settings or config
-      // * active:    The state preferred by students settings or config
+      // * languages: Array of user's browser languages.
+      // * language:  The language preferred by user settings or config
+      // * active:    The state preferred by user settings or config
       // * toggled:   The real captions state
 
 
@@ -3384,7 +3384,7 @@ typeof navigator === "object" && (function (global, factory) {
       var active = is$1.nullOrUndefined(input) ? !toggled : input; // Update state and trigger event
 
       if (active !== toggled) {
-        // When passive, don't override students preferences
+        // When passive, don't override user preferences
         if (!passive) {
           this.captions.active = active;
           this.storage.set({
@@ -3395,9 +3395,9 @@ typeof navigator === "object" && (function (global, factory) {
 
         if (!this.language && active && !passive) {
           var tracks = captions.getTracks.call(this);
-          var track = captions.findTrack.call(this, [this.captions.language].concat(_toConsumableArray(this.captions.languages)), true); // Override students preferences to avoid switching languages if a matching track is added
+          var track = captions.findTrack.call(this, [this.captions.language].concat(_toConsumableArray(this.captions.languages)), true); // Override user preferences to avoid switching languages if a matching track is added
 
-          this.captions.language = track.language; // Set caption, but don't store in localStorage as students preference
+          this.captions.language = track.language; // Set caption, but don't store in localStorage as user preference
 
           captions.set.call(this, tracks.indexOf(track));
           return;
@@ -3448,7 +3448,7 @@ typeof navigator === "object" && (function (global, factory) {
 
         this.captions.currentTrackNode = track; // Update settings menu
 
-        controls.updateSetting.call(this, 'captions'); // When passive, don't override students preferences
+        controls.updateSetting.call(this, 'captions'); // When passive, don't override user preferences
 
         if (!passive) {
           this.captions.language = language;
@@ -4122,7 +4122,7 @@ typeof navigator === "object" && (function (global, factory) {
       }; // Force the use of 'full window/browser' rather than fullscreen
 
       this.forceFallback = player.config.fullscreen.fallback === 'force'; // Register event listeners
-      // Handle event (incase students presses escape etc)
+      // Handle event (incase user presses escape etc)
 
       on.call(this.player, document, this.prefix === 'ms' ? 'MSFullscreenChange' : "".concat(this.prefix, "fullscreenchange"), function () {
         // TODO: Filter for target??
@@ -4392,7 +4392,7 @@ typeof navigator === "object" && (function (global, factory) {
 
       if (this.poster) {
         ui.setPoster.call(this, this.poster, false).catch(function () {});
-      } // Manually set the duration if students has overridden it.
+      } // Manually set the duration if user has overridden it.
       // The event listeners for it doesn't get called if preload is disabled (#701)
 
 
@@ -4513,7 +4513,7 @@ typeof navigator === "object" && (function (global, factory) {
       var controls = this.elements.controls;
 
       if (controls && this.config.hideControls) {
-        // Don't hide controls if a touch-device students recently seeked. (Must be limited to touch devices, or it occasionally prevents desktop controls from hiding.)
+        // Don't hide controls if a touch-device user recently seeked. (Must be limited to touch devices, or it occasionally prevents desktop controls from hiding.)
         var recentTouchSeek = this.touch && this.lastSeekTime + 2000 > Date.now(); // Show controls if force, loading, paused, button interaction, or recent seek, otherwise hide
 
         this.toggleControls(Boolean(force || this.loading || this.paused || controls.pressed || controls.hover || recentTouchSeek));
@@ -6506,7 +6506,7 @@ typeof navigator === "object" && (function (global, factory) {
        * Using the code below, we tell the SDK to render ads within that div. We also provide a
        * handle to the content video player - the SDK will poll the current time of our player to
        * properly place mid-rolls. After we create the ad display container, we initialize it. On
-       * mobile devices, this initialization is done as the result of a students action.
+       * mobile devices, this initialization is done as the result of a user action.
        */
       value: function setupIMA() {
         // Create the container for our advertisements
@@ -6830,7 +6830,7 @@ typeof navigator === "object" && (function (global, factory) {
 
         this.managerPromise.then(function () {
           // Set volume to match player
-          _this10.manager.setVolume(_this10.player.volume); // Initialize the container. Must be done via a students action on mobile devices
+          _this10.manager.setVolume(_this10.player.volume); // Initialize the container. Must be done via a user action on mobile devices
 
 
           _this10.elements.displayContainer.initialize();
@@ -6971,7 +6971,7 @@ typeof navigator === "object" && (function (global, factory) {
       /**
        * Setup a safety timer for when the ad network doesn't respond for whatever reason.
        * The advertisement has 12 seconds to get its things together. We stop this timer when the
-       * advertisement is playing, or when a students action is required to start, then we clear the
+       * advertisement is playing, or when a user action is required to start, then we clear the
        * timer on ad ready
        * @param {Number} time
        * @param {String} from
@@ -7474,7 +7474,7 @@ typeof navigator === "object" && (function (global, factory) {
             }, removeDelay);
           }
         });
-      } // Preload images before and after the current one. Only if the students is still hovering/seeking the same frame
+      } // Preload images before and after the current one. Only if the user is still hovering/seeking the same frame
       // This will only preload the lowest quality
 
     }, {
@@ -7530,7 +7530,7 @@ typeof navigator === "object" && (function (global, factory) {
             }
           }, 300);
         });
-      } // If students has been hovering current image for half a second, look for a higher quality one
+      } // If user has been hovering current image for half a second, look for a higher quality one
 
     }, {
       key: "getHigherQuality",
@@ -8069,7 +8069,7 @@ typeof navigator === "object" && (function (global, factory) {
 
       this.eventListeners = []; // Create listeners
 
-      this.listeners = new Listeners(this); // Setup local storage for students settings
+      this.listeners = new Listeners(this); // Setup local storage for user settings
 
       this.storage = new Storage(this); // Store reference
 
@@ -8830,7 +8830,7 @@ typeof navigator === "object" && (function (global, factory) {
       }
       /**
        * Toggle loop
-       * TODO: Finish fancy new logic. Set the indicator on load as students may pass loop as config
+       * TODO: Finish fancy new logic. Set the indicator on load as user may pass loop as config
        * @param {Boolean} input - Whether to loop or not
        */
 

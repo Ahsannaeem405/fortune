@@ -3,35 +3,35 @@
 
   // if it is not touch device
   if (!$.app.menu.is_touch_device()){
-    // Chat students list
-    if($('.chat-application .chat-students-list').length > 0){
-      var chat_user_list = new PerfectScrollbar(".chat-students-list");
+    // Chat user list
+    if($('.chat-application .chat-user-list').length > 0){
+      var chat_user_list = new PerfectScrollbar(".chat-user-list");
     }
-
-    // Chat students profile
+  
+    // Chat user profile
     if($('.chat-application .profile-sidebar-area .scroll-area').length > 0){
       var chat_user_list = new PerfectScrollbar(".profile-sidebar-area .scroll-area");
     }
-
+  
     // Chat area
-    if($('.chat-application .students-chats').length > 0){
-      var chat_user = new PerfectScrollbar(".students-chats", {
+    if($('.chat-application .user-chats').length > 0){
+      var chat_user = new PerfectScrollbar(".user-chats", {
         wheelPropagation: false
       });
     }
-
+  
     // User profile right area
-    if($('.chat-application .students-profile-sidebar-area').length > 0){
-      var user_profile = new PerfectScrollbar(".students-profile-sidebar-area");
+    if($('.chat-application .user-profile-sidebar-area').length > 0){
+      var user_profile = new PerfectScrollbar(".user-profile-sidebar-area");
     }
   }
 
   // if it is a touch device
   else {
-    $(".chat-students-list").css("overflow", "scroll");
+    $(".chat-user-list").css("overflow", "scroll");
     $(".profile-sidebar-area .scroll-area").css("overflow", "scroll");
-    $(".students-chats").css("overflow", "scroll");
-    $(".students-profile-sidebar-area").css("overflow", "scroll");
+    $(".user-chats").css("overflow", "scroll");
+    $(".user-profile-sidebar-area").css("overflow", "scroll");
   }
 
 
@@ -42,13 +42,13 @@
   });
 
   // User Profile sidebar toggle
-  $('.chat-application .students-profile-toggle').on('click',function(){
-    $('.students-profile-sidebar').addClass('show');
+  $('.chat-application .user-profile-toggle').on('click',function(){
+    $('.user-profile-sidebar').addClass('show');
     $('.chat-overlay').addClass('show');
   });
 
   // Update status by clickin on Radio
-  $('.chat-application .students-status input:radio[name=userStatus]').on('change', function(){
+  $('.chat-application .user-status input:radio[name=userStatus]').on('change', function(){
     var $className = "avatar-status-"+this.value;
     $(".header-profile-sidebar .avatar span").removeClass();
     $(".sidebar-profile-toggle .avatar span").removeClass();
@@ -59,7 +59,7 @@
   // On Profile close click
   $(".chat-application .close-icon").on('click',function(){
     $('.chat-profile-sidebar').removeClass('show');
-    $('.students-profile-sidebar').removeClass('show');
+    $('.user-profile-sidebar').removeClass('show');
     if(!$(".sidebar-content").hasClass("show")){
       $('.chat-overlay').removeClass('show');
     }
@@ -76,17 +76,17 @@
     $('.app-content .sidebar-content').removeClass('show');
     $('.chat-application .chat-overlay').removeClass('show');
     $('.chat-profile-sidebar').removeClass('show');
-    $('.students-profile-sidebar').removeClass('show');
+    $('.user-profile-sidebar').removeClass('show');
   });
 
   // Add class active on click of Chat users list
-  $(".chat-application .chat-students-list ul li").on('click', function(){
-    if($('.chat-students-list ul li').hasClass('active')){
-      $('.chat-students-list ul li').removeClass('active');
+  $(".chat-application .chat-user-list ul li").on('click', function(){
+    if($('.chat-user-list ul li').hasClass('active')){
+      $('.chat-user-list ul li').removeClass('active');
     }
     $(this).addClass("active");
     $(this).find(".badge").remove();
-    if($('.chat-students-list ul li').hasClass('active')){
+    if($('.chat-user-list ul li').hasClass('active')){
       $('.start-chat-area').addClass('d-none');
       $('.active-chat').removeClass('d-none');
     }
@@ -97,7 +97,7 @@
   });
 
   // autoscroll to bottom of Chat area
-  var chatContainer = $(".students-chats");
+  var chatContainer = $(".user-chats");
   $(".chat-users-list-wrapper li").on("click", function () {
     chatContainer.animate({ scrollTop: chatContainer[0].scrollHeight }, 400)
   });
@@ -130,19 +130,19 @@
   }
 
   // Scroll Chat area
-  $(".students-chats").scrollTop($(".students-chats > .chats").height());
+  $(".user-chats").scrollTop($(".user-chats > .chats").height());
 
   // Filter
   $(".chat-application #chat-search").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     if(value!=""){
-      $(".chat-students-list .chat-users-list-wrapper li").filter(function() {
+      $(".chat-user-list .chat-users-list-wrapper li").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
       });
     }
     else{
       // If filter box is empty
-      $(".chat-students-list .chat-users-list-wrapper li").show();
+      $(".chat-user-list .chat-users-list-wrapper li").show();
     }
   });
 
@@ -176,6 +176,6 @@ function enter_chat(source) {
   var html = '<div class="chat-content">' + "<p>" + message + "</p>" + "</div>";
   $(".chat:last-child .chat-body").append(html);
   $(".message").val("");
-  $(".students-chats").scrollTop($(".students-chats > .chats").height());
+  $(".user-chats").scrollTop($(".user-chats > .chats").height());
    }
 }

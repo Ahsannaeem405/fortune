@@ -4,7 +4,7 @@
 	----------------------------------------------------------------------------------------
 	Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
 	Author: Pixinvent
-	Author URL: hhttp://www.themeforest.net/students/pixinvent
+	Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 $(document).ready(function () {
 
@@ -288,7 +288,7 @@ $(document).ready(function () {
 
   $('#ajax-request').on('click', function () {
     Swal.fire({
-      title: 'Search for a students',
+      title: 'Search for a user',
       input: 'text',
       confirmButtonClass: 'btn btn-primary',
       buttonsStyling: false,
