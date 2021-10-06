@@ -73,7 +73,12 @@ font-size: 13px;
 @section('body')
 <div class="container-fluid header">
 <img src="{{asset('images/header.png')}}" alt="" style="width: 100%">
-<div class="container">
+</div>
+
+
+
+<div class="container-fluid con1">
+ <div class="container">
     <div class="row" style="text-align: center">
         <div class="col-lg-2  col-6">
             <img src="{{asset('images/1.png')}}" alt="">
@@ -94,11 +99,6 @@ font-size: 13px;
             <img src="{{asset('images/6.png')}}" alt="">
         </div>
     </div>
-</div>
-
-</div>
-<div class="container-fluid con1">
- <div class="container">
     <h3>Wróżbici</h3>
     <div class="row r-1">
         <div class="col-lg-3 col-12">
@@ -186,6 +186,52 @@ font-size: 13px;
         </div>
 
     </div>
+    <div class="row r-1">
+        <div class="col-lg-3 col-12">
+            <div class="col-12 profile_div">
+                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
+                <h5>Cyganka Sybilla</h5>
+                <p>Wróżby cygańskie, Rytuały</p>
+                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
+            </div>
+
+
+        </div>
+        <div class="col-lg-3 col-12">
+            <div class="col-12 profile_div">
+                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
+                <h5>Cyganka Sybilla</h5>
+                <p>Wróżby cygańskie, Rytuały</p>
+                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
+            </div>
+
+
+        </div>
+        <div class="col-lg-3 col-12 ">
+            <div class="col-12 profile_div">
+                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
+                <h5>Cyganka Sybilla</h5>
+                <p>Wróżby cygańskie, Rytuały</p>
+                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
+            </div>
+
+
+        </div>
+        <div class="col-lg-3 col-12 ">
+            <div class="col-12 profile_div">
+                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
+                <h5>Cyganka Sybilla</h5>
+                <p>Wróżby cygańskie, Rytuały</p>
+                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
  </div>
 </div>
 
