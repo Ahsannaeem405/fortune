@@ -20,7 +20,7 @@
 
 @section('body')
 
-<section class="ftco-section" style="background-image:url( {{ asset('images/Login.png')}})">
+<section class="ftco-section" style="background-image:url( {{ asset('images/Resgistration.png')}})">
     <div class="container">
         <div class="row justify-content-center">
 
@@ -29,21 +29,31 @@
             <div class="col-md-7 col-lg-5">
                 <div class="login-wrap p-4 p-md-5">
 
-              <h3 class="text-center mb-4" style="color: white">Logowanie</h3>
+              <h4 class="text-center mb-4" style="color: white">Załóż konto i odbierz wróżbę</h4>
                     <form action="#" class="login-form">
                   <div class="form-group">
-                      <input type="text" class="form-control input " placeholder="Address e-mail" required>
+                      <input type="text" class="form-control input " placeholder="Podaj login" required>
                   </div>
             <div class="form-group d-flex">
-              <input type="password" class="form-control input" placeholder="Hasto" required>
+              <input type="password" class="form-control input" placeholder="Podaj hasło" required>
             </div>
+            <div class="form-group d-flex">
+                <input type="text" class="form-control input" placeholder="Powtórz hasło" required>
+              </div>
+              <div class="form-group d-flex">
+                <input type="email" class="form-control input" placeholder="Address e-mail" required>
+              </div>
+              <div class="form-group d-flex">
+                <input type="text" class="form-control input" placeholder="Data urodzenia" required>
+              </div>
+
 
             <div class="form-group d-md-flex">
+                <label>
 
-                            <div class="w-50 text-md-right">
-                                <a href="#" style="color: white">Nie pamiętasz hasła?
-                                </a>
-                            </div>
+                    <input type="checkbox">
+                    <span style="color: gray;font-size: 14px;">Akceptuję postanowienia cennika oraz regulaminu</span>
+                  </label>
             </div>
           <div class="row">
               <div class="col-md-6">
@@ -55,12 +65,12 @@
           </div><br>
           <div class="row">
               <div class="col-md-12">
-                <button type="submit" class="form-control login">Zaloguj się</button>
+                <button type="submit" class="form-control login">Zatoz konto</button>
               </div>
 
           </div>
           </form>
-          <center class="span1"><span class="centerspan">Chcesz</span> założyć konto?</center>
+
         </div>
             </div>
         </div>

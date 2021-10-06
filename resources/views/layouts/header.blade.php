@@ -88,6 +88,10 @@ hr{
    bottom:0px;
    width:100%;
 }
+.loginhome li{
+    padding: 10px;
+    font-size: 20px;
+}
 
   </style>
   <body>
@@ -99,6 +103,26 @@ hr{
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="text-align: right;">
           <div class="navbar-nav" style="margin-left:auto; ">
+            @if (Auth::user())
+            <ul class="navbar-nav ml-auto loginhome ">
+                <li class="nav-item">
+                    <i class="fas fa-home" style="color: white"></i>
+
+                </li>
+                <li class="nav-item">
+                    <i class="far fa-envelope" style="color: white"></i>
+                </li>
+                <li class="nav-item">
+                    <span class="badge" style="border-radius: 200px;background-color:#BA2DCE;color:white;">5</span>
+                </li>
+
+                <li class="nav-item">
+                    <i class="fas fa-ellipsis-v" style="color: white"></i>
+                </li>
+
+
+            </ul>
+            @else
             <ul class="navbar-nav ml-auto ">
                 <li class="nav-item">
                     <button class="btn btn-nav my-2 my-sm-0" type="submit">Zaloguj się</button>
@@ -110,6 +134,9 @@ hr{
 
 
               </ul>
+            @endif
+
+
           </div>
         </div>
       </nav>
