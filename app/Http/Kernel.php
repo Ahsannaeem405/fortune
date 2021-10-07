@@ -58,6 +58,11 @@ class Kernel extends HttpKernel
           
             \App\Http\Middleware\worker::class,
         ],
+        'user'=> [
+          
+            \App\Http\Middleware\userMiddleware::class,
+        ],
+        
     ];
 
     /**

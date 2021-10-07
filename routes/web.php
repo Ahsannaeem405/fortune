@@ -27,11 +27,9 @@ use Illuminate\Support\Facades\Route;
         return 'Complete';
     });
     // for checking
-    Route::view('/header','checkingheader');
-    Route::view('/login1','login');
-    Route::view('/register1','registeration');
+    Route::view('/regis','registeration');
     Route::view('/contact','contact');
-    Route::view('/home1', 'loggedinHome');
+    Route::view('/points','points');
 
 
 
@@ -147,6 +145,13 @@ Route::prefix('/woker')->middleware(['auth','worker'])->group(function (){
 
 });
 
+
+Route::prefix('/user')->middleware(['auth','user'])->group(function (){
+
+
+    Route::view('/', 'loggedinHome');
+
+});
 
 
 

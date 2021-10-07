@@ -41,6 +41,7 @@ class LoginController extends Controller
         }
         else{
 
+            return 'user/';
         }
         
     }

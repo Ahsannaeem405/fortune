@@ -115,7 +115,15 @@ hr{
                     <i class="far fa-envelope" style="color: white"></i>
                 </li>
                 <li class="nav-item">
-                    <span class="badge" style="border-radius: 200px;background-color:#BA2DCE;color:white;">5</span>
+                    <span class="badge" style="border-radius: 200px;background-color:#BA2DCE;color:white;"><a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>5</span>
                 </li>
 
                 <li class="nav-item">
@@ -127,10 +135,11 @@ hr{
             @else
             <ul class="navbar-nav ml-auto ">
                 <li class="nav-item">
-                    <button class="btn btn-nav my-2 my-sm-0" type="submit">Zaloguj się</button>
+                    <a href="{{url('login')}}"> <button class="btn btn-nav my-2 my-sm-0">Zaloguj się</button></a>
               </li>
               <li class="nav-item">
-                <button class="btn btn-nav my-2 my-sm-0" type="submit">Zarejestruj się</button>
+                <a href="{{url('register')}}"> 
+                <button class="btn btn-nav my-2 my-sm-0" type="button">Zarejestruj się</button></a>
               </li>
 
 
