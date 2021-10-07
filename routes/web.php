@@ -26,7 +26,16 @@ use Illuminate\Support\Facades\Route;
 
         return 'Complete';
     });
+    // for checking
     Route::view('/header','checkingheader');
+    Route::view('/login1','login');
+    Route::view('/register1','registeration');
+    Route::view('/contact','contact');
+    Route::view('/home1', 'loggedinHome');
+
+
+
+// checking end
 
 
 

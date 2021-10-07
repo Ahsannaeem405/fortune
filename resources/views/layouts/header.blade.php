@@ -1,4 +1,4 @@
-@section("head") 
+@section("head")
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -90,6 +90,10 @@ hr{
    bottom:0px;
    width:100%;
 }
+.loginhome li{
+    padding: 10px;
+    font-size: 20px;
+}
 
   </style>
   <body>
@@ -101,6 +105,26 @@ hr{
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="text-align: right;">
           <div class="navbar-nav" style="margin-left:auto; ">
+            @if (Auth::user())
+            <ul class="navbar-nav ml-auto loginhome ">
+                <li class="nav-item">
+                    <i class="fas fa-home" style="color: white"></i>
+
+                </li>
+                <li class="nav-item">
+                    <i class="far fa-envelope" style="color: white"></i>
+                </li>
+                <li class="nav-item">
+                    <span class="badge" style="border-radius: 200px;background-color:#BA2DCE;color:white;">5</span>
+                </li>
+
+                <li class="nav-item">
+                    <i class="fas fa-ellipsis-v" style="color: white"></i>
+                </li>
+
+
+            </ul>
+            @else
             <ul class="navbar-nav ml-auto ">
                 <li class="nav-item">
                     <button class="btn btn-nav my-2 my-sm-0" type="submit">Zaloguj się</button>
@@ -112,6 +136,9 @@ hr{
 
 
               </ul>
+            @endif
+
+
           </div>
         </div>
       </nav>
@@ -120,7 +147,7 @@ hr{
       </div>
 @show
 @yield('body')
-@section("footer") 
+@section("footer")
 
 
       <!-- Footer -->
@@ -243,7 +270,7 @@ hr{
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
 
-  
+
   </body>
 </html>
 @show
