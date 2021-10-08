@@ -26,7 +26,6 @@ use Illuminate\Support\Facades\Route;
 
         return 'Complete';
     });
-  
 
 
 
