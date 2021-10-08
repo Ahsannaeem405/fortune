@@ -31,6 +31,7 @@ class facebook extends Controller
      */
     public function handleFacebookCallback()
     {
+    	dd('ddd');
         try {
             $user = Socialite::driver('facebook')->user();
             $create['name'] = $user->getName();
