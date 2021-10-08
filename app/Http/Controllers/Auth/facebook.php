@@ -44,6 +44,7 @@ class facebook extends Controller
             }
             
             $create['facebook_id'] = $user->getId();
+            $create['email_verified_at'] =date('Y-m-d H:i:s');
 
 
             $userModel = new User;
