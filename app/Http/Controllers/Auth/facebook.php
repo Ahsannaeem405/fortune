@@ -49,6 +49,7 @@ class facebook extends Controller
             $userModel = new User;
             $createdUser = $userModel->addNew($create);
             Auth::loginUsingId($createdUser->id);
+            dd('dddd');
 
             return redirect('/user');
 
