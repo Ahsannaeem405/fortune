@@ -43,8 +43,8 @@ class facebook extends Controller
             $finduser = User::where('facebook_id', $user->id)->first();
 
             if($finduser){
-
-dd('dd2');
+                 
+                Auth::login($finduser);
                 return redirect('/user');
 
 
@@ -76,6 +76,7 @@ dd('dd2');
                         ]);
                     
                 }
+                Auth::login($newUser);
 
 
                 return redirect('/user');
