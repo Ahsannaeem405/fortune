@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
         $run = Artisan::call('migrate:fresh --seed');
 
-        return 'Complete';
+        return 'Completedd';
     });
 
 

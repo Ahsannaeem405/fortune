@@ -22,7 +22,7 @@ class UsersTableDataSeeder extends Seeder
             'password' => Hash::make('123456789'),
             'email_verified_at'=>date('Y-m-d H:i:s'),
             'role'=>'1',
-            
+
         ]);
         DB::table('users')->insert([
             'name' => 'admin',
@@ -30,7 +30,7 @@ class UsersTableDataSeeder extends Seeder
             'password' => Hash::make('123456789'),
             'email_verified_at'=>date('Y-m-d H:i:s'),
             'role'=>'2',
-            
+
         ]);
         DB::table('users')->insert([
             'name' => 'admin',
@@ -38,7 +38,16 @@ class UsersTableDataSeeder extends Seeder
             'password' => Hash::make('123456789'),
             'email_verified_at'=>date('Y-m-d H:i:s'),
             'role'=>'3',
-            
+
         ]);
+        DB::table('site_settings')->insert([
+            'file' => ' ',
+            'footer' => ' ',
+            'noti' => ' ',
+
+
+        ]);
+
+
     }
 }
