@@ -34,5 +34,10 @@ return [
         'client_secret' => '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',
         'redirect' => 'http://fortunebti.herokuapp.com/public/auth/google/callback',
     ],
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => env('FACEBOOK_CALLBACK_URL'),
+    ],
 
 ];

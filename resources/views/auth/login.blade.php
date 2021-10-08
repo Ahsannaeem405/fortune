@@ -70,7 +70,9 @@
                   </div>
                   <div class="row">
                       <div class="col-md-6">
-                        <button type="submit" class="form-control  facebook"><i class="fab fa-facebook-f"></i> Użyj Faceboka</button>
+                         <a href="{{ url('auth/facebook') }}" class="btn btn-lg btn-primary btn-block">
+                        <button type="button" class="form-control  facebook"><i class="fab fa-facebook-f"></i> Użyj Faceboka</button>
+                      </a>
                       </div>
                       <div class="col-md-6">
                          <a href="{{ url('auth/google') }}">

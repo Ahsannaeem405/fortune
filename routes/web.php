@@ -161,3 +161,11 @@ Route::get('auth/google', [App\Http\Controllers\Auth\GoogleController::class, 'r
 Route::get('auth/google/callback', [App\Http\Controllers\Auth\GoogleController::class, 'handleGoogleCallback']);
 
 
+
+
+Route::get('auth/facebook', [App\Http\Controllers\Auth\facebook::class, 'redirectToFacebook']);
+
+Route::get('auth/facebook/callback', [App\Http\Controllers\Auth\facebook::class, 'handleFacebookCallback']);
+
+
+
