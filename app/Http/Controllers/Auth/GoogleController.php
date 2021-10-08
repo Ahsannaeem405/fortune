@@ -38,7 +38,7 @@ class GoogleController extends Controller
      
                 Auth::login($finduser);
     
-                return redirect('/home');
+               return redirect('/user/');
      
             }else{
                 $newUser = User::create([
