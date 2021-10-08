@@ -26,14 +26,7 @@ use Illuminate\Support\Facades\Route;
 
         return 'Complete';
     });
-    // for checking
-    Route::view('/regis','registeration');
-    Route::view('/contact','contact');
-    Route::view('/points','points');
-
-
-
-// checking end
+  
 
 
 
@@ -150,6 +143,8 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
 
 
     Route::view('/', 'loggedinHome');
+    Route::view('/contact','contact');
+    Route::view('/points','points');
 
 });
 
