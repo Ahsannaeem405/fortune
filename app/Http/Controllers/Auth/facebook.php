@@ -29,50 +29,36 @@ class facebook extends Controller
      *
      * @return void
      */
-     public function handleFacebookCallback()
+    public function handleFacebookCallback()
     {
 
         try {
-
+       
             $user = Socialite::driver('facebook')->user();
-
-            $finduser = User::where('facebook_id', $user->id)->first();
-
-            if($finduser){
-
-
-                return redirect('/')->with('success','Successfully Logged in.');
-
-
-            }else{
-            	if($user->email !=null)
-                    {
-
-
-		                $newUser = User::create([
-		                    'name' => $user->name,
-		                    'email' => $user->email,   
-		                    'facebook_id'=> $user->id,
-		                    'password' => encrypt('Superman_test')
-		                ]);
-		            }
-		            else{
-		            	 $newUser = User::create([
-		                    'name' => $user->name,
-		                    
-		                    'email' =>'demoemail@gmail.com',     
-		                    'facebook_id'=> $user->id,
-		                    'password' => encrypt('Superman_test')
-                        ]);
-
-		            }    
-
-
-                return redirect('/')->with('success','Successfully Logged in.');
+            $create['name'] = $user->getName();
+            if ($user->getEmail() !=null){
+            $create['email'] = $user->getEmail();	
             }
+            else{
+            	$create['email'] ='demoemail@gmail.com'
+            }
+            
+            $create['facebook_id'] = $user->getId();
+
+
+            $userModel = new User;
+            $createdUser = $userModel->addNew($create);
+            Auth::loginUsingId($createdUser->id);
+
+            return redirect('/user');
+
 
         } catch (Exception $e) {
-          dd($e->getMessage());
+
+
+            return redirect('auth/facebook');
+
+
         }
     }
 }
