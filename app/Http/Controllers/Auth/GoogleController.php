@@ -46,7 +46,7 @@ class GoogleController extends Controller
                     'email' => $user->email,
                     'google_id'=> $user->id,
                     'password' => encrypt('123456dummy'),
-                    'email_verified_at' =>date('Y-m-d H:i:s');
+                    'email_verified_at' =>date('Y-m-d H:i:s'),
                 ]);
     
                 Auth::login($newUser);
