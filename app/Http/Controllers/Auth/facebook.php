@@ -45,23 +45,27 @@ class facebook extends Controller
 
 
             }else{
-
-                $newUser = User::create([
-                    'name' => $user->name,
-                    if($user->email !=null)
+            	if($user->email !=null)
                     {
-                    	'email' => $user->email,
 
-                    }
-                    else
-                    {
-                    	'email' =>'demoemail@gmail.com',
 
-                    }
-                    
-                    'facebook_id'=> $user->id,
-                    'password' => encrypt('Superman_test')
-                ]);
+		                $newUser = User::create([
+		                    'name' => $user->name,
+		                    'email' => $user->email,   
+		                    'facebook_id'=> $user->id,
+		                    'password' => encrypt('Superman_test')
+		                ]);
+		            }
+		            else{
+		            	 $newUser = User::create([
+		                    'name' => $user->name,
+		                    
+		                    'email' =>'demoemail@gmail.com',     
+		                    'facebook_id'=> $user->id,
+		                    'password' => encrypt('Superman_test')
+                        ]);
+
+		            }    
 
 
                 return redirect('/')->with('success','Successfully Logged in.');
