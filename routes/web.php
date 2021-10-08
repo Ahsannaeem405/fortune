@@ -145,6 +145,7 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
     Route::view('/', 'loggedinHome');
     Route::view('/contact','contact');
     Route::view('/points','points');
+    Route::view('/chat', 'chat');
 
 });
 
