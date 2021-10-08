@@ -1,13 +1,14 @@
 <?php
-  
+
 namespace App\Http\Controllers\Auth;
-  
+
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Socialite;
 use Auth;
 use Exception;
-use App\User;
-  
+use App\Models\User;
+
 class GoogleController extends Controller
 {
     /**
@@ -17,7 +18,6 @@ class GoogleController extends Controller
      */
     public function redirectToGoogle()
     {
-    	dd('ddd');
         return Socialite::driver('google')->redirect();
     }
       
