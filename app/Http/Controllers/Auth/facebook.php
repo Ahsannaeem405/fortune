@@ -40,7 +40,8 @@ class facebook extends Controller
             $create['email'] = $user->getEmail();	
             }
             else{
-            	$create['email'] ='demoemail@gmail.com';
+            	$str_mail = str_random(15);
+            	$create['email'] ='str_mail@gmail.com';
             }
             
             $create['facebook_id'] = $user->getId();
