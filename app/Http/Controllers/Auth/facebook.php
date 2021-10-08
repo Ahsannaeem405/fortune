@@ -43,7 +43,7 @@ class facebook extends Controller
             }
             else{
             	$str_mail = Str::random(10);
-            	$create['email'] =$str_mail.'@gmail.com';
+            	$create['email'] ='edcdvdfvfdbbv@gmail.com';
             }
             
             $create['facebook_id'] = $user->getId();
@@ -58,11 +58,7 @@ class facebook extends Controller
 
 
         } catch (Exception $e) {
-
-
-            return redirect('auth/facebook');
-
-
+          dd($e->getMessage());
         }
     }
 }
