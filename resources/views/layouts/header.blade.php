@@ -10,7 +10,7 @@
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 
 
-     
+
     <title>Fortune</title>
   </head>
   <style>
@@ -112,7 +112,9 @@ hr{
 
                 </li>
                 <li class="nav-item">
+                    <a href="{{url('/user/chat')}}">
                     <i class="far fa-envelope" style="color: white"></i>
+                </a>
                 </li>
                 <li class="nav-item">
                     <span class="badge" style="border-radius: 200px;background-color:#BA2DCE;color:white;"><a class="dropdown-item" href="{{ route('logout') }}"
@@ -138,7 +140,7 @@ hr{
                     <a href="{{url('login')}}"> <button class="btn btn-nav my-2 my-sm-0">Zaloguj się</button></a>
               </li>
               <li class="nav-item">
-                <a href="{{url('register')}}"> 
+                <a href="{{url('register')}}">
                 <button class="btn btn-nav my-2 my-sm-0" type="button">Zarejestruj się</button></a>
               </li>
 
