@@ -45,7 +45,8 @@ class facebook extends Controller
             if($finduser){
 
 
-                return redirect('/')->with('success','Successfully Logged in.');
+                return redirect('/user');
+
 
 
             }else{
