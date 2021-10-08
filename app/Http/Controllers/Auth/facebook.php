@@ -44,12 +44,14 @@ class facebook extends Controller
 
             if($finduser){
 
-
+dd('dd2');
                 return redirect('/user');
 
 
 
-            }else{
+            }
+            else{
+                dd('dd1');
                 if ($user->getEmail() !=null){
                         $newUser = User::create([
                             'name' => $user->name,
@@ -74,10 +76,6 @@ class facebook extends Controller
                         ]);
                     
                 }
-            
-            dd('ddd');
-
-                
 
 
                 return redirect('/user');
