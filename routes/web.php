@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
     Route::view('/regis','registeration');
     Route::view('/contact','contact');
     Route::view('/points','points');
-    
+
 
 
 
@@ -151,6 +151,7 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
 
 
     Route::view('/', 'loggedinHome');
+    Route::view('/chat', 'chat');
 
 });
 
