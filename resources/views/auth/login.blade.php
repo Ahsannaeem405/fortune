@@ -70,10 +70,13 @@
                   </div>
                   <div class="row">
                       <div class="col-md-6">
-                        <button type="submit" class="form-control  facebook"><i class="fab fa-facebook-f"></i> Użyj Faceboka</button>
+                         <a href="{{ url('auth/facebook') }}">
+                        <button type="button" class="form-control  facebook"><i class="fab fa-facebook-f"></i> Użyj Faceboka</button></a>
                       </div>
                       <div class="col-md-6">
-                        <button type="submit" class="form-control google"><img src="{{ asset('images/g_logo.png')}}" style="width: 25px"><span style="font-size: 12px;"> Logowanie Google</span></button>
+                         <a href="{{ url('auth/google') }}">
+                        <button type="button" class="form-control google"><img src="{{ asset('images/g_logo.png')}}" style="width: 25px"><span style="font-size: 12px;"> Logowanie Google</span></button>
+                      </a>
                       </div>
                   </div><br>
                   <div class="row">
