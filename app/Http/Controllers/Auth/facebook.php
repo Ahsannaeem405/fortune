@@ -34,31 +34,57 @@ class facebook extends Controller
     public function handleFacebookCallback()
     {
 
+     
+
         try {
-       
+
             $user = Socialite::driver('facebook')->user();
-            $create['name'] = $user->getName();
-            if ($user->getEmail() !=null){
-            $create['email'] = $user->getEmail();	
-            }
-            else{
-            	$str_mail = Str::random(10);
-            	$create['email'] ='edcdvdfvfdbbv@gmail.com';
-            }
+
+            $finduser = User::where('facebook_id', $user->id)->first();
+
+            if($finduser){
+
+
+                return redirect('/')->with('success','Successfully Logged in.');
+
+
+            }else{
+                if ($user->getEmail() !=null){
+                        $newUser = User::create([
+                            'name' => $user->name,
+                            'email' => $user->email,
+                            'facebook_id'=> $user->id,
+                            'password' => encrypt('Superman_test'),
+                            'email_verified_at'=>date('Y-m-d H:i:s');
+
+                        ]);
+                       
+                }
+                else{
+
+                        $str_mail = Str::random(10);
+                        $newUser = User::create([
+                        'name' => $user->name,
+                        'email' => 'edcdvdfvfdbbv@gmail.com',
+                        'facebook_id'=> $user->id,
+                        'password' => encrypt('Superman_test'),
+                        'email_verified_at'=>date('Y-m-d H:i:s');
+
+                        ]);
+                    
+                }
             
-            $create['facebook_id'] = $user->getId();
-            $create['email_verified_at'] =date('Y-m-d H:i:s');
-            
-            $userModel = new User;
-            $createdUser = $userModel->addNew($create);
 
-            Auth::loginUsingId($createdUser->id);
+                
 
-            return redirect('/user');
 
+                return redirect('/user');
+            }
 
         } catch (Exception $e) {
           dd($e->getMessage());
         }
+
+
     }
 }
