@@ -33,7 +33,7 @@ class facebook extends Controller
     {
 
         try {
-        dd('ddd1');
+       
             $user = Socialite::driver('facebook')->user();
             $create['name'] = $user->getName();
             $create['email'] = $user->getEmail();
@@ -43,7 +43,7 @@ class facebook extends Controller
             $userModel = new User;
             $createdUser = $userModel->addNew($create);
             Auth::loginUsingId($createdUser->id);
-
+ dd('ddd2');
 
             return redirect()->route('home');
 
