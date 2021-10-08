@@ -125,7 +125,7 @@ hr{
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
-                                    </form>5</span>
+                                    </form></span>
                 </li>
 
                 <li class="nav-item">
