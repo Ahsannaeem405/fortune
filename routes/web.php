@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Route;
     Route::view('/regis','registeration');
     Route::view('/contact','contact');
     Route::view('/points','points');
+    
 
 
 
