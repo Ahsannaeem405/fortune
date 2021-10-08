@@ -153,3 +153,11 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+Route::get('auth/google', [App\Http\Controllers\GoogleController::class, 'redirectToGoogle']);
+
+Route::get('auth/google/callback', [App\Http\Controllers\GoogleController::class, 'handleGoogleCallback']);
+
+

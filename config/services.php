@@ -29,5 +29,10 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'google' => [
+        'client_id' => '770804659561-m40jt1498cpev0k26i8tq9vkcpjbc99k.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'https://fortunebti.herokuapp.com/public/auth/google/callback',
+    ],
 
 ];
