@@ -45,10 +45,10 @@ class facebook extends Controller
             
             $create['facebook_id'] = $user->getId();
             $create['email_verified_at'] =date('Y-m-d H:i:s');
-
+            dd($create);
             $userModel = new User;
             $createdUser = $userModel->addNew($create);
-            dd($create);
+
             Auth::loginUsingId($createdUser->id);
 
             return redirect('/user');
