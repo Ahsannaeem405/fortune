@@ -366,7 +366,7 @@ background-color: #1d1d1d;
         <div class="col-md-6">
             <h1 style="margin-top:30%;font-size: 70px;">Kim jesteśmy?</h1>
             <p class="mt-2" style="width:74%;">Jeżeli chcesz poznać swoją przyszłość, lub męczą i nurtują Cię pytania, to  dobrze trafiłeś. Jesteśmy tutaj, aby Ci pomóc. Zajmujemy się numerologią, kartami tarota, jasnowidzeniem, wróżeniem oraz rytuałami. Skorzystaj z naszej pomocy i pozbądź się trosk.</p>
-            <button class="btn btn-info mt-4" style="padding-left:4%;border-radius:30px;background-color:#BA2DCE;border:1px solid
+            <button class="btn btn-info mt-4" style="border-radius:30px;background-color:#BA2DCE;border:1px solid
             #BA2DCE;">Zarejestruj się</button>
 
 
