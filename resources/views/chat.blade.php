@@ -279,19 +279,25 @@
     padding-left: 10px !important;
     }
 }
-@media only screen and (min-width:1024px){
-.Send_btn{
-    padding-right: 7px;
-    padding-left: 6px;
-}
-}
-@media only screen and (min-width:375px){
+@media screen and (max-height: 768px) {
     .Send_btn{
-        padding-right: 10px;
-    padding-left: 9px;
+        padding-right: 18px !important;
+    padding-left: 17px !important;
     }
 }
-@media only screen and (min-width:320px){
+@media only screen and (min-width:1023px){
+.Send_btn{
+    padding: 9px;
+    font-size: 14px;
+}
+}
+@media only screen and (max-width:375px){
+    .Send_btn{
+        padding-right: 15px !important;
+    padding-left: 10px !important;
+    }
+}
+@media only screen and (max-width:320px){
     .Send_btn{
         font-size: 12px;
         padding-right: 12px !important;
