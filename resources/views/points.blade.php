@@ -1,4 +1,5 @@
 @extends('layouts.header')
+<link rel="stylesheet" href="{{asset('assets/css/login.css')}}">
 <style>
 
     .input{
@@ -8,10 +9,10 @@
         border:1px solid white !important;
         font-size: 18px !important;
         text-align: center !important;
+        background-color: #333333!important;
     }
     .span1{
         color: white;
-
         font-weight: bold;
 
     }
