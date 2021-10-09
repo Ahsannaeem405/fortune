@@ -94,6 +94,10 @@ hr{
     padding: 10px;
     font-size: 20px;
 }
+.dropdown-item:hover{
+background-color: #C42FD5;
+}
+
 
   </style>
   <body>
