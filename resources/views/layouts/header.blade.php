@@ -68,6 +68,7 @@ footer{
 }
 .list-unstyled{
     color: white;
+    line-height: 45px;
 }
 .list-unstyled a{
     color: white;
@@ -94,12 +95,90 @@ hr{
     padding: 10px;
     font-size: 20px;
 }
+.logoutbtn{
+    color: white;
+}
+.logoutbtn:hover{
+background-color: transparent !important;
+color: black;
+}
+.dropdown_logout{
+    margin-left: -20px !important;
+}
+.badge{
+    width: 100%;
+}
+/* dropdown */
+.dropbtn {
+  color: white;
+  background-color: transparent;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: transparent;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-top: -7px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+.myDropdown{
+    padding: 0px !important;
+}
+@media only screen and (max-width: 768px){
+.logout_item{
+    display: block !important;
+}
+.dots{
+    display: none !important;
+}
+
+
+}
+@media only screen and (min-width: 769px){
+.logout_item{
+    display: none !important;
+
+}
+.dots{
+    display: block !important;
+}
+
+
+}
+
 
   </style>
   <body>
     <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><img src="images/logo2.png" alt="" style="width:100%;"></a>
+        <a class="navbar-brand" href="#"><img src="{{asset('images/logo2.png')}}" alt="" style="width:100%;"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -116,8 +195,8 @@ hr{
                     <i class="far fa-envelope" style="color: white"></i>
                 </a>
                 </li>
-                <li class="nav-item">
-                    <span class="badge" style="border-radius: 200px;background-color:#BA2DCE;color:white;"><a class="dropdown-item" href="{{ route('logout') }}"
+                <li class="nav-item logout_item">
+                    <span class="badge" style="border-radius: 200px;background-color:#BA2DCE;color:white;"><a class="dropdown-item logoutbtn" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -126,10 +205,25 @@ hr{
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form></span>
+
                 </li>
 
-                <li class="nav-item">
-                    <i class="fas fa-ellipsis-v" style="color: white"></i>
+                <li class="nav-item dots">
+                    <div class="dropdown">
+                        <button onclick="myFunction()" class="dropbtn"><i class="fas fa-ellipsis-v" style="color: white"></i></button>
+                        <div id="myDropdown" class="dropdown-content dropdown_logout">
+                            <span class="badge" ><a class="dropdown-item logoutbtn" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                 {{ __('Logout') }}
+                             </a>
+
+                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                 @csrf
+                             </form></span>
+                        </div>
+                      </div>
+
                 </li>
 
 
@@ -238,9 +332,7 @@ hr{
 
                   <ul class="list-unstyled">
                     <li>
-                      <a href="#"><i class="far fa-envelope-open"></i> Napisz do nas <br>
-
-                       </a>
+                      <a href="#"><i class="far fa-envelope-open"></i><span style="font-size: 10px;"> Napisz do nas</span> <br></a>
                     </li>
                     <li>
                         <a href="#!">&nbsp; &nbsp; info@powrozmi.pl</a>
@@ -250,9 +342,9 @@ hr{
 
                 </div>
                 <!-- Grid column -->
-                <div class="col-md-12 pb-4">
-                    <center style="color: white;">
-                    Powrozmi.pl © 2021 | All rights reserved.</center>
+                <div class="col-md-12 pb-4" style="padding-top: 10px; padding-left:80px;border-top: 1px solid lightgray;">
+                    <p style="color: white;">
+                    Powrozmi.pl © 2021 | All rights reserved.</p>
 
                 </div>
 
@@ -275,7 +367,27 @@ hr{
 
   <!-- Footer -->
 
+  <script>
+    /* When the user clicks on the button,
+    toggle between hiding and showing the dropdown content */
+    function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
 
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+    </script>
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>

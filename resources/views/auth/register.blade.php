@@ -16,6 +16,10 @@
         color: grey;
         font-weight: normal !important;
     }
+    .google_text{
+        font-size: 12px;
+    }
+
     @media only screen and (max-width: 425px){
     /*Small smartphones [325px -> 425px]*/
     .google{
@@ -26,6 +30,22 @@
     /*Small smartphones [325px -> 425px]*/
     .facebook{
         font-size: 13px !important;
+    }
+    .google_text{
+        font-size: 8px;
+    }
+    .fb_text{
+        font-size: 10px;
+
+    }
+}
+@media only screen and (max-width: 425px){
+    .google_text{
+        font-size: 15px;
+    }
+    .fb_text{
+        font-size: 15px;
+
     }
 }
 </style>
@@ -43,11 +63,11 @@
                 <div class="login-wrap p-4 p-md-5">
 
                   <h4 class="text-center mb-4" style="color: white">Załóż konto i odbierz wróżbę</h4>
-                  <form method="POST" action="{{ route('register') }}" name="myForm" class="login-form"> 
+                  <form method="POST" action="{{ route('register') }}" name="myForm" class="login-form">
                     @csrf
-                   
+
                     <div class="form-group">
-                      
+
                         <input id="name" type="text" class="input form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Podaj login">
                         @error('name')
                               <span class="invalid-feedback" role="alert">
@@ -62,11 +82,11 @@
                           <strong>{{ $message }}</strong>
                       </span>
                       @enderror
-                     
+
                     </div>
                     <div class="form-group ">
                       <input id="password-confirm" type="password" class="form-control input" name="password_confirmation" required autocomplete="new-password" placeholder="Powtórz hasło">
-                      
+
                     </div>
                     <div class="form-group ">
                       <input id="email" type="email" class="input form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Address e-mail">
@@ -77,28 +97,28 @@
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
-                      
+
                     </div>
-                    <div class="form-group ">
+                    <div class="form-group" style="margin-top: -26px;">
                       <input id="password-confirm" type="date" class="input form-control date" name="dob" required autocomplete="new-password" placeholder="Data urodzenia">
-                      
+
                     </div>
                     <div class="form-group d-m">
                         <label>
 
                             <input type="checkbox">
-                            <span style="color: gray;font-size: 14px;">Akceptuję postanowienia cennika oraz regulaminu</span>
+                            <span style="color: gray;font-size: 11px;">Akceptuję postanowienia cennika oraz regulaminu</span>
                           </label>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                           <a href="{{ url('auth/facebook') }}">
-                          <button type="button" class="form-control  facebook"><i class="fab fa-facebook-f"></i> Użyj Faceboka</button></a>
+                          <button type="button" class="form-control  facebook"><i class="fab fa-facebook-f" style="font-size: 20px;"></i><span class="fb_text"> Użyj Faceboka</span></button></a>
                         </div>
                         <div class="col-md-6">
                            <a href="{{ url('auth/google') }}">
-                                  
-                          <button type="button" class="form-control google"><img src="{{ asset('images/g_logo.png')}}" style="width: 25px"><span style="font-size: 12px;"> Logowanie Google</span></button></a>
+
+                          <button type="button" class="form-control google"><img src="{{ asset('images/g_logo.png')}}" style="width: 25px"><span class="google_text"> Logowanie Google</span></button></a>
                         </div>
                     </div><br>
                     <div class="row">
@@ -136,8 +156,8 @@
         alert('Sorry You are under 18');
     }
 
-      
-   
+
+
     })
 </script>
 

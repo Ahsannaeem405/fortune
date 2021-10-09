@@ -38,7 +38,7 @@ background-size: cover;
 #demo {
 /*    background: linear-gradient(112deg, #ffffff 50%, antiquewhite 50%);
 */
-background-color: #1d1d1d;   
+background-color: #1d1d1d;
     margin: auto
 }
 
@@ -173,30 +173,30 @@ background-color: #1d1d1d;
             <img src="{{asset('images/home4.png')}}" alt="Snow" width="100%;">
         </div>
         <div class="col-md-6">
-            <h1 style="margin-top:30%;font-size: 70px;padding-left:4%;">Kim jesteśmy?</h1>
+            <h1 style="margin-top:30%;font-size: 70px;padding-left:1%;">Kim jesteśmy?</h1>
             <p class="mt-2" style="width:74%;">Jeżeli chcesz poznać swoją przyszłość, lub męczą i nurtują Cię pytania, to  dobrze trafiłeś. Jesteśmy tutaj, aby Ci pomóc. Zajmujemy się numerologią, kartami tarota, jasnowidzeniem, wróżeniem oraz rytuałami. Skorzystaj z naszej pomocy i pozbądź się trosk.</p>
             <button class="btn btn-info mt-4" style="padding-left:4%;border-radius:30px;background-color:#BA2DCE;border:1px solid
             #BA2DCE;">Zarejestruj się</button>
 
-            
-            
+
+
         </div>
     </div>
     <div class="container">
         <div class="row" style="margin-left:0px;margin-right:0px;">
             <div class="col-md-12 mt-5 mb-5">
                 <center><h1 style="font-size:70px;">Wybierz swój znak zodiaku</h1></center>
-                
+
             </div>
             <div class="col-md-2">
                 <img src="{{asset('images/l1.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Baran</h5>
-    
+
             </div>
             <div class="col-md-2">
                 <img src="{{asset('images/l2.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Byk</h5>
-    
+
             </div>
             <div class="col-md-2">
                 <img src="{{asset('images/l3.png')}}" alt="Snow" width="100%;">
@@ -241,7 +241,7 @@ background-color: #1d1d1d;
                 <img src="{{asset('images/l12.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Ryby</h5>
             </div>
-            
+
         </div>
         <div class="row">
             <div class="col-md-4">
@@ -249,7 +249,7 @@ background-color: #1d1d1d;
             </div>
             <div class="col-md-8"></div>
         </div>
-    </div> 
+    </div>
     <h1 class="pb-5 pt-5"><center>Opinie o nas</center></h1>
     <div class="container pb-5">
     <div id="demo" class="carousel slide" data-ride="carousel">
@@ -257,33 +257,33 @@ background-color: #1d1d1d;
             <div class="carousel-item active">
                 <div class="carousel-caption">
                     <img src="{{asset('images/slide2.png')}}">
-                    <p>Wróżka Joasia bardzo nam pomogła. Jej wozba, a następnie rytuał na poprawę naszej relacji były doskonałe. Teraz jesteśmy parą, która szczerze się kocha i oczekujemy dziecka. Polecamy gorąco!Kasia i Paweł</p> 
-                    
+                    <p>Wróżka Joasia bardzo nam pomogła. Jej wozba, a następnie rytuał na poprawę naszej relacji były doskonałe. Teraz jesteśmy parą, która szczerze się kocha i oczekujemy dziecka. Polecamy gorąco!Kasia i Paweł</p>
+
                 </div>
             </div>
             <div class="carousel-item">
                 <div class="carousel-caption">
                     <img src="{{asset('images/slide3.png')}}" class="img-fluid">
-                    <p>Wróżka Joasia bardzo nam pomogła. Jej wozba, a następnie rytuał na poprawę naszej relacji były doskonałe. Teraz jesteśmy parą, która szczerze się kocha i oczekujemy dziecka. Polecamy gorąco!Kasia i Paweł</p> 
+                    <p>Wróżka Joasia bardzo nam pomogła. Jej wozba, a następnie rytuał na poprawę naszej relacji były doskonałe. Teraz jesteśmy parą, która szczerze się kocha i oczekujemy dziecka. Polecamy gorąco!Kasia i Paweł</p>
                 </div>
             </div>
             <div class="carousel-item">
                 <div class="carousel-caption">
                     <img src="{{asset('images/slide4.png')}}" class="img-fluid">
-                    <p>Wróżka Joasia bardzo nam pomogła. Jej wozba, a następnie rytuał na poprawę naszej relacji były doskonałe. Teraz jesteśmy parą, która szczerze się kocha i oczekujemy dziecka. Polecamy gorąco!Kasia i Paweł</p> 
-                    
+                    <p>Wróżka Joasia bardzo nam pomogła. Jej wozba, a następnie rytuał na poprawę naszej relacji były doskonałe. Teraz jesteśmy parą, która szczerze się kocha i oczekujemy dziecka. Polecamy gorąco!Kasia i Paweł</p>
+
                 </div>
             </div>
         </div>
         <div class="row pb-5">
-        <a href="#demo" data-slide="prev" style="margin-left:auto;"> <i class='fas fa-arrow-left i'></i> </a> <a  href="#demo" data-slide="next" style="margin-right:auto;"> <i class='fas fa-arrow-right i2'></i> </a> 
+        <a href="#demo" data-slide="prev" style="margin-left:auto;"> <i class='fas fa-arrow-left i'></i> </a> <a  href="#demo" data-slide="next" style="margin-right:auto;"> <i class='fas fa-arrow-right i2'></i> </a>
         </div>
-        
-        
+
+
     </div>
     <div class="row">
         <img src="{{asset('images/slide5.png')}}" style="margin: auto;"></div>
-</div>   
+</div>
 </div>
 
 @endsection

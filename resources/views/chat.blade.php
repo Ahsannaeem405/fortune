@@ -309,12 +309,12 @@
         <div class="row sidebar_row">
             <div class="col-10">
 
-                <img src="http://127.0.0.1:8000/images/logo2.png" alt="" class="logo">
+                <img src="{{asset('images/logo2.png')}}" alt="" class="logo">
 
 
             <div class="profile p-3">
                 <div class="image">
-                <img src="http://127.0.0.1:8000/images/slide1.png" alt="">
+                <img src="{{asset('images/slide1.png')}}" alt="">
                 </div><br>
                 <h5>BillBoard</h5>
                 <p>Lorem ipsum dolor sit amet.</p>
@@ -333,7 +333,7 @@
             <div class="listend">
                 <div class="contactlist active">
                     <div class="contact_image">
-                        <img src="http://127.0.0.1:8000/images/slide1.png" class="contact_image" alt="">
+                        <img src="{{asset('images/slide1.png')}}" class="contact_image" alt="">
                     </div>
                     <div class="contact_name">
                         <p>Henry</p>
@@ -344,7 +344,7 @@
                 </div>
                 <div class="contactlist">
                     <div class="contact_image">
-                        <img src="http://127.0.0.1:8000/images/slide1.png" class="contact_image" alt="">
+                        <img src="{{asset('images/slide1.png')}}" class="contact_image" alt="">
                     </div>
                     <div class="contact_name">
                         <p>Henry</p>
@@ -355,7 +355,7 @@
                 </div>
                 <div class="contactlist">
                     <div class="contact_image">
-                        <img src="http://127.0.0.1:8000/images/slide1.png" class="contact_image" alt="">
+                        <img src="{{asset('images/slide1.png')}}" class="contact_image" alt="">
                     </div>
                     <div class="contact_name">
                         <p>Henry</p>

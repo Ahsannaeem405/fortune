@@ -81,24 +81,37 @@ font-size: 13px;
  <div class="container">
     <div class="row" style="text-align: center">
         <div class="col-lg-2  col-6">
-            <img src="{{asset('images/1.png')}}" alt="">
+            <img src="{{asset('images/l1.png')}}" alt="">
+            <p style="color: white;margin-top: 28px;">Sprawy finasowe</p>
         </div>
         <div class="col-lg-2 col-6">
-            <img src="{{asset('images/2.png')}}" alt="">
+            <img src="{{asset('images/l2.png')}}" alt="">
+            <p style="color: white;margin-top: 28px;">Miłość i związki</p>
+
         </div>
         <div class="col-lg-2 col-6">
-            <img src="{{asset('images/3.png')}}" alt="">
+            <img src="{{asset('images/l3.png')}}" alt="">
+            <p style="color: white;margin-top: 28px;">Sprawy biznesowe</p>
+
+
+
         </div>
         <div class="col-lg-2 col-6">
-            <img src="{{asset('images/4.png')}}" alt="">
+            <img src="{{asset('images/l4.png')}}" alt="">
+            <p style="color: white">Astrologia</p>
+
         </div>
         <div class="col-lg-2 col-6">
-            <img src="{{asset('images/5.png')}}" alt="">
+            <img src="{{asset('images/l5.png')}}" alt="">
+            <p style="color: white">Tarot</p>
+
         </div>
         <div class="col-lg-2 col-6">
-            <img src="{{asset('images/6.png')}}" alt="">
+            <img src="{{asset('images/l11.png')}}" alt="">
+            <p style="color: white">Przyszłość</p>
+
         </div>
-    </div>
+    </div><br><br>s
     <h3>Wróżbici</h3>
     <div class="row r-1">
         <div class="col-lg-3 col-12">
