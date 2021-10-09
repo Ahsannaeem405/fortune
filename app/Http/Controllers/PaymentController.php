@@ -5,6 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Omnipay\Omnipay;
 use App\Models\Payment;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
+
+
+
+
 
 class PaymentController extends Controller
 {
@@ -26,14 +33,17 @@ class PaymentController extends Controller
 
     public function charge(Request $request)
     {
-        if($request->input('submit'))
-        {
+            session()->put('points',$request->points);
+            // dd(session()->get('points'));
+
             try {
+
                 $response = $this->gateway->purchase(array(
                     'amount' => $request->input('amount'),
                     'currency' => env('PAYPAL_CURRENCY'),
                     'returnUrl' => url('paymentsuccess'),
                     'cancelUrl' => url('paymenterror'),
+
                 ))->send();
 
                 if ($response->isRedirect()) {
@@ -45,7 +55,7 @@ class PaymentController extends Controller
             } catch(Exception $e) {
                 return $e->getMessage();
             }
-        }
+
     }
 
     public function payment_success(Request $request)
@@ -53,6 +63,7 @@ class PaymentController extends Controller
         // Once the transaction has been approved, we need to complete it.
         if ($request->input('paymentId') && $request->input('PayerID'))
         {
+
             $transaction = $this->gateway->completePurchase(array(
                 'payer_id'             => $request->input('PayerID'),
                 'transactionReference' => $request->input('paymentId'),
@@ -77,6 +88,13 @@ class PaymentController extends Controller
                     $payment->currency = env('PAYPAL_CURRENCY');
                     $payment->payment_status = $arr_body['state'];
                     $payment->save();
+                    $point=session()->get('points');
+
+                    $user=User::find(Auth::user()->id);
+                    $user->point=$point;
+                    $user->save();
+                    // dd(Auth::user()->point);
+
                 }
 
                 return "Payment is successful. Your transaction id is: ". $arr_body['id'];

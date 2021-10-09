@@ -195,6 +195,9 @@ color: black;
                     <i class="far fa-envelope" style="color: white"></i>
                 </a>
                 </li>
+                <li class="nav-item" style="color: white">
+                    {{Auth::user()->point}}
+                </li>
                 <li class="nav-item logout_item">
                     <span class="badge" style="border-radius: 200px;background-color:#BA2DCE;color:white;"><a class="dropdown-item logoutbtn" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
