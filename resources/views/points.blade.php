@@ -7,7 +7,8 @@
         padding: 25px !important;
         color: white !important;
         border:1px solid white !important;
-        font-size: 25px !important;
+        font-size: 18px !important;
+        text-align: center !important;
     }
     .span1{
         color: white;
@@ -27,7 +28,7 @@
       width: 100%;
       text-align:left !important;
       color: #ffffff!important;
-      
+
     }
     .btn-link i{
       float: right;
@@ -42,6 +43,7 @@
       border:1px solid #1d1d1d;
       color: #ffffff!important;
     }
+
     @media only screen and (max-width: 425px){
 	/*Small smartphones [325px -> 425px]*/
     .google{
@@ -64,44 +66,44 @@
         <div class="row justify-content-center">
             <div class="col-lg-12" >
               <h1 style="color: white;text-align: center;">Wybierz ile chcesz punktów</h1>
-              <p style="color: white;text-align: center;font-size: 1.5rem;">A następnie porozmawiaj z naszymi ekspertami</p>
+              <p style="color: white;text-align: center;font-size:18px;">A następnie porozmawiaj z naszymi ekspertami</p>
             </div>
             <div class="col-md-7 col-lg-5">
                 <div class=" p-4 p-md-5 mt-5">
 
-                  
-                  <form method="POST" action="{{ route('register') }}" name="myForm" class="login-form"> 
+
+                  <form method="POST" action="{{ route('register') }}" name="myForm" class="login-form">
                     @csrf
-                   
+
                     <div class="form-group">
-                      
+
                         <input id="name" type="text" class="input active form-control " value="3 punkty za 7,99 zł" readonly="" >
                     </div>
                     <div class="form-group ">
                       <input id="name" type="text" class="input form-control " value="5 punkty za 12,99 zł" readonly="" >
-                     
+
                     </div>
                      <div class="form-group ">
                       <input id="name" type="text" class="input form-control " value="10 punkty za 24,99 zł" readonly="" >
-                     
+
                     </div>
                      <div class="form-group ">
                       <input id="name" type="text" class="input form-control " value="15 punkty za 38,99 zł" readonly="" >
-                     
+
                     </div>
                      <div class="form-group ">
                       <input id="name" type="text" class="input form-control " value="25 punkty za 61,99 zł" readonly="" >
-                     
+
                     </div>
                      <div class="form-group ">
                       <input id="name" type="text" class="input form-control " value="50 punkty za 127,99 zł" readonly="" >
-                     
+
                     </div>
                      <div class="form-group ">
                       <input id="name" type="text" class="input form-control " value="100 punkty za 229,99 zł" readonly="" >
-                     
+
                     </div>
-                    
+
                   </form>
                 </div>
                 <div class="row">
@@ -128,7 +130,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-12 pb-5">
               <h1 style="color: white;text-align: center;">Najczęstsze pytania</h1>
-             
+
             </div>
             <div class="col-lg-10">
               <div id="accordion">
@@ -180,23 +182,23 @@
                   </div>
                 </div>
               </div>
-                
 
-                  
-                  
+
+
+
             </div>
         </div>
     </div>
 </section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <script>
- 
+
     $(document).ready(function(){
       $(".input").click(function() {
         $(".input").removeClass("active");
         $(this).addClass("active");
       });
-           
+
     });
   </script>
 
