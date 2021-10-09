@@ -274,6 +274,24 @@
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 18px;}
 }
+@media only screen and (min-width:1024px){
+.Send_btn{
+    padding-right: 7px;
+    padding-left: 6px;
+}
+}
+@media only screen and (min-width:375px){
+    .Send_btn{
+        padding-right: 10px;
+    padding-left: 9px;
+    }
+}
+@media only screen and (min-width:320px){
+    .Send_btn{
+        padding-right: 2px;
+    padding-left: 2px;
+    }
+}
 
 
   </style>
