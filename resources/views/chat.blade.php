@@ -225,7 +225,7 @@
   #main {
     transition: margin-left .5s;
     padding: 16px;
-  } 
+  }
   .closebtn{
       z-index: 200;
   }
@@ -274,23 +274,35 @@
 @media screen and (max-height: 450px) {
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 18px;}
-}
-@media only screen and (min-width:1024px){
-.Send_btn{
-    padding-right: 7px;
-    padding-left: 6px;
-}
-}
-@media only screen and (min-width:375px){
-    .Send_btn{
-        padding-right: 10px;
-    padding-left: 9px;
+  .Send_btn{
+        padding-right: 10px !important;
+    padding-left: 10px !important;
     }
 }
-@media only screen and (min-width:320px){
+@media screen and (max-height: 768px) {
     .Send_btn{
-        padding-right: 2px;
-    padding-left: 2px;
+        padding-right: 18px !important;
+    padding-left: 17px !important;
+    }
+}
+@media only screen and (min-width:1023px){
+.Send_btn{
+    padding: 9px;
+    font-size: 14px;
+}
+}
+@media only screen and (max-width:375px){
+    .Send_btn{
+        padding-right: 15px !important;
+    padding-left: 10px !important;
+    }
+}
+@media only screen and (max-width:320px){
+    .Send_btn{
+        font-size: 12px;
+        padding-right: 12px !important;
+    padding-left: 8px !important;
+    padding:9px;
     }
 }
 
@@ -303,14 +315,14 @@
 
 /* Track */
 .right_box::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px gray; 
+  box-shadow: inset 0 0 5px gray;
   border-radius: 15px;
 }
 
- 
+
 /* Handle */
 .right_box::-webkit-scrollbar-thumb {
-  background:#C530D6; 
+  background:#C530D6;
   border-radius: 15px;
    height: 50px;
 
@@ -318,7 +330,7 @@
 
 /* Handle on hover */
 .right_box::-webkit-scrollbar-thumb:hover {
-  background:#C530D6; 
+  background:#C530D6;
 }
 </style>
   <body>
@@ -567,7 +579,7 @@
 
 
                 </div>
-              
+
                     <div class="row message_type">
 
                             <div class="col-lg-10 col-sm-9 col-7">
@@ -588,7 +600,7 @@
 
 
                     </div>
-                
+
 
             </div>
         </div>
