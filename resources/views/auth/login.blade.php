@@ -3,7 +3,8 @@
 <style>
     .input{
         border-radius: 50px !important;
-        padding: 25px !important;
+        padding:25px !important;
+        color:white!important;
     }
     .span1{
         color: white;
