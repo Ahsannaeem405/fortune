@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 
 use App\Models\User;
+use Illuminate\Support\Str;
+
 use App\Http\Controllers\Controller;
 use Socialite;
 use Exception;
@@ -32,35 +34,57 @@ class facebook extends Controller
     public function handleFacebookCallback()
     {
 
+     
+
         try {
-       
+
             $user = Socialite::driver('facebook')->user();
-            $create['name'] = $user->getName();
-            if ($user->getEmail() !=null){
-            $create['email'] = $user->getEmail();	
+
+            $finduser = User::where('facebook_id', $user->id)->first();
+
+            if($finduser){
+                 
+                Auth::login($finduser);
+                return redirect('/user');
+
+
+
             }
             else{
-            	$str_mail = str_random(15);
-            	$create['email'] ='str_mail@gmail.com';
+                if ($user->getEmail() !=null){
+                        $newUser = User::create([
+                            'name' => $user->name,
+                            'email' => $user->email,
+                            'facebook_id'=> $user->id,
+                            'password' => encrypt('Superman_test'),
+                            'email_verified_at'=>date('Y-m-d H:i:s'),
+
+                        ]);
+                       
+                }
+                else{
+
+                        $str_mail = Str::random(10);
+                        $newUser = User::create([
+                        'name' => $user->name,
+                        'email' => 'edcdvdfvfdbbv@gmail.com',
+                        'facebook_id'=> $user->id,
+                        'password' => encrypt('Superman_test'),
+                        'email_verified_at'=>date('Y-m-d H:i:s'),
+
+                        ]);
+                    
+                }
+                Auth::login($newUser);
+
+
+                return redirect('/user');
             }
-            
-            $create['facebook_id'] = $user->getId();
-            $create['email_verified_at'] =date('Y-m-d H:i:s');
-            dd($create);
-            $userModel = new User;
-            $createdUser = $userModel->addNew($create);
-
-            Auth::loginUsingId($createdUser->id);
-
-            return redirect('/user');
-
 
         } catch (Exception $e) {
-
-
-            return redirect('auth/facebook');
-
-
+          dd($e->getMessage());
         }
+
+
     }
 }
