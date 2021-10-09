@@ -16,6 +16,16 @@
         font-weight: bold;
 
     }
+
+    .pur{
+     
+      background-color: #BA2DCE !important;
+      color: white !important;
+      border-radius: 50px !important;
+      height: 40px !important;
+      font-weight: bold;
+      border: 1px solid #BA2DCE !important;
+    }
     .centerspan{
         color: grey;
         font-weight: normal !important;
@@ -108,7 +118,7 @@
                 </div>
                 <div class="row">
                         <div class="col-md-12">
-                          <button type="submit" class="submit btn  form-control login"> Doładuj punkty</button>
+                          <button type="submit" class="submit btn  form-control pur"> Doładuj punkty</button>
                         </div>
                 </div>
                 <div class="row mt-5">
