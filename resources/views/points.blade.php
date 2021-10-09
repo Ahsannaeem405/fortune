@@ -1,5 +1,4 @@
 @extends('layouts.header')
-<link rel="stylesheet" href="{{asset('assets/css/login.css')}}">
 <style>
 
     .input{
