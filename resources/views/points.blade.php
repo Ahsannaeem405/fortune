@@ -87,30 +87,31 @@
 
                     <div class="form-group">
 
-                        <input id="name" type="text" class="input active form-control " value="3 punkty za 7,99 zł" readonly="" >
+                        <input id="name" type="text" class="input active form-control " value="3 punkty za 7,99 zł" readonly=""  price="799">
+                        <input id="amount" type="hidden" class="input form-control" name="amount">
                     </div>
                     <div class="form-group ">
-                      <input id="name" type="text" class="input form-control " value="5 punkty za 12,99 zł" readonly="" >
+                      <input id="name" type="text" class="input form-control " value="5 punkty za 12,99 zł" readonly="" price="1299">
 
                     </div>
                      <div class="form-group ">
-                      <input id="name" type="text" class="input form-control " value="10 punkty za 24,99 zł" readonly="" >
+                      <input id="name" type="text" class="input form-control " value="10 punkty za 24,99 zł" readonly="" price="2499">
 
                     </div>
                      <div class="form-group ">
-                      <input id="name" type="text" class="input form-control " value="15 punkty za 38,99 zł" readonly="" >
+                      <input id="name" type="text" class="input form-control " value="15 punkty za 38,99 zł" readonly="" price="3899">
 
                     </div>
                      <div class="form-group ">
-                      <input id="name" type="text" class="input form-control " value="25 punkty za 61,99 zł" readonly="" >
+                      <input id="name" type="text" class="input form-control " value="25 punkty za 61,99 zł" readonly="" price="6199">
 
                     </div>
                      <div class="form-group ">
-                      <input id="name" type="text" class="input form-control " value="50 punkty za 127,99 zł" readonly="" >
+                      <input id="name" type="text" class="input form-control " value="50 punkty za 127,99 zł" readonly="" price="12799">
 
                     </div>
                      <div class="form-group ">
-                      <input id="name" type="text" class="input form-control " value="100 punkty za 229,99 zł" readonly="" >
+                      <input id="name" type="text" class="input form-control " value="100 punkty za 229,99 zł" readonly="" price="22999">
 
                     </div>
 
@@ -142,7 +143,7 @@
               <h1 style="color: white;text-align: center;">Najczęstsze pytania</h1>
 
             </div>
-            <div class="col-lg-10">
+            <div class="col-lg-10 pb-5">
               <div id="accordion">
                 <div class="card">
                   <div class="card-header" id="headingOne">
@@ -207,6 +208,11 @@
       $(".input").click(function() {
         $(".input").removeClass("active");
         $(this).addClass("active");
+         var new_pri=$(this).attr('price');
+        $("#amount").val(new_pri);
+
+
+
       });
 
     });
