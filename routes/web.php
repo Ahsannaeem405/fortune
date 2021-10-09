@@ -35,6 +35,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('payment', [App\Http\Controllers\PaymentController::class,'index']);
+Route::post('charge', [App\Http\Controllers\PaymentController::class,'charge']);
+Route::get('paymentsuccess', [App\Http\Controllers\PaymentController::class,'payment_success']);
+Route::get('paymenterror', [App\Http\Controllers\PaymentController::class,'payment_error']);
+Route::view('/paypal', 'paypal');
+
+
 
 Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
 

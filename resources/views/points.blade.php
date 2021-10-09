@@ -82,7 +82,7 @@
                 <div class=" p-4 p-md-5 mt-5">
 
 
-                  <form method="POST" action="{{ route('register') }}" name="myForm" class="login-form">
+                  <form method="POST" action="{{ url('charge') }}" name="myForm" class="login-form">
                     @csrf
 
                     <div class="form-group">
@@ -115,11 +115,21 @@
 
                     </div>
 
-                  </form>
+
                 </div>
                 <div class="row">
                         <div class="col-md-12">
+<<<<<<< Updated upstream
                           <button type="submit" class="submit btn  form-control pur"> Doładuj punkty</button>
+=======
+
+                                <input type="hidden" value="1000"  name="amount" />
+
+                                {{-- <input type="submit" name="submit" value="Pay Now"> --}}
+
+                          <button type="submit" name="submit" class="submit btn  form-control login"> Doładuj punkty</button>
+                        </form>
+>>>>>>> Stashed changes
                         </div>
                 </div>
                 <div class="row mt-5">
@@ -180,7 +190,7 @@
                 <div class="card">
                   <div class="card-header" id="headingThree">
                     <h5 class="mb-0">
-                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      <button  type="submit"  class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                         Czy to bezpieczne?
                         <i class="fas fa-angle-down"></i>
                       </button>

@@ -15,16 +15,23 @@
         color: grey;
         font-weight: normal !important;
     }
+    .google_text{
+        font-size: 12px;
+    }
+
     @media only screen and (max-width: 425px){
 	/*Small smartphones [325px -> 425px]*/
     .google{
         margin-top: 15px;
     }
 }
-@media only screen and (max-width: 1024px){
+@media only screen and (max-width: 1025px){
 	/*Small smartphones [325px -> 425px]*/
     .facebook{
         font-size: 13px !important;
+    }
+    .google_text{
+        font-size: 8px !important;
     }
 }
 </style>
@@ -73,7 +80,7 @@
                         <button type="submit" class="form-control  facebook"><i class="fab fa-facebook-f"></i> Użyj Faceboka</button>
                       </div>
                       <div class="col-md-6">
-                        <button type="submit" class="form-control google"><img src="{{ asset('images/g_logo.png')}}" style="width: 25px"><span style="font-size: 12px;"> Logowanie Google</span></button>
+                        <button type="submit" class="form-control google"><img src="{{ asset('images/g_logo.png')}}" style="width: 25px"><span class="google_text"> Logowanie Google</span></button>
                       </div>
                   </div><br>
                   <div class="row">
