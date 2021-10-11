@@ -91,13 +91,16 @@ class PaymentController extends Controller
                     $point=session()->get('points');
 
                     $user=User::find(Auth::user()->id);
-                    $user->point=$point;
+                    $total=$user->point+$point;
+                    $user->point=$total;
                     $user->save();
                     // dd(Auth::user()->point);
 
                 }
 
-                return "Payment is successful. Your transaction id is: ". $arr_body['id'];
+                // return "Payment is successful. Your transaction id is: ". $arr_body['id'];
+        return redirect('/user/points');
+
             } else {
                 return $response->getMessage();
             }

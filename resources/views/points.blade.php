@@ -59,7 +59,20 @@
         border: 1px solid #1d1d1d;
         color: #ffffff !important;
     }
+    .buttonimage{
+        width: 100%;
+        min-height: 114px;
+         }
+    .button_method{
+        border: 1px solid white !important;
+        border-radius: 10px !important;
+        /* height: 90px; */
+        margin-top: 5px;
 
+    }
+    @media only screen and (max-width: 768px) {
+
+    }
     @media only screen and (max-width: 425px) {
 
         /*Small smartphones [325px -> 425px]*/
@@ -93,14 +106,14 @@
                     <div class=" p-4 p-md-5 mt-5">
 
 
-                        <form method="POST" action="{{ url('charge') }}" name="myForm" class="login-form">
-                            @csrf
+                        {{-- <form method="POST" action="{{ url('charge') }}" name="myForm" class="login-form">
+                            @csrf --}}
 
                             <div class="form-group">
 
                                 <input id="name" type="text" class="input active form-control " value="3 punkty za 7,99 zł"
                                     readonly="" price="799">
-                                <input id="amount" type="hidden" class="input form-control" name="amount">
+
                             </div>
                             <div class="form-group ">
                                 <input id="name" type="text" class="input form-control " value="5 punkty za 12,99 zł"
@@ -135,14 +148,13 @@
 
 
                     </div>
-                    <input type="hidden" name="points" value="100">
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="submit btn  form-control pur" name="submit"> Doładuj
+                            <button type="button" class="submit btn  form-control pur" name="submit" data-toggle="modal" data-target="#exampleModal"> Doładuj
                                 punkty</button>
                         </div>
                     </div>
-                </form>
+                {{-- </form> --}}
                     <div class="row mt-5">
                         <div class="col-md-6">
                             <img src="{{ asset('images/p1.png') }}" width="100%">
@@ -242,6 +254,52 @@
             </div>
         </div>
     </section>
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Payment Method</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                <form method="POST" action="{{ url('charge') }}" name="myForm" class="login-form">
+                            @csrf
+
+                    <button class="button_method" type="submit">
+                    <input type="hidden" name="points" id="points">
+                    <input id="amount" type="hidden" class="input form-control" name="amount">
+
+                        <img src="{{asset('images/paypal.jpg')}}" alt="" class="buttonimage">
+                    </button>
+                </form>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <form action="{{url('/stripedata')}}" method="post">
+                        @csrf
+                    <button class="button_method" type="submit">
+                    <input type="hidden" name="points" id="points1">
+
+                    <input id="amount1" type="hidden" class="input form-control" name="amount">
+
+
+                        <img src="{{asset('images/stripe.png')}}" alt="" class="buttonimage">
+                    </button>
+                </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -250,6 +308,51 @@
                 $(this).addClass("active");
                 var new_pri = $(this).attr('price');
                 $("#amount").val(new_pri);
+                $("#amount1").val(new_pri);
+
+                if (new_pri==799) {
+
+                $("#points").val(3);
+                $("#points1").val(3);
+
+
+                }
+                else if(new_pri==1299){
+                $("#points").val(5);
+                $("#points1").val(5);
+
+
+                }
+                else if(new_pri==2499){
+                $("#points").val(10);
+                $("#points1").val(10);
+
+
+                }
+                else if(new_pri==3899){
+                $("#points").val(15);
+                $("#points1").val(15);
+
+
+                }
+                else if(new_pri==6199){
+                $("#points").val(25);
+                $("#points1").val(25);
+
+
+                }
+                else if(new_pri==12799){
+                $("#points").val(50);
+                $("#points1").val(50);
+
+
+                }
+                else if(new_pri==22999){
+                $("#points").val(100);
+                $("#points1").val(100);
+
+
+                }
 
 
 

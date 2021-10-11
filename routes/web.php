@@ -40,6 +40,9 @@ Route::post('charge', [App\Http\Controllers\PaymentController::class,'charge']);
 Route::get('paymentsuccess', [App\Http\Controllers\PaymentController::class,'payment_success']);
 Route::get('paymenterror', [App\Http\Controllers\PaymentController::class,'payment_error']);
 Route::view('/paypal', 'paypal');
+Route::get('stripe', [App\Http\Controllers\StripePaymentController::class,'stripe']);
+Route::any('stripe_post', [App\Http\Controllers\StripePaymentController::class,'stripePost']);
+Route::post('/stripedata',[App\Http\Controllers\StripePaymentController::class,'stripe']);
 
 
 

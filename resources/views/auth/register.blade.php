@@ -106,7 +106,7 @@
                     <div class="form-group d-m">
                         <label>
 
-                            <input type="checkbox">
+                            <input type="checkbox" name="checkbox">
                             <span style="color: gray;font-size: 11px;">Akceptuję postanowienia cennika oraz regulaminu</span>
                           </label>
                     </div>
@@ -137,6 +137,12 @@
 
 <script type="text/javascript">
     $('.submit').on('click',function(){
+        if(!this.form.checkbox.checked)
+{
+    alert('You must agree to the terms and conditions first.');
+    return false;
+}
+
         var enteredDate=$('.date').val();
         var utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
 
