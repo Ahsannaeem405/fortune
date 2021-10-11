@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Omnipay\Omnipay;
 use App\Models\Payment;
 use App\Models\User;
+use App\Models\Pointshistory;
+
 use Illuminate\Support\Facades\Auth;
 
 
@@ -94,6 +96,12 @@ class PaymentController extends Controller
                     $total=$user->point+$point;
                     $user->point=$total;
                     $user->save();
+                    $Pointshistory=new Pointshistory();
+                    $Pointshistory->user_id=$user->id;
+                    $Pointshistory->points=$point;
+                   $Pointshistory->amount= $arr_body['transactions'][0]['amount']['total'];
+                   $Pointshistory->save();
+                //    dd($Pointshistory);
                     // dd(Auth::user()->point);
 
                 }

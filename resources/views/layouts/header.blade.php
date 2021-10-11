@@ -158,6 +158,10 @@ color: black;
 .dots{
     display: none !important;
 }
+.dot_button{
+    margin: 8px !important;
+}
+
 
 
 }
@@ -238,7 +242,7 @@ color: black;
               </li>
               <li class="nav-item">
                 <a href="{{url('register')}}">
-                <button class="btn btn-nav my-2 my-sm-0" type="button">Zarejestruj się</button></a>
+                <button class="btn btn-nav my-2 my-sm-0 dot_button" type="button">Zarejestruj się</button></a>
               </li>
 
 

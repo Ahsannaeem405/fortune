@@ -1,6 +1,5 @@
 @php $site=App\Models\site_setting::all(); @endphp
 
-
 <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
@@ -49,6 +48,7 @@
 
            <li class=""><a href="{{url('admins/chat')}}" class="{{ (request()->is('admins/chat')) ? 'active' : '' }}"><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Dashboard">Chat</span></a>
             </li>
+            <li class=""><a href="{{url('admins/pointshistory')}}" class="{{ (request()->is('admins/pointshistory')) ? 'active' : '' }}"><i class="la la-usd"></i><span class="menu-title" data-i18n="Dashboard">Points history</span></a>
 
 
 

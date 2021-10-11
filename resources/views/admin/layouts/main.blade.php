@@ -4,7 +4,7 @@
 
 <head id="Head1" runat="server">
 
-@section("css_link") 
+@section("css_link")
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -36,6 +36,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/css/custom.css') }}">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css" id="theme-styles">
     <link rel="stylesheet" type="text/css" href="{{asset('admin//app-assets/css/plugins/forms/wizard.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('admin/app-assets/fonts/line-awesome/css/line-awesome.min.css')}}">
+
 @show
     <!-- END: Page CSS-->
     @yield('css')
@@ -78,13 +80,13 @@
 
             @if($site[0]->footer != null)
              <span class="float-md-left d-block d-md-inline-block mt-25">{{$site[0]->footer}}</span><span class="float-md-right d-none d-md-block"><i class="feather icon-heart pink"></i></span>
-            
 
-           
+
+
             @else
              <span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT © 2020<a class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Fortune,</a>All rights Reserved</span>
              <span class="float-md-right d-none d-md-block"><i class="feather icon-heart pink"></i></span>
-            
+
 
             @endif
         </p>
@@ -150,10 +152,10 @@
     @endif
 
     @if(session('errors'))
-   
+
             @foreach ($errors->all() as $error)
             toastr.error("{{$error}}");
-                
+
             @endforeach
     @endif
 

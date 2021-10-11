@@ -1,7 +1,36 @@
-@extends('layouts.app')
+@extends('layouts.header')
+<style>
+       .page{
+        background-color: #1D1D1D;
+        padding: 40px !important;
+    }
+    .card{
+        background-color: #1D1D1D !important;
+    color: white !important;
+    border: 1px solid purple !important;
+    }
+    .card-header{
+    border: 1px solid purple !important;
 
-@section('content')
-<div class="container">
+    }
+    input{
+        background-color: #1D1D1D !important;
+    border-radius: 23px !important;
+    border: 1px solid gray !important;
+    }
+    .btn-primary{
+        background-color: #C42FD5 !important;
+
+    border-radius: 50px !important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+    color: white !important;
+    font-weight: bold !important;
+    border: 1px solid #C42FD5 !important;
+    }
+</style>
+@section('body')
+<div class="container-fluid page">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\msg;
 use App\Models\msg_dt;
+use App\Models\Pointshistory;
+
 use App\Models\site_setting;
 use Auth;
 
@@ -23,7 +25,7 @@ class admin extends Controller
                 'email'         =>      'required | unique:users',
                 'password'         =>      'required',
                 'role'              =>      'required',
-               
+
             ]);
 
           $user =new User;
@@ -46,6 +48,10 @@ class admin extends Controller
 
 
      }
+     public function points(){
+        $Pointshistory=Pointshistory::all();
+        return view('admin.pointshistory',['Pointshistory'=>$Pointshistory]);
+     }
     public function  view_ws()
     {
       $user=User::where('role','2')->oRwhere('role','3')->get();
@@ -61,7 +67,7 @@ class admin extends Controller
       $user=User::find($id);
       return view('admin/edit_ws',compact('user'));
     }
-        
+
     public function  update_ws(Request $request, $id)
     {
 
@@ -141,27 +147,27 @@ class admin extends Controller
           }
 
           $user->save();
-        
+
             return back()->with('success', 'Your Profile Update Successfully .');
 
 
     }
     public function  password(Request $request)
     {
-    	if (!Hash::check($request->input('old_password'), Auth::user()->password)) 
+    	if (!Hash::check($request->input('old_password'), Auth::user()->password))
     	{
             return back()->with('success', 'Your Old Password Is wronge ');
         }
         else
         {
         	$request->validate([
-               
+
                 'password'         =>      'required | confirmed',
-                
-               
+
+
             ]);
 
-          
+
           $user =User::find(Auth::user()->id);
           $user->password =Hash::make($request->input('password'));
           $user->update();
@@ -192,15 +198,15 @@ class admin extends Controller
     public function  send_poke(Request $request)
     {
 
-    
+
         $fromck= Auth::user()->id;
         if(isset($request->user_idy))
         {
-          for ($i =0; $i < count($request->user_idy); $i++) 
+          for ($i =0; $i < count($request->user_idy); $i++)
             {
               if (msg::where('to', $request->input('user_idy')[$i])
               ->where('from',$fromck)
-              ->exists()) 
+              ->exists())
               {
                  $msg_det=new msg_dt();
                  $msg_det->msg=$request->input('msg');
@@ -222,16 +228,16 @@ class admin extends Controller
                  $msg_det->save();
 
               }
-            }  
+            }
 
         }
         else{
           $user_idy=User::whereNull('role')->get();
-          for ($i =0; $i < count($user_idy); $i++) 
+          for ($i =0; $i < count($user_idy); $i++)
             {
               if (msg::where('to', $user_idy[$i]->id)
               ->where('from',$fromck)
-              ->exists()) 
+              ->exists())
               {
                  $msg_det=new msg_dt();
                  $msg_det->msg=$request->input('msg');
@@ -256,9 +262,9 @@ class admin extends Controller
             }
 
         }
-        
 
-      
+
+
               return back();
 
 
@@ -266,25 +272,25 @@ class admin extends Controller
     public function  mana_password(Request $request,$id)
     {
           $user=User::find($id);
-     
+
           $request->validate([
-               
+
                 'password'         =>      'required | confirmed',
-                
-               
+
+
             ]);
 
-          
+
           $user =User::find($id);
           $user->password =Hash::make($request->input('password'));
           $user->update();
           return back()->with('success', 'Your Password Update ');
 
-      
+
 
 
     }
-    
+
     public function  update_site(Request $request)
     {
 
@@ -314,6 +320,6 @@ class admin extends Controller
 
 
     }
-     
+
 
 }

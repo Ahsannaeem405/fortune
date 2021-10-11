@@ -65,7 +65,7 @@ Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
     Route::get('/site_setting', function () {
         return view('admin/site_setting');
     });
-
+Route::get('/pointshistory',[App\Http\Controllers\admin::class,'points']);
 
 
 

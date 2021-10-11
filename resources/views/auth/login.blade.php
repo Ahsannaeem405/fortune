@@ -65,7 +65,8 @@
                   <div class="form-group d-md-flex">
 
                     <div class="w-50 text-md-right">
-                        <a href="#" style="color: white">Nie pamiętasz hasła?
+
+                        <a href="{{ url('password/reset') }}" style="color: white">Nie pamiętasz hasła?
                         </a>
                     </div>
                   </div>
