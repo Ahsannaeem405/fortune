@@ -32,7 +32,7 @@
               <h3 class=" mb-4" style="color: white">Masz pytania?</h3>
                     <form action="#" class="login-form">
                   <div class="form-group">
-                      <input type="text" class="form-control input " placeholder="Imię" required>
+                      <input type="text" class="form-control input " placeholder="Imię" style="background-color: #333333;" required>
                   </div>
             <div class="form-group d-flex">
               <input type="text" class="form-control input" placeholder="Address e-mail" required>
