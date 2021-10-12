@@ -49,6 +49,8 @@
                                             </fieldset></th>
                                         <th>Points</th>
                                         <th>Amount</th>
+                                        <th>Date & Time</th>
+
 
                                     </tr>
                                 </thead>
@@ -91,7 +93,9 @@
                                             {{$row->point}}
                                             @endif
                                         </td> --}}
-                                        <td>{{$row->amount}}</td>
+                                        <td>zł {{$row->amount}}</td>
+                                        <td>{{date('h:i a d/M/Y', strtotime($row->created_at))}}</td>
+
 
                                         {{-- <td>
                                             <div class="dropdown ">
