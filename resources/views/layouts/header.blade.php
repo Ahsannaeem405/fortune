@@ -57,6 +57,10 @@
     .bg-light{
         padding-right: 0px !important;
     }
+    .point{
+        width: 27%;
+        margin-left: 79px;
+    }
   }
 
 /* footer css */
@@ -100,7 +104,7 @@ hr{
 }
 .logoutbtn:hover{
 background-color: transparent !important;
-color: black;
+color:#C42FD5;
 }
 .dropdown_logout{
     margin-left: -20px !important;
@@ -144,12 +148,41 @@ color: black;
   text-decoration: none;
   display: block;
 }
+.a_tag{
+    color: white;
+    text-align: center;
+    font-size: 17px;
 
-.dropdown a:hover {background-color: #ddd;}
+}
+.a_tag:hover{
+    color: #C42FD5;
+    text-decoration: none;
+    background: none;
+}
+.point{
+    background-color: #C42FD5;
+    border-radius: 20px;
+    /* padding: 3px; */
+    padding-left: 9px;
+    padding-right: 8px;
+    text-align: center !important;
+}
+.point span{
+
+}
+/* .dropdown a:hover {background-color: #ddd;} */
 
 .show {display: block;}
 .myDropdown{
     padding: 0px !important;
+}
+.li_item{
+    background-color: #C42FD5;
+    color: white;
+    padding: 6px;
+    border-radius: 40px;
+    padding-right: 20px;
+    padding-left: 21px;
 }
 @media only screen and (max-width: 768px){
 .logout_item{
@@ -160,6 +193,11 @@ color: black;
 }
 .dot_button{
     margin: 8px !important;
+}
+.point{
+    width: 24%;
+    /* margin-right: 29px; */
+    margin-left: 86px;
 }
 
 
@@ -173,7 +211,9 @@ color: black;
 .dots{
     display: block !important;
 }
-
+.li_item{
+    display: none;
+}
 
 }
 
@@ -182,7 +222,7 @@ color: black;
   <body>
     <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><img src="{{asset('images/logo2.png')}}" alt="" style="width:100%;"></a>
+        <a class="navbar-brand" href="{{url('/')}}"><img src="{{asset('images/logo2.png')}}" alt="" style="width:100%;"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -199,35 +239,53 @@ color: black;
                     <i class="far fa-envelope" style="color: white"></i>
                 </a>
                 </li>
-                <li class="nav-item" style="color: white">
-                    {{Auth::user()->point}}
+                <li class="nav-item" style="color: white;">
+                    <div class="point">
+                        @if (Auth::user()->point!=null)
+                      <a href="{{url('/user/points')}}"><span>{{Auth::user()->point}}</span></a>
+    @else
+    <a href="{{url('/user/points')}}" style="color: white;text-decoration:none;"> <span>0</span></a>
+                        @endif
+                    </div>
+
                 </li>
+
                 <li class="nav-item logout_item">
                     <span class="badge" style="border-radius: 200px;background-color:#BA2DCE;color:white;"><a class="dropdown-item logoutbtn" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Wyloguj') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form></span>
 
+
+                </li>
+                <li class="nav-item">
+                    <a href="{{url('/user/profile')}}" class="a_tag li_item">
+                        Mój profil</a>
                 </li>
 
                 <li class="nav-item dots">
                     <div class="dropdown">
                         <button onclick="myFunction()" class="dropbtn"><i class="fas fa-ellipsis-v" style="color: white"></i></button>
+
                         <div id="myDropdown" class="dropdown-content dropdown_logout">
                             <span class="badge" ><a class="dropdown-item logoutbtn" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">
-                                 {{ __('Logout') }}
+                                 {{ __('Wyloguj') }}
                              </a>
 
                              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                  @csrf
                              </form></span>
+
+                                <a href="{{url('/user/profile')}}" class="a_tag">
+                                    Mój profil</a>
+
                         </div>
                       </div>
 
@@ -310,19 +368,23 @@ color: black;
 
                   <ul class="list-unstyled">
                     <li>
-                      <a href="#!">LOGOWANIE</a>
+                      <a href="{{url('/login')}}">LOGOWANIE</a>
                     </li>
                     <li>
-                      <a href="#!">REJESTRACJA</a>
+                      <a href="{{url('/register')}}">REJESTRACJA</a>
                     </li>
                     <li>
                       <a href="#!">REGULAMIN</a>
                     </li>
                     <li>
-                      <a href="#!">CENNIK</a>
+                        <a href="#!">Prywatności</a>
+                      </li>
+
+                    <li>
+                      <a href="{{url('/user/points')}}">CENNIK</a>
                     </li>
                     <li>
-                        <a href="#!">RONTART</a>
+                        <a href="{{url('/user/contact')}}">RONTART</a>
                       </li>
                   </ul>
 

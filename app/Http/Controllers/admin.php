@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Models\msg;
 use App\Models\msg_dt;
 use App\Models\Pointshistory;
+use App\Models\Fortune;
+
 
 use App\Models\site_setting;
 use Auth;
@@ -51,6 +53,23 @@ class admin extends Controller
      public function points(){
         $Pointshistory=Pointshistory::all();
         return view('admin.pointshistory',['Pointshistory'=>$Pointshistory]);
+     }
+     public function add_fortune(Request $request){
+        $fortune=new Fortune();
+        if($request->hasFile('file'))
+          {
+          $file=$request->file('file');
+          $extension=$request->file->extension();
+          $fileName=time()."_.".$extension;
+          $request->file->move('upload/images/',$fileName);
+          $fortune->file =$fileName;
+          }
+          $fortune->name=$request->name;
+          $fortune->bio=$request->bio;
+          $fortune->save();
+          return back()->with('message', 'Successfully Added');
+
+
      }
     public function  view_ws()
     {

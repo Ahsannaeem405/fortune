@@ -43,6 +43,19 @@
             </li>
             <li class=""><a href="{{url('admins/user')}}" class="{{ (request()->is('admins/user')) ? 'active' : '' }}"><i class="feather icon-user-plus"></i><span class="menu-title" data-i18n="Dashboard">Manage Users</span></a>
             </li>
+            <li class="nav-item {{ (  request()->is('admins/add_fortune')) ? 'open' : '' }} {{ (  request()->is('admins/view_fortune')) ? 'open' : '' }}
+                "><a href=""><i class="feather icon-user"></i><span class="menu-title" data-i18n="profile">Fortune</span></a>
+                <ul class="menu-content">
+                    <li><a href="{{url('admins/add_fortune')}}" class="{{ (request()->is('admins/add_fortune')) ? 'active' : '' }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Analytics">Add Fortune</span></a>
+                    </li>
+                    <li><a href="{{url('admins/view_fortune')}}" class="{{ (request()->is('admins/view_fortune')) ? 'active' : '' }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Analytics">View Fortune</span></a>
+                    </li>
+
+
+                </ul>
+
+            </li>
+
 
 
 

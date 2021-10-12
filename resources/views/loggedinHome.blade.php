@@ -14,9 +14,10 @@ h3{
     padding: 20px;
 }
 .profile_div img{
-    border-radius: 65px;
-    height: 122px;
-    margin-bottom: 10px;
+    border-radius: 65px !important;
+    height: 122px !important;
+    margin-bottom: 10px !important;
+    max-width: 150px;
 }
 .button_profile{
     background-color: #9D26AA;
@@ -81,50 +82,55 @@ font-size: 13px;
  <div class="container">
     <div class="row" style="text-align: center">
         <div class="col-lg-2  col-6">
-            <img src="{{asset('images/l1.png')}}" alt="">
+            <img src="{{asset('images/l1.png')}}" style="max-width: 100%" alt="">
             <p style="color: white;margin-top: 28px;">Sprawy finasowe</p>
         </div>
         <div class="col-lg-2 col-6">
-            <img src="{{asset('images/l2.png')}}" alt="">
+            <img src="{{asset('images/l2.png')}}" style="max-width: 100%" alt="">
             <p style="color: white;margin-top: 28px;">Miłość i związki</p>
 
         </div>
         <div class="col-lg-2 col-6">
-            <img src="{{asset('images/l3.png')}}" alt="">
+            <img src="{{asset('images/l3.png')}}" style="max-width: 100%" alt="">
             <p style="color: white;margin-top: 28px;">Sprawy biznesowe</p>
 
 
 
         </div>
         <div class="col-lg-2 col-6">
-            <img src="{{asset('images/l4.png')}}" alt="">
+            <img src="{{asset('images/l4.png')}}" style="max-width: 100%" alt="">
             <p style="color: white">Astrologia</p>
 
         </div>
         <div class="col-lg-2 col-6">
-            <img src="{{asset('images/l5.png')}}" alt="">
+            <img src="{{asset('images/l5.png')}}" style="max-width: 100%" alt="">
             <p style="color: white">Tarot</p>
 
         </div>
         <div class="col-lg-2 col-6">
-            <img src="{{asset('images/l11.png')}}" alt="">
+            <img src="{{asset('images/l11.png')}}" style="max-width: 100%" alt="">
             <p style="color: white">Przyszłość</p>
 
         </div>
-    </div><br><br>s
+    </div><br><br>
     <h3>Wróżbici</h3>
     <div class="row r-1">
+
+        {{-- @dd($fortune); --}}
+        @foreach ($fortune as $fortunes)
         <div class="col-lg-3 col-12">
             <div class="col-12 profile_div">
-                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
-                <h5>Cyganka Sybilla</h5>
-                <p>Wróżby cygańskie, Rytuały</p>
+                <img src="{{asset('upload/images/'.$fortunes->file)}}" alt="">
+                <h5>{{$fortunes->name}}</h5>
+                <p>{{$fortunes->bio}}</p>
                 <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
             </div>
 
 
         </div>
-        <div class="col-lg-3 col-12">
+        @endforeach
+
+        {{-- <div class="col-lg-3 col-12">
             <div class="col-12 profile_div">
                 <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
                 <h5>Cyganka Sybilla</h5>
@@ -133,115 +139,11 @@ font-size: 13px;
             </div>
 
 
-        </div>
-        <div class="col-lg-3 col-12 ">
-            <div class="col-12 profile_div">
-                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
-                <h5>Cyganka Sybilla</h5>
-                <p>Wróżby cygańskie, Rytuały</p>
-                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
-            </div>
+        </div> --}}
 
-
-        </div>
-        <div class="col-lg-3 col-12 ">
-            <div class="col-12 profile_div">
-                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
-                <h5>Cyganka Sybilla</h5>
-                <p>Wróżby cygańskie, Rytuały</p>
-                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
-            </div>
-
-
-        </div>
 
     </div>
-    <div class="row r-1">
-        <div class="col-lg-3 col-12">
-            <div class="col-12 profile_div">
-                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
-                <h5>Cyganka Sybilla</h5>
-                <p>Wróżby cygańskie, Rytuały</p>
-                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
-            </div>
 
-
-        </div>
-        <div class="col-lg-3 col-12">
-            <div class="col-12 profile_div">
-                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
-                <h5>Cyganka Sybilla</h5>
-                <p>Wróżby cygańskie, Rytuały</p>
-                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
-            </div>
-
-
-        </div>
-        <div class="col-lg-3 col-12 ">
-            <div class="col-12 profile_div">
-                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
-                <h5>Cyganka Sybilla</h5>
-                <p>Wróżby cygańskie, Rytuały</p>
-                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
-            </div>
-
-
-        </div>
-        <div class="col-lg-3 col-12 ">
-            <div class="col-12 profile_div">
-                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
-                <h5>Cyganka Sybilla</h5>
-                <p>Wróżby cygańskie, Rytuały</p>
-                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
-            </div>
-
-
-        </div>
-
-    </div>
-    <div class="row r-1">
-        <div class="col-lg-3 col-12">
-            <div class="col-12 profile_div">
-                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
-                <h5>Cyganka Sybilla</h5>
-                <p>Wróżby cygańskie, Rytuały</p>
-                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
-            </div>
-
-
-        </div>
-        <div class="col-lg-3 col-12">
-            <div class="col-12 profile_div">
-                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
-                <h5>Cyganka Sybilla</h5>
-                <p>Wróżby cygańskie, Rytuały</p>
-                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
-            </div>
-
-
-        </div>
-        <div class="col-lg-3 col-12 ">
-            <div class="col-12 profile_div">
-                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
-                <h5>Cyganka Sybilla</h5>
-                <p>Wróżby cygańskie, Rytuały</p>
-                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
-            </div>
-
-
-        </div>
-        <div class="col-lg-3 col-12 ">
-            <div class="col-12 profile_div">
-                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
-                <h5>Cyganka Sybilla</h5>
-                <p>Wróżby cygańskie, Rytuały</p>
-                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
-            </div>
-
-
-        </div>
-
-    </div>
 
 
 

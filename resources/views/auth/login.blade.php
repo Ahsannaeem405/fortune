@@ -46,7 +46,7 @@
                   <form method="POST" action="{{ route('login') }}" class="login-form">
                         @csrf
                   <div class="form-group">
-                      <input type="text" class="form-control input " placeholder="Address e-mail" id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                      <input type="text" class="form-control input " placeholder="Adres e-mail" id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                       @error('email')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -88,7 +88,7 @@
 
                   </div>
                   </form>
-                  <center class="span1"><span class="centerspan">Chcesz</span> założyć konto?</center>
+                  <center class="span1"> <a href="{{url('/register')}}" style="color: white"><span class="centerspan">Chcesz</span> założyć konto?</a></center>
                 </div>
             </div>
         </div>

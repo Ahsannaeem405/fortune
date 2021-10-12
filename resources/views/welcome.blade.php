@@ -353,7 +353,7 @@ background-color: #1d1d1d;
   <img src="{{asset('images/home1.png')}}" alt="Snow" style="width:100%;">
   <div class="centered"><h1>Najlepsi wróżbici</h1>
     <p>w Polsce czekają na Ciebie</p>
-    <button class="btn btn-info" style="border-radius:30px;background-color:#BA2DCE;border:1px solid #BA2DCE;">Wiecej o nas</button>
+    <a  href="#section1" class="btn btn-info" style="border-radius:30px;background-color:#BA2DCE;border:1px solid #BA2DCE;">Wiecej o nas</a>
 
   </div>
 </div>
@@ -363,11 +363,11 @@ background-color: #1d1d1d;
         <div class="col-md-6">
             <img src="{{asset('images/home4.png')}}" alt="Snow" width="100%;">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" id="section1">
             <h1 style="margin-top:30%;font-size: 70px;">Kim jesteśmy?</h1>
             <p class="mt-2" style="width:74%;">Jeżeli chcesz poznać swoją przyszłość, lub męczą i nurtują Cię pytania, to  dobrze trafiłeś. Jesteśmy tutaj, aby Ci pomóc. Zajmujemy się numerologią, kartami tarota, jasnowidzeniem, wróżeniem oraz rytuałami. Skorzystaj z naszej pomocy i pozbądź się trosk.</p>
-            <button class="btn btn-info mt-4" style="border-radius:30px;background-color:#BA2DCE;border:1px solid
-            #BA2DCE;">Zarejestruj się</button>
+            <a href="{{url('/register')}}" class="btn btn-info mt-4" style="border-radius:30px;background-color:#BA2DCE;border:1px solid
+            #BA2DCE;">Zarejestruj się</a>
 
 
 

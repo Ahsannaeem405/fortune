@@ -35,7 +35,7 @@
                       <input type="text" class="form-control input " placeholder="Imię" style="background-color: #333333;" required>
                   </div>
             <div class="form-group d-flex">
-              <input type="text" class="form-control input" placeholder="Address e-mail" required>
+              <input type="text" class="form-control input" placeholder="Adres e-mail" required>
             </div>
             <div class="form-group d-flex">
                 <input type="text" class="form-control input" placeholder="Temat" required>

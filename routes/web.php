@@ -65,6 +65,8 @@ Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
     Route::get('/site_setting', function () {
         return view('admin/site_setting');
     });
+    Route::view('add_fortune', 'admin.addfortune');
+    Route::post('/addfortune',[App\Http\Controllers\admin::class,'add_fortune']);
 Route::get('/pointshistory',[App\Http\Controllers\admin::class,'points']);
 
 
@@ -152,10 +154,12 @@ Route::prefix('/woker')->middleware(['auth','worker'])->group(function (){
 Route::prefix('/user')->middleware(['auth','user'])->group(function (){
 
 
-    Route::view('/', 'loggedinHome');
+    Route::get('/',[App\Http\Controllers\UserController::class, 'loggedinHome']);
     Route::view('/contact','contact');
     Route::view('/points','points');
     Route::view('/chat', 'chat');
+    Route::get('/profile',[App\Http\Controllers\UserController::class,'profile']);
+    Route::post('/updateprofile',[App\Http\Controllers\UserController::class,'updateprofile']);
 
 });
 
