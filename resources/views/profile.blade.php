@@ -124,7 +124,6 @@
                                 {{ session()->get('error') }}
                             </div>
                         @endif
-                        {{dd($user)}}
 
                         <h3 class="text-center mb-4" style="color: white">Profileeeee</h3>
                         <form method="POST" action="{{ url('/user/updateprofile') }}" class="login-form"
