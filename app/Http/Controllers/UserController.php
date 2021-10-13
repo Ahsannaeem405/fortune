@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Fortune;
+use App\Models\msg_dt;
+use App\Models\msg;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
@@ -30,6 +32,20 @@ function deleteuser($id){
     // dd($user);
     $user->delete();
     return redirect('/');
+}
+function chat(){
+    $id=Auth::user()->id;
+    $msg=msg::where('to',$id)->get();
+    $chat_detail=msg_dt::where('to',$id)->get();
+    return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg]);
+}
+function messages(Request $request){
+    $user=Auth::user()->id;
+     $message=msg_dt::where('from',$request->id)->where('to',$user)->get();
+
+
+        return response()->json($message);
+
 }
 
 function updateprofile(Request $request){

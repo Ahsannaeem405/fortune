@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class msg extends Model
 {
-    use HasFactory;
+    // use HasFactory;
+    public function getuser(){
+
+        return $this->belongsTo('App\Models\User', 'from');
+    }
 }

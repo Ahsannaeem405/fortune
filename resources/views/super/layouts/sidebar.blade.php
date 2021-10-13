@@ -26,7 +26,7 @@
             <li class="{{ Request::is('super')? 'active' : '' }}" ><a href="{{url('/super')}}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
             </li>
 
-            
+
 
 
 
@@ -37,6 +37,8 @@
 
            <li class=""><a href="{{url('super/chat')}}" class="{{ (request()->is('super/chat')) ? 'active' : '' }}"><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Dashboard">Chat</span></a>
             </li>
+            <li class=""><a href="{{url('super/pointshistory')}}" class="{{ (request()->is('admins/pointshistory')) ? 'active' : '' }}"><i class="la la-usd"></i><span class="menu-title" data-i18n="Dashboard">Points history</span></a>
+
 
 
         </ul>

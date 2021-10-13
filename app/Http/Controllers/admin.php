@@ -54,6 +54,10 @@ class admin extends Controller
         $Pointshistory=Pointshistory::all();
         return view('admin.pointshistory',['Pointshistory'=>$Pointshistory]);
      }
+     public function superpoints(){
+        $Pointshistory=Pointshistory::all();
+        return view('super.pointshistory',['Pointshistory'=>$Pointshistory]);
+     }
      public function add_fortune(Request $request){
         $fortune=new Fortune();
         if($request->hasFile('file'))

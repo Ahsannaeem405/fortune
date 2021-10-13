@@ -138,6 +138,8 @@ Route::prefix('/super')->middleware(['auth','supervisor'])->group(function (){
     Route::get('/user', [App\Http\Controllers\super::class, 'user']);
     Route::post('/add_points', [App\Http\Controllers\admin::class, 'add_points']);
     Route::post('/send_poke', [App\Http\Controllers\admin::class, 'send_poke']);
+    Route::get('/pointshistory',[App\Http\Controllers\admin::class,'superpoints']);
+
 
 
 
@@ -168,13 +170,14 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
     Route::get('/',[App\Http\Controllers\UserController::class, 'loggedinHome']);
     Route::view('/contact','contact');
     Route::view('/points','points');
-    Route::view('/chat', 'chat');
+    Route::get('/chat',[App\Http\Controllers\UserController::class,'chat']);
     Route::get('/profile',[App\Http\Controllers\UserController::class,'profile']);
     Route::post('/updateprofile',[App\Http\Controllers\UserController::class,'updateprofile']);
     Route::get('delete/{id}',[App\Http\Controllers\UserController::class,'deleteuser'] );
 
 });
 
+Route::get('/messages',[App\Http\Controllers\UserController::class,'messages']);
 
 
 Auth::routes(['verify' => true]);
