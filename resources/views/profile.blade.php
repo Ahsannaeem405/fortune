@@ -121,7 +121,7 @@ input:checked + .slider:before {
                         @csrf
                   <div class="form-group">
 
-                    <input type="file" name="file" id="fileElem"  multiple accept="image/*" style="color: white">
+                    <input type="file" name="file" id="fileElem"  multiple accept="image/*" style="color: white" style="width: 80%">
                   </div>
 
                   <div class="form-group">
@@ -192,7 +192,7 @@ input:checked + .slider:before {
                 @else
                 <label style="color: white;">
                     Data urodzenia</label>
-                    <input type="date" class="form-control input " name="dob" placeholder="Data urodzenia"   class="form-control "   autofocus><br>
+                    <input type="date" class="form-control input " name="dob" placeholder="Data urodzenia"   class="form-control "   autofocus>
                 @endif
 
                 <div class="form-group">
