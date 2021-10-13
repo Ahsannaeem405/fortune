@@ -125,7 +125,7 @@
                             </div>
                         @endif
 
-                        <h3 class="text-center mb-4" style="color: white">Profil</h3>
+                        <h3 class="text-center mb-4" style="color: white">Profileeeee</h3>
                         <form method="POST" action="{{ url('/user/updateprofile') }}" class="login-form"
                             enctype="multipart/form-data">
                             @csrf
@@ -197,7 +197,7 @@
                             @endif
                             @if ($user->google_id == null)
                                 <div class="form-group">
-                                    <label style="color: white;">Aktualne hasło</label>
+                                    <label style="color: white;">goggle</label>
                                     <input type="password" class="form-control input" placeholder="Aktualne hasło"
                                         class="form-control @error('password') is-invalid @enderror" name="password">
 
