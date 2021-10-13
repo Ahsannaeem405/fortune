@@ -130,6 +130,7 @@
                         <form method="POST" action="{{ url('/user/updateprofile') }}" class="login-form"
                             enctype="multipart/form-data">
                             @csrf
+
                             <div class="form-group">
 
                                 <input type="file" name="file" id="fileElem" multiple accept="image/*" style="color: white">
