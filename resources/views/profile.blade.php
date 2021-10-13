@@ -141,7 +141,7 @@ input:checked + .slider:before {
                 </div>
                 <div class="form-group">
                     <label style="color: white;">Nazwisko</label>
-                    <input type="text" class="form-control input " placeholder="Nazwisko" value="{{$user->l_name}}"  class="form-control " name="l_name"   autofocus>
+                    <input type="text" class="input " placeholder="Nazwisko" value="{{$user->l_name}}"  class="form-control " name="l_name"   autofocus>
 
                 </div>
                 @if ($user->google_id ==null and $user->facebook_id ==null)
