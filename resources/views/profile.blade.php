@@ -183,11 +183,18 @@ input:checked + .slider:before {
                     <input type="text" class="form-control input " placeholder="Numer telefonu" value="{{$user->phone}}"  class="form-control " name="phone"   autofocus>
 
                 </div>
+                @if ($user->dob!=null)
                 <div class="form-group">
                     <label style="color: white;">Wiek</label>
                     <input type="text" class="form-control input " placeholder="Wiek" value="{{$age}}"  class="form-control " readonly  autofocus>
 
                 </div>
+                @else
+                <label style="color: white;">
+                    Data urodzenia</label>
+                    <input type="date" class="form-control input " name="dob" placeholder="Data urodzenia"   class="form-control "   autofocus><br>
+                @endif
+
                 <div class="form-group">
                     <label style="color: white;">Wołacz</label>
                     <input type="text" class="form-control input " placeholder="Wołacz" value="{{$user->vocative}}"  class="form-control " name="vocative"   autofocus>

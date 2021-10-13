@@ -76,6 +76,7 @@ $user->nameoflove=$request->nameoflove;
 $user->city=$request->city;
 $user->bio=$request->bio;
 $user->notification=$request->notification;
+$user->dob=$request->dob;
 $user->save();
 // dd($user);
 return redirect()->back()->with('success', 'Updated Successfully');
