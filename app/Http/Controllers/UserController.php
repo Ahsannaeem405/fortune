@@ -25,6 +25,12 @@ function loggedinHome(){
 $fortune=Fortune::all();
 return view('loggedinHome',compact('fortune'));
 }
+function deleteuser($id){
+    $user=User::find($id);
+    // dd($user);
+    $user->delete();
+    return redirect('/');
+}
 
 function updateprofile(Request $request){
     $user_id=Auth::user()->id;

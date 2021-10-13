@@ -164,7 +164,7 @@ color:#C42FD5;
     border-radius: 20px;
     /* padding: 3px; */
     padding-left: 9px;
-    padding-right: 8px;
+    padding-right: 9px;
     text-align: center !important;
 }
 .point span{
@@ -263,16 +263,15 @@ color:#C42FD5;
 
 
                 </li>
-                <li class="nav-item">
-                    <a href="{{url('/user/profile')}}" class="a_tag li_item">
-                        Mój profil</a>
-                </li>
 
                 <li class="nav-item dots">
                     <div class="dropdown">
                         <button onclick="myFunction()" class="dropbtn"><i class="fas fa-ellipsis-v" style="color: white"></i></button>
 
                         <div id="myDropdown" class="dropdown-content dropdown_logout">
+                            <a href="{{url('/user/profile')}}" class="a_tag">
+                                Mój profil</a>
+
                             <span class="badge" ><a class="dropdown-item logoutbtn" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">
@@ -283,8 +282,6 @@ color:#C42FD5;
                                  @csrf
                              </form></span>
 
-                                <a href="{{url('/user/profile')}}" class="a_tag">
-                                    Mój profil</a>
 
                         </div>
                       </div>
@@ -374,10 +371,10 @@ color:#C42FD5;
                       <a href="{{url('/register')}}">REJESTRACJA</a>
                     </li>
                     <li>
-                      <a href="#!">REGULAMIN</a>
+                      <a href="/terms">REGULAMIN</a>
                     </li>
                     <li>
-                        <a href="#!">Prywatności</a>
+                        <a href="/policy">Prywatności</a>
                       </li>
 
                     <li>

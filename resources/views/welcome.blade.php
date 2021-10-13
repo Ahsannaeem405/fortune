@@ -375,60 +375,61 @@ background-color: #1d1d1d;
     </div>
     <div class="container">
         <div class="row" style="margin-left:0px;margin-right:0px;">
-            <div class="col-md-12 mt-5 mb-5">
+
+            <div class="col-md-12 mt-5 mb-5" >
                 <center><h1 style="font-size:70px;">Wybierz swój znak zodiaku</h1></center>
 
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" data-toggle="modal" data-target="#exampleModal">
                 <img src="{{asset('images/l1.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Baran</h5>
 
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" data-toggle="modal" data-target="#exampleModal2">
                 <img src="{{asset('images/l2.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Byk</h5>
 
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" data-toggle="modal" data-target="#exampleModal3">
                 <img src="{{asset('images/l3.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Bliźnięta</h5>
 
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" data-toggle="modal" data-target="#exampleModal4">
                 <img src="{{asset('images/l4.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Rak</h5>
 
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" data-toggle="modal" data-target="#exampleModal5">
                 <img src="{{asset('images/l5.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Lew</h5>
 
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" data-toggle="modal" data-target="#exampleModal6">
                 <img src="{{asset('images/l6.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Ryby</h5>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" data-toggle="modal" data-target="#exampleModal7">
                 <img src="{{asset('images/l7.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Waga</h5>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" data-toggle="modal" data-target="#exampleModal8">
                 <img src="{{asset('images/l8.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Skorpion</h5>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" data-toggle="modal" data-target="#exampleModal9">
                 <img src="{{asset('images/l9.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Strzelec</h5>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" data-toggle="modal" data-target="#exampleModal10">
                 <img src="{{asset('images/l10.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Koziorożec</h5>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" data-toggle="modal" data-target="#exampleModal11">
                 <img src="{{asset('images/l11.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Wodnik</h5>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" data-toggle="modal" data-target="#exampleModal12">
                 <img src="{{asset('images/l12.png')}}" alt="Snow" width="100%;">
                 <h5 style="text-align: center;">Ryby</h5>
             </div>
@@ -510,6 +511,7 @@ background-color: #1d1d1d;
         <img src="{{asset('images/slide5.png')}}" style="margin: auto;"></div>
 </div>
 </div>
+@include('loggeout_model')
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="{{asset('js/multislider.js')}}"></script>

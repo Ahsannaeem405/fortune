@@ -43,6 +43,10 @@ Route::view('/paypal', 'paypal');
 Route::get('stripe', [App\Http\Controllers\StripePaymentController::class,'stripe']);
 Route::any('stripe_post', [App\Http\Controllers\StripePaymentController::class,'stripePost']);
 Route::post('/stripedata',[App\Http\Controllers\StripePaymentController::class,'stripe']);
+Route::view('/terms', 'terms&condition');
+Route::view('/policy', 'Policy');
+
+
 
 
 
@@ -67,6 +71,13 @@ Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
     });
     Route::view('add_fortune', 'admin.addfortune');
     Route::post('/addfortune',[App\Http\Controllers\admin::class,'add_fortune']);
+    Route::get('/view_fortune',[App\Http\Controllers\admin::class,'view_fortune']);
+    Route::get('fortune_edit/{id}',[App\Http\Controllers\admin::class,'edit_fortune']);
+    Route::post('/update_fortune',[App\Http\Controllers\admin::class,'update_fortune']);
+    Route::get('/fortune_del/{id}',[App\Http\Controllers\admin::class,'del_fortune']);
+
+
+
 Route::get('/pointshistory',[App\Http\Controllers\admin::class,'points']);
 
 
@@ -160,6 +171,7 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
     Route::view('/chat', 'chat');
     Route::get('/profile',[App\Http\Controllers\UserController::class,'profile']);
     Route::post('/updateprofile',[App\Http\Controllers\UserController::class,'updateprofile']);
+    Route::get('delete/{id}',[App\Http\Controllers\UserController::class,'deleteuser'] );
 
 });
 

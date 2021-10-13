@@ -81,33 +81,33 @@ font-size: 13px;
 <div class="container-fluid con1">
  <div class="container">
     <div class="row" style="text-align: center">
-        <div class="col-lg-2  col-6">
+        <div class="col-lg-2  col-6" data-toggle="modal" data-target="#exampleModal">
             <img src="{{asset('images/l1.png')}}" style="max-width: 100%" alt="">
             <p style="color: white;margin-top: 28px;">Sprawy finasowe</p>
         </div>
-        <div class="col-lg-2 col-6">
+        <div class="col-lg-2 col-6" data-toggle="modal" data-target="#exampleModal2">
             <img src="{{asset('images/l2.png')}}" style="max-width: 100%" alt="">
             <p style="color: white;margin-top: 28px;">Miłość i związki</p>
 
         </div>
-        <div class="col-lg-2 col-6">
+        <div class="col-lg-2 col-6" data-toggle="modal" data-target="#exampleModal3">
             <img src="{{asset('images/l3.png')}}" style="max-width: 100%" alt="">
             <p style="color: white;margin-top: 28px;">Sprawy biznesowe</p>
 
 
 
         </div>
-        <div class="col-lg-2 col-6">
+        <div class="col-lg-2 col-6" data-toggle="modal" data-target="#exampleModal4">
             <img src="{{asset('images/l4.png')}}" style="max-width: 100%" alt="">
             <p style="color: white">Astrologia</p>
 
         </div>
-        <div class="col-lg-2 col-6">
+        <div class="col-lg-2 col-6" data-toggle="modal" data-target="#exampleModal5">
             <img src="{{asset('images/l5.png')}}" style="max-width: 100%" alt="">
             <p style="color: white">Tarot</p>
 
         </div>
-        <div class="col-lg-2 col-6">
+        <div class="col-lg-2 col-6" data-toggle="modal" data-target="#exampleModal6">
             <img src="{{asset('images/l11.png')}}" style="max-width: 100%" alt="">
             <p style="color: white">Przyszłość</p>
 
@@ -149,6 +149,7 @@ font-size: 13px;
 
  </div>
 </div>
+@include('loggedin_model')
 
 
 @endsection

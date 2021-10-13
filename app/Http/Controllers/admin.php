@@ -71,6 +71,37 @@ class admin extends Controller
 
 
      }
+     public function update_fortune(Request $request){
+         $id=$request->id;
+         $fortune=Fortune::find($id);
+         if($request->hasFile('file'))
+         {
+         $file=$request->file('file');
+         $extension=$request->file->extension();
+         $fileName=time()."_.".$extension;
+         $request->file->move('upload/images/',$fileName);
+         $fortune->file =$fileName;
+         }
+         $fortune->name=$request->name;
+         $fortune->bio=$request->bio;
+         $fortune->save();
+         return back()->with('message', 'Successfully Updated');
+
+     }
+     function view_fortune(){
+        $fortune=Fortune::all();
+        return view('admin.view_fortune',['fortunes'=>$fortune]);
+     }
+     function edit_fortune($id){
+         $fortune=Fortune::find($id);
+         return view('admin.edit_fortune',['fortune'=>$fortune]);
+     }
+     function del_fortune($id){
+         $fortune=Fortune::find($id);
+         $fortune->delete();
+         return back()->with('success', 'Successfully Deleted');
+
+     }
     public function  view_ws()
     {
       $user=User::where('role','2')->oRwhere('role','3')->get();
