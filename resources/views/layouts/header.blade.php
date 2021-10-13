@@ -371,10 +371,10 @@ color:#C42FD5;
                       <a href="{{url('/register')}}">REJESTRACJA</a>
                     </li>
                     <li>
-                      <a href="/terms">REGULAMIN</a>
+                      <a href="{{url('/terms')}}">REGULAMIN</a>
                     </li>
                     <li>
-                        <a href="/policy">Prywatności</a>
+                        <a href="{{url('/policy')}}">Prywatności</a>
                       </li>
 
                     <li>
