@@ -19,6 +19,12 @@
     .google_text{
         font-size: 12px;
     }
+    .a_tag1{
+        color: gray;
+    }
+    .a_tag1:hover{
+        color: purple;
+    }
 
     @media only screen and (max-width: 425px){
     /*Small smartphones [325px -> 425px]*/
@@ -89,7 +95,7 @@
 
                     </div>
                     <div class="form-group ">
-                      <input id="email" type="email" class="input form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Address e-mail">
+                      <input id="email" type="email" class="input form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="E-mail">
                       <br>
 
                       @error('email')
@@ -100,14 +106,14 @@
 
                     </div>
                     <div class="form-group" style="margin-top: -26px;">
-                      <input id="password-confirm" type="date" class="input form-control date" name="dob" required autocomplete="new-password" placeholder="Data urodzenia">
+                      <input type="date" class="input form-control date" name="dob" required autocomplete="new-password" placeholder="Data urodzenia" data-date-format="DD MM YYYY">
 
                     </div>
                     <div class="form-group d-m">
                         <label>
 
                             <input type="checkbox" name="checkbox">
-                            <span style="color: gray;font-size: 11px;">Akceptuję postanowienia cennika oraz regulaminu</span>
+                            <span style="color: gray;font-size: 11px;">Akceptuję postanowienia <a href="{{url('/policy')}}" class="a_tag1">politykę prywatności</a> oraz <a href="{{url('/terms')}}" class="a_tag1" >regulaminu</a> </span>
                           </label>
                     </div>
                     <div class="row">
@@ -123,7 +129,7 @@
                     </div><br>
                     <div class="row">
                         <div class="col-md-12">
-                          <button type="submit" class="submit form-control login">Zatoz konto</button>
+                          <button type="submit" class="submit form-control login">Załóż konto </button>
                         </div>
 
                     </div>

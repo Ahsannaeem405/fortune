@@ -45,6 +45,10 @@ Route::any('stripe_post', [App\Http\Controllers\StripePaymentController::class,'
 Route::post('/stripedata',[App\Http\Controllers\StripePaymentController::class,'stripe']);
 Route::view('/terms', 'terms&condition');
 Route::view('/policy', 'Policy');
+Route::view('/pricing', 'pricing');
+Route::view('/contact','contact');
+
+
 
 
 
@@ -168,7 +172,6 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
 
 
     Route::get('/',[App\Http\Controllers\UserController::class, 'loggedinHome']);
-    Route::view('/contact','contact');
     Route::view('/points','points');
     Route::get('/chat',[App\Http\Controllers\UserController::class,'chat']);
     Route::get('/profile',[App\Http\Controllers\UserController::class,'profile']);

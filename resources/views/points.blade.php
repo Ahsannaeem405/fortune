@@ -194,13 +194,12 @@
                             <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
                                 data-parent="#accordion">
                                 <div class="card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                                    squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck
-                                    quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it
-                                    squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
-                                    craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
-                                    butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
-                                    nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    Umożliwiamy proste I bezpieczne płatności. Wybierz interesujący Cię pakiet, a następnie kliknij „Doładuj Punkty”. Strona przeniesie Cię do naszego operatora płatności, gdzie będziesz mieć możliwość dokonania transakcji.
+
+                                    Akceptujemy wszystkie popularne banki, BLIK oraz płatność na poczcie. Jeżeli potrzebujesz pomocy w dokonaniu zakupu skontaktuj się z nami pod adresem info@powrozmi.pl.
+
+                                    Niestety, ale obecnie płatności kartami oraz SMS nie są możliwe – pracujemy nad tym 
+
                                 </div>
                             </div>
                         </div>
@@ -236,13 +235,7 @@
                             <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
                                 data-parent="#accordion">
                                 <div class="card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                                    squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck
-                                    quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it
-                                    squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
-                                    craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
-                                    butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
-                                    nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    Tak, wszystkie transakcje są bezpieczne, zarówno nasza strona jak i operator płatności posiadają niezbędne certyfikaty i zabezpieczenia .
                                 </div>
                             </div>
                         </div>

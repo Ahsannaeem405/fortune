@@ -79,7 +79,7 @@ footer{
 }
 .list-unstyled{
     color: white;
-    line-height: 45px;
+    line-height: 30px;
 }
 .list-unstyled a{
     color: white;
@@ -391,10 +391,10 @@ color:#C42FD5;
                       </li>
 
                     <li>
-                      <a href="{{url('/user/points')}}">CENNIK</a>
+                      <a href="{{url('/pricing')}}">CENNIK</a>
                     </li>
                     <li>
-                        <a href="{{url('/user/contact')}}">RONTART</a>
+                        <a href="{{url('/contact')}}">KONTAKT</a>
                       </li>
                   </ul>
 
