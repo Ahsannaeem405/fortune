@@ -111,12 +111,12 @@
 
                             <div class="form-group">
 
-                                <input id="name" type="text" class="input active form-control " value="3 punkty za 7,99 zł"
+                                <input id="name" type="text" class="input  form-control " value="3 punkty za 7,99 zł"
                                     readonly="" price="799">
 
                             </div>
                             <div class="form-group ">
-                                <input id="name" type="text" class="input form-control " value="5 punkty za 12,99 zł"
+                                <input id="name" type="text" class="input active form-control " value="5 punkty za 12,99 zł"
                                     readonly="" price="1299">
 
                             </div>
@@ -150,6 +150,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
+
                             <button type="button" class="submit btn  form-control pur" name="submit" data-toggle="modal" data-target="#exampleModal"> Doładuj
                                 punkty</button>
                         </div>
@@ -269,10 +270,11 @@
                 <div class="col-lg-6 col-12">
                 <form method="POST" action="{{ url('charge') }}" name="myForm" class="login-form">
                             @csrf
-
+                            {{-- <input type="hidden" name="points" value="5">
+                            <input type="hidden" name="amount" value="1299"> --}}
                     <button class="button_method" type="submit">
-                    <input type="hidden" name="points" id="points">
-                    <input id="amount" type="hidden" class="input form-control" name="amount">
+                    <input type="hidden" name="points" id="points" value="5">
+                    <input id="amount" type="hidden" class="input form-control" name="amount" value="1299">
 
                         <img src="{{asset('images/paypal.jpg')}}" alt="" class="buttonimage">
                     </button>
@@ -282,9 +284,9 @@
                     <form action="{{url('/stripedata')}}" method="post">
                         @csrf
                     <button class="button_method" type="submit">
-                    <input type="hidden" name="points" id="points1">
+                    <input type="hidden" name="points" id="points1" value="5">
 
-                    <input id="amount1" type="hidden" class="input form-control" name="amount">
+                    <input id="amount1" type="hidden" class="input form-control" name="amount" value="1299">
 
 
                         <img src="{{asset('images/stripe.png')}}" alt="" class="buttonimage">

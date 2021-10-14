@@ -390,8 +390,10 @@
 </style>
 
 <body>
+
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="{{url('/user')}}"><i class="fas fa-arrow-circle-left"></i> Back</a>
         <div class="row sidebar_row">
             <div class="col-10">
 
@@ -418,7 +420,7 @@
                 </div>
                 <div class="listend">
                     @foreach ($msg as $to)
-                        <div class="contactlist" class="contact1">
+                        <div class="contactlist contact1">
                             <input type="hidden" id="from_id1" value={{ $to->getuser->id }}>
                             <div class="contact_image">
                                 <img src="{{ asset('images/slide1.png') }}" class="contact_image" alt="">
@@ -456,7 +458,8 @@
     </div>
 
     <div class="container p-5 ">
-        <div class="row">
+        <a href="{{url('/user')}}" style="color: white"><i class="fas fa-arrow-circle-left"></i> Back</a>
+        <div class="row" style="margin-top: 15px">
             <div class="col-lg-3 col-12 fullscreen">
 
                 <img src="{{ asset('images/logo2.png') }}" alt="" class="logo">
@@ -574,7 +577,8 @@
         $(document).ready(function() {
 
             $(".contact1").click(function() {
-                var myId = $('#from_id2').val();
+                // alert("1");
+                var myId = $('#from_id1').val();
                 var op=" ";
 
 

@@ -53,7 +53,9 @@ background-color: #1d1d1d;
     font-size: 1.2rem;
     font-style: italic;
     font-weight: bold;
-    line-height: 2rem
+    line-height: 2rem;
+    height: 470px;
+
 }
 .carousel-caption img{
     margin-top: 0px!important;
@@ -353,7 +355,7 @@ background-color: #1d1d1d;
   <img src="{{asset('images/home1.png')}}" alt="Snow" style="width:100%;">
   <div class="centered"><h1>Najlepsi wróżbici</h1>
     <p>w Polsce czekają na Ciebie</p>
-    <a  href="#section1" class="btn btn-info" style="border-radius:30px;background-color:#BA2DCE;border:1px solid #BA2DCE;">Wiecej o nas</a>
+    <a  href="#section1" class="btn btn-info" style="border-radius:30px;background-color:#BA2DCE;border:1px solid #BA2DCE;">Więcej o nas</a>
 
   </div>
 </div>
@@ -483,7 +485,7 @@ background-color: #1d1d1d;
             <div class="carousel-item active">
                 <div class="carousel-caption">
                     <img src="{{asset('images/slide2.png')}}">
-                    <p>Wróżka Joasia bardzo nam pomogła. Jej wozba, a następnie rytuał na poprawę naszej relacji były doskonałe. Teraz jesteśmy parą, która szczerze się kocha i oczekujemy dziecka. Polecamy gorąco!Kasia i Paweł</p>
+                    <p>Jestem zachwycona pomocą wróżki Marii. Miałam bardzo dużo problemów z moją firmą, która po trudnych czasach pandemii praktycznie była na skraju bankructwa, ale dzięki spojrzeniu w przyszłość mogłam skorygować błędy, które do tej pory popełniałam. Kilka zmian dało drugi oddech mojej firmie i teraz jestem na najlepszej drodze do tego, aby stanąć na nogi. Gorąco polecam! </p>
 
                 </div>
             </div>
@@ -496,7 +498,7 @@ background-color: #1d1d1d;
             <div class="carousel-item">
                 <div class="carousel-caption">
                     <img src="{{asset('images/slide4.png')}}" class="img-fluid">
-                    <p>Wróżka Joasia bardzo nam pomogła. Jej wozba, a następnie rytuał na poprawę naszej relacji były doskonałe. Teraz jesteśmy parą, która szczerze się kocha i oczekujemy dziecka. Polecamy gorąco!Kasia i Paweł</p>
+                    <p>Rewelacja! Nie sądziłam, że wróżby mogą być tak dokładne. Cały zespół powrozmi.pl był pomocny, ale najlepiej doceniam współpracę z Wróżem Cezarym. Jego pomoc była nie tylko dokładna, ale pozwoliła mi na odwrócenie życiowej karty. Może to zabrzmi dziwnie, ale skończył się pech i w końcu w moim życiu wyszło słońce.</p>
 
                 </div>
             </div>

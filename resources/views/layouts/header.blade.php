@@ -45,6 +45,13 @@
           width: 100%;
           padding: 0px;
       }
+      .profile{
+          background-color: #C42FD5;
+          color: white;
+          border-radius: 40px;
+    padding: 0px !important;
+    text-align: center;
+      }
       @media only screen and (max-width: 425px)
   {
 
@@ -214,6 +221,9 @@ color:#C42FD5;
 .li_item{
     display: none;
 }
+.profile{
+    display: none;
+}
 
 }
 
@@ -222,7 +232,7 @@ color:#C42FD5;
   <body>
     <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{url('/')}}"><img src="{{asset('images/logo2.png')}}" alt="" style="width:100%;"></a>
+        <a class="navbar-brand" href="{{url('/user')}}"><img src="{{asset('images/logo2.png')}}" alt="" style="width:100%;"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -231,7 +241,7 @@ color:#C42FD5;
             @if (Auth::user())
             <ul class="navbar-nav ml-auto loginhome ">
                 <li class="nav-item">
-                    <i class="fas fa-home" style="color: white"></i>
+                   <a href="{{url('/user')}}"> <i class="fas fa-home" style="color: white"></i></a>
 
                 </li>
                 <li class="nav-item">
@@ -249,7 +259,10 @@ color:#C42FD5;
                     </div>
 
                 </li>
-
+                <li class="nav-item profile">
+                    <a href="{{url('/user/profile')}}" class="a_tag">
+                        Mój profil</a>
+                </li>
                 <li class="nav-item logout_item">
                     <span class="badge" style="border-radius: 200px;background-color:#BA2DCE;color:white;"><a class="dropdown-item logoutbtn" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -374,7 +387,7 @@ color:#C42FD5;
                       <a href="{{url('/terms')}}">REGULAMIN</a>
                     </li>
                     <li>
-                        <a href="{{url('/policy')}}">Prywatności</a>
+                        <a href="{{url('/policy')}}">PRYWATNOŚĆ</a>
                       </li>
 
                     <li>
