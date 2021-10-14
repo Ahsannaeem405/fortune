@@ -406,7 +406,7 @@ color:#C42FD5;
                 <div class="col-md-3 col-6 mx-auto" style="text-align:left">
 
                   <!-- Links -->
-                  <h5 class="font mt-3 mb-4">Konta kt</h5>
+                  <h5 class="font mt-3 mb-4">Kontakt</h5>
                   <hr>
 
                   <ul class="list-unstyled">

@@ -286,6 +286,15 @@
                     </button>
                 </form>
                 </div>
+                <div class="col-lg-12 col-12">
+                    <form action="" method="post">
+                        <button class="button_method" type="submit">
+                            <img src="{{asset('images/pic1.png')}}" alt="" class="buttonimage">
+                        </button>
+                    </form>
+
+
+                </div>
             </div>
         </div>
         <div class="modal-footer">
