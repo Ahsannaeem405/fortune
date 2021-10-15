@@ -49,6 +49,9 @@ background-repeat: no-repeat;
 background-size: cover;
 
 }
+.bio{
+    min-height: 48px;
+}
 .fa-paper-plane{
     font-size: 19px;
 }
@@ -56,6 +59,11 @@ background-size: cover;
 	.button_text{
         padding-left: 4px;
     padding-right: 8px;
+    }
+}
+@media only screen and (min-width: 769px){
+    .fortune{
+        margin-top: 40px;
     }
 }
 @media only screen and (max-width: 768px){
@@ -80,7 +88,7 @@ font-size: 13px;
 
 <div class="container-fluid con1">
  <div class="container">
-    <div class="row" style="text-align: center">
+    {{-- <div class="row" style="text-align: center">
         <div class="col-lg-2  col-6" data-toggle="modal" data-target="#exampleModal">
             <img src="{{asset('images/l1.png')}}" style="max-width: 100%" alt="">
             <p style="color: white;margin-top: 28px;">Sprawy finasowe</p>
@@ -99,35 +107,66 @@ font-size: 13px;
         </div>
         <div class="col-lg-2 col-6" data-toggle="modal" data-target="#exampleModal4">
             <img src="{{asset('images/l4.png')}}" style="max-width: 100%" alt="">
-            <p style="color: white">Astrologia</p>
+            <p style="color: white;margin-top:19px;">Astrologia</p>
 
         </div>
         <div class="col-lg-2 col-6" data-toggle="modal" data-target="#exampleModal5">
             <img src="{{asset('images/l5.png')}}" style="max-width: 100%" alt="">
-            <p style="color: white">Tarot</p>
+            <p style="color: white;margin-top:19px;">Tarot</p>
 
         </div>
         <div class="col-lg-2 col-6" data-toggle="modal" data-target="#exampleModal6">
             <img src="{{asset('images/l11.png')}}" style="max-width: 100%" alt="">
-            <p style="color: white">Przyszłość</p>
+            <p style="color: white;margin-top:19px;">Przyszłość</p>
 
         </div>
-    </div><br><br>
+    </div><br><br> --}}
     <h3>Wróżbici</h3>
+    @if (session()->has('success'))
+    <div class="alert alert-success">
+        {{session()->get('success')}}
+    </div>
+    @endif
     <div class="row r-1">
 
         {{-- @dd($fortune); --}}
         @foreach ($fortune as $fortunes)
-        <div class="col-lg-3 col-12">
+        <div class="col-lg-3 col-12 fortune">
             <div class="col-12 profile_div">
                 <img src="{{asset('upload/images/'.$fortunes->file)}}" alt="">
                 <h5>{{$fortunes->name}}</h5>
-                <p>{{$fortunes->bio}}</p>
-                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
+
+                <p>{{ \Illuminate\Support\Str::limit($fortunes->bio,10, $end='...') }}</p>
+
+                <button class="button_profile" data-toggle="modal" data-target="#exampleModal{{$fortunes->id}}"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
             </div>
 
 
         </div>
+        <div class="modal fade" id="exampleModal{{$fortunes->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{{$fortunes->name}}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="{{url('/user/message_fortune')}}" method="post">
+                    @csrf
+                <div class="modal-body">
+                    <input type="hidden" name="to" value={{$fortunes->id}}>
+                  <textarea style="background-color: #1D1D1D; border-radius:20px;color:white;" name="message"  rows="3" class="form-control" placeholder="Wpisz swoją wiadomość" required></textarea>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Blisko</button>
+                  <button type="submit" class="btn btn-secondary">Wysłać</button>
+
+                </div>
+            </form>
+              </div>
+            </div>
+          </div>
         @endforeach
 
         {{-- <div class="col-lg-3 col-12">

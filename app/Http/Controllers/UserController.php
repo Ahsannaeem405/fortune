@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Fortune;
 use App\Models\msg_dt;
 use App\Models\msg;
+use App\Models\Contact_message;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
@@ -47,7 +49,44 @@ function messages(Request $request){
         return response()->json($message);
 
 }
+function message_fortune(Request $request){
 
+    $user_id=Auth::user()->id;
+    $fortune_id=$request->to;
+    $msg_dtl=new msg_dt();
+    $check=msg::where('from',$user_id)->where('to',$fortune_id)->get();
+
+
+    if (count($check)==0) {
+        $msg=new msg();
+        $msg->from=$user_id;
+        $msg->to=$fortune_id;
+        $msg->save();
+
+
+
+    }
+    $msg_dtl->to=$fortune_id;
+    $msg_dtl->from=$user_id;
+    $msg_dtl->msg=$request->message;
+    $msg_dtl->save();
+    // dd($msg_dtl);
+return redirect()->back()->with('success', 'Message sent Successfully');
+
+
+}
+
+function addmessage(Request $request){
+$contact=new Contact_message();
+$contact->name=$request->name;
+$contact->email=$request->email;
+$contact->topic=$request->topic;
+$contact->message=$request->message;
+// dd($contact);
+$contact->save();
+return redirect()->back()->with('success', 'Message sent Successfully');
+
+}
 function updateprofile(Request $request){
     $user_id=Auth::user()->id;
     $user=User::find($user_id);

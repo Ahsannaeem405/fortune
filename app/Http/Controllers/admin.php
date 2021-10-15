@@ -11,6 +11,8 @@ use App\Models\msg;
 use App\Models\msg_dt;
 use App\Models\Pointshistory;
 use App\Models\Fortune;
+use App\Models\Contact_message;
+
 
 
 use App\Models\site_setting;
@@ -323,6 +325,11 @@ class admin extends Controller
 
 
     }
+    function view_comments(){
+        $message=Contact_message::all();
+        return view('admin.view_comments',['messages'=>$message]);
+    }
+
     public function  mana_password(Request $request,$id)
     {
           $user=User::find($id);

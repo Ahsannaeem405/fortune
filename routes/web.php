@@ -47,6 +47,7 @@ Route::view('/terms', 'terms&condition');
 Route::view('/policy', 'Policy');
 Route::view('/pricing', 'pricing');
 Route::view('/contact','contact');
+Route::post('/addmessage',[App\Http\Controllers\UserController::class,'addmessage']);
 
 
 
@@ -102,6 +103,7 @@ Route::get('/pointshistory',[App\Http\Controllers\admin::class,'points']);
     Route::post('/send_poke', [App\Http\Controllers\admin::class, 'send_poke']);
     Route::post('/mana_password/{id}', [App\Http\Controllers\admin::class, 'mana_password']);
     Route::post('/update_site', [App\Http\Controllers\admin::class, 'update_site']);
+    Route::get('/view_comments',[App\Http\Controllers\admin::class,'view_comments']);
 
 
 
@@ -177,6 +179,7 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
     Route::get('/profile',[App\Http\Controllers\UserController::class,'profile']);
     Route::post('/updateprofile',[App\Http\Controllers\UserController::class,'updateprofile']);
     Route::get('delete/{id}',[App\Http\Controllers\UserController::class,'deleteuser'] );
+    Route::post('/message_fortune',[App\Http\Controllers\UserController::class,'message_fortune']);
 
 });
 

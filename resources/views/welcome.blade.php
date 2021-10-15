@@ -180,6 +180,11 @@ background-color: #1d1d1d;
   white-space: normal;
   padding: 0 10px;
 }
+@media (max-width: 320px) {
+    .centered{
+        top:28px;
+    }
+}
 @media (max-width: 991px) {
   #mixedSlider .MS-content .item {
     width: 50%;
@@ -188,6 +193,13 @@ background-color: #1d1d1d;
 @media (max-width: 767px) {
   #mixedSlider .MS-content .item {
     width: 100%;
+  }
+
+  #section1 h1{
+      font-size: 45px !important;
+  }
+  #section p{
+      font-size: 14px !important;
   }
 }
 #mixedSlider .MS-content .item .imgTitle {
@@ -376,7 +388,7 @@ background-color: #1d1d1d;
         </div>
     </div>
     <div class="container">
-        <div class="row" style="margin-left:0px;margin-right:0px;">
+        {{-- <div class="row" style="margin-left:0px;margin-right:0px;">
 
             <div class="col-md-12 mt-5 mb-5" >
                 <center><h1 style="font-size:70px;">Wybierz swój znak zodiaku</h1></center>
@@ -436,7 +448,7 @@ background-color: #1d1d1d;
                 <h5 style="text-align: center;">Ryby</h5>
             </div>
 
-        </div>
+        </div> --}}
         <div class="row" style="padding-top: 50px">
             <div class="col-md-4">
                 <img src="{{asset('images/slide1.png')}}" width="100%">

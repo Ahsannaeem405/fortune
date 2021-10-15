@@ -276,6 +276,14 @@
         /* height: 50px; */
 
     }
+    .back{
+        font-size: 25px;
+        color:#C530D6 !important;
+    }
+    .back:hover{
+        color: purple !important;
+        text-decoration:none;
+    }
 
     @media only screen and (max-width: 768px) {
 
@@ -311,6 +319,9 @@
 
         .openbtn {
             display: none;
+        }
+        .row1{
+            margin-top: 60px;
         }
     }
 
@@ -393,7 +404,7 @@
 
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <a href="{{url('/user')}}"><i class="fas fa-arrow-circle-left"></i> Back</a>
+        {{-- <a href="{{url('/user')}}"><i class="fas fa-arrow-circle-left"></i> Back</a> --}}
         <div class="row sidebar_row">
             <div class="col-10">
 
@@ -458,8 +469,8 @@
     </div>
 
     <div class="container p-5 ">
-        <a href="{{url('/user')}}" style="color: white"><i class="fas fa-arrow-circle-left"></i> Back</a>
-        <div class="row" style="margin-top: 15px">
+        <a href="{{url('/user')}}" class="back"><i class="fas fa-arrow-circle-left"></i> Back</a>
+        <div class="row row1">
             <div class="col-lg-3 col-12 fullscreen">
 
                 <img src="{{ asset('images/logo2.png') }}" alt="" class="logo">

@@ -414,7 +414,7 @@ color:#C42FD5;
                       <a href="#"><i class="far fa-envelope-open"></i><span style="font-size: 10px;"> Napisz do nas</span> <br></a>
                     </li>
                     <li>
-                        <a href="#!">&nbsp; &nbsp; info@powrozmi.pl</a>
+                        <p>&nbsp; &nbsp; info@powrozmi.pl</p>
                       </li>
 
                   </ul>
