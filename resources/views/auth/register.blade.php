@@ -106,7 +106,13 @@
 
                     </div>
                     <div class="form-group" style="margin-top: -26px;">
-                      <input type="date" class="input form-control date" name="dob" required autocomplete="new-password" placeholder="Data urodzenia"  data-date="" data-date-format="DD MMMM YYYY" value="">
+                        <input placeholder="Data urodzenia" class="textbox-n input form-control date"  name="dob" type="text" onfocus="(this.type='date')" id="date">
+
+
+                      
+
+
+
 
                     </div>
                     <div class="form-group d-m">
@@ -171,6 +177,10 @@
 
 
     })
+
+
 </script>
+
+
 
 @endsection
