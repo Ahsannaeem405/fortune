@@ -106,7 +106,7 @@
 
                     </div>
                     <div class="form-group" style="margin-top: -26px;">
-                      <input type="date" class="input form-control date" name="dob" required autocomplete="new-password" placeholder="Data urodzenia" data-date-format="DD MM YYYY">
+                      <input type="date" class="input form-control date" name="dob" required autocomplete="new-password" placeholder="Data urodzenia"  data-date="" data-date-format="DD MMMM YYYY" value="">
 
                     </div>
                     <div class="form-group d-m">

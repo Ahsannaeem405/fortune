@@ -76,6 +76,15 @@ background-size: cover;
 font-size: 13px;
 }
 }
+.a:hover{
+  text-decoration: none;
+  color: black;
+
+}
+.a{
+  color: black;
+
+}
 </style>
 
 
@@ -131,54 +140,25 @@ font-size: 13px;
 
         {{-- @dd($fortune); --}}
         @foreach ($fortune as $fortunes)
+        
         <div class="col-lg-3 col-12 fortune">
             <div class="col-12 profile_div">
+                <a class="a" href="{{url('user/chat_start/' .$fortunes->id)}}">
                 <img src="{{asset('upload/images/'.$fortunes->file)}}" alt="">
                 <h5>{{$fortunes->name}}</h5>
 
-                <p>{{ \Illuminate\Support\Str::limit($fortunes->bio,10, $end='...') }}</p>
+                <p>{{$fortunes->bio }}</p>
 
-                <button class="button_profile" data-toggle="modal" data-target="#exampleModal{{$fortunes->id}}"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
+                <button class="button_profile" ><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
+                </a>
             </div>
 
 
         </div>
-        <div class="modal fade" id="exampleModal{{$fortunes->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">{{$fortunes->name}}</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <form action="{{url('/user/message_fortune')}}" method="post">
-                    @csrf
-                <div class="modal-body">
-                    <input type="hidden" name="to" value={{$fortunes->id}}>
-                  <textarea style="background-color: #1D1D1D; border-radius:20px;color:white;" name="message"  rows="3" class="form-control" placeholder="Wpisz swoją wiadomość" required></textarea>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Blisko</button>
-                  <button type="submit" class="btn btn-secondary">Wysłać</button>
-
-                </div>
-            </form>
-              </div>
-            </div>
-          </div>
+        
+        
         @endforeach
 
-        {{-- <div class="col-lg-3 col-12">
-            <div class="col-12 profile_div">
-                <img src="{{asset('upload/images/1631279017_.jpg')}}" alt="">
-                <h5>Cyganka Sybilla</h5>
-                <p>Wróżby cygańskie, Rytuały</p>
-                <button class="button_profile"><i class="far fa-paper-plane"></i> <span class="button_text">Napisz do mnie</span></button>
-            </div>
-
-
-        </div> --}}
 
 
     </div>

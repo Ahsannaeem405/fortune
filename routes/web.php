@@ -180,6 +180,10 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
     Route::post('/updateprofile',[App\Http\Controllers\UserController::class,'updateprofile']);
     Route::get('delete/{id}',[App\Http\Controllers\UserController::class,'deleteuser'] );
     Route::post('/message_fortune',[App\Http\Controllers\UserController::class,'message_fortune']);
+    Route::get('/chat_start/{id}',[App\Http\Controllers\UserController::class,'chat_start']);
+
+
+    
 
 });
 

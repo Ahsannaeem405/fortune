@@ -17,6 +17,10 @@
         background-color: #1B1B1B;
         color: white;
     }
+    .prof{
+            display: none;
+
+        }
 
     .logo {
         width: 130px;
@@ -292,9 +296,17 @@
             display: none;
 
         }
+        .back{
+            float: right;
+            margin-top: -40%;
+        }
 
         .openbtn {
             display: block;
+        }
+        .prof{
+            display: block;
+
         }
 
         .contact_image {
@@ -312,11 +324,7 @@
     @media only screen and (min-width:769px) {
 
         /*Big smartphones [426px -> 600px]*/
-        .fullscreen {
-            display: block;
-
-        }
-
+       
         .openbtn {
             display: none;
         }
@@ -339,6 +347,9 @@
             padding-right: 10px !important;
             padding-left: 10px !important;
         }
+           
+
+     
     }
 
     @media screen and (max-height: 768px) {
@@ -469,31 +480,23 @@
     </div>
 
     <div class="container p-5 ">
-        <a href="{{url('/user')}}" class="back"><i class="fas fa-arrow-circle-left"></i> Back</a>
+        <a href="{{url('/user')}}" class="back"><i class="fas fa-arrow-circle-left"></i> Powrót</a>
         <div class="row row1">
             <div class="col-lg-3 col-12 fullscreen">
 
                 <img src="{{ asset('images/logo2.png') }}" alt="" class="logo">
-
+                @if(isset($for))
 
                 <div class="profile p-3">
                     <div class="image">
-                        <img src="{{ asset('images/slide1.png') }}" alt="">
+                        <img src="{{asset('upload/images/'.$for->file)}}" alt="">
                     </div><br>
-                    <h5>BillBoard</h5>
-                    <p>Lorem ipsum dolor sit amet.</p>
+                    <h5>{{$for->name}}</h5>
+                    <p>{{$for->bio}}</p>
 
                 </div>
-                <div class="row name">
-                    <div class="col-lg-8 col-8">
-                        <h5>Rozmowy</h5>
-                    </div>
-                    <div class="col-lg-4 col-4">
-                        <b>5 <i class="fas fa-chevron-down"></i></b>
-                    </div>
-
-
-                </div>
+                @endif
+                
                 <div class="listend">
                     {{-- <div class="contactlist active">
                         <div class="contact_image">
@@ -527,7 +530,26 @@
 
             </div>
             <div class="col-lg-9 col-12 specific_chat ">
+                @if(isset($for))
+
+                
+                    <div  class="prof">
+                        <img src="{{asset('upload/images/'.$for->file)}}" alt="" style="width:80px;height:80px;"> 
+
+                        
+                        <h5 style="">{{$for->name}}</h5>
+                        <p style="">{{$for->bio}}</p>
+                        <hr>
+                        
+                    </div>
+                    
+                    
+
+                @endif
                 <div class="row specific_msg right_box" >
+                     
+
+
                     <div class="col-lg-12 message_receiver" id="chat">
 
 
