@@ -48,6 +48,7 @@ Route::view('/policy', 'Policy');
 Route::view('/pricing', 'pricing');
 Route::view('/contact','contact');
 Route::post('/addmessage',[App\Http\Controllers\UserController::class,'addmessage']);
+Route::post('/cashbill',[App\Http\Controllers\UserController::class,'cashbill']);
 
 
 
@@ -183,7 +184,7 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
     Route::get('/chat_start/{id}',[App\Http\Controllers\UserController::class,'chat_start']);
 
 
-    
+
 
 });
 

@@ -75,6 +75,11 @@ return redirect()->back()->with('success', 'Message sent Successfully');
 
 
 }
+function cashbill(Request $request){
+    $points=$request->points;
+    $amount=$request->amount;
+    return view('cashbill',['points'=>$points ,'amount'=>$amount]);
+}
 function chat_start($id){
 
     $user_id=Auth::user()->id;
@@ -82,7 +87,7 @@ function chat_start($id){
     $for=Fortune::find($id);
 
     if (msg::where('to', $fortune_id)->where('from',$user_id)->exists())
-    { 
+    {
         $chat_id=msg::where('to', $fortune_id)->where('from',$user_id)->value('id');
 
 
@@ -91,12 +96,12 @@ function chat_start($id){
     }
     else{
         $chat_id=0;
-    } 
+    }
     $id=Auth::user()->id;
     $msg=msg::where('to',$id)->get();
     $chat_detail=msg_dt::where('to',$id)->get();
     return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg, 'for'=>$for]);
-    
+
 
 }
 
