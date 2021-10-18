@@ -181,7 +181,7 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
     Route::post('/updateprofile',[App\Http\Controllers\UserController::class,'updateprofile']);
     Route::get('delete/{id}',[App\Http\Controllers\UserController::class,'deleteuser'] );
     Route::post('/message_fortune',[App\Http\Controllers\UserController::class,'message_fortune']);
-    Route::get('/chat_start/{id}',[App\Http\Controllers\UserController::class,'chat_start']);
+    Route::any('/chat_start/{id}',[App\Http\Controllers\UserController::class,'chat_start']);
 
 
 
@@ -189,6 +189,7 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
 });
 
 Route::get('/messages',[App\Http\Controllers\UserController::class,'messages']);
+Route::post('/messages_fortune',[App\Http\Controllers\UserController::class,'messages_fortune']);
 
 
 Auth::routes(['verify' => true]);

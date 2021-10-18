@@ -39,7 +39,8 @@ function chat(){
     $id=Auth::user()->id;
     $msg=msg::where('to',$id)->get();
     $chat_detail=msg_dt::where('to',$id)->get();
-    return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg]);
+    $for=null;
+    return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg,'for'=>$for]);
 }
 function messages(Request $request){
     $user=Auth::user()->id;
@@ -47,6 +48,44 @@ function messages(Request $request){
 
 
         return response()->json($message);
+
+}
+function messages_fortune(Request $request){
+
+    $to=$request->id;
+    $message=$request->message;
+    $from=Auth::user()->id;
+    if (msg::where('to', $to)
+    ->where('from',$from)
+    ->exists())
+    {
+       $msg_det=new msg_dt();
+       $msg_det->msg=$message;
+       $msg_det->to= $to;
+       $msg_det->from=Auth::user()->id;
+       $msg_det->save();
+    }
+    else{
+
+       $msg=new msg();
+       $msg->to= $to;
+       $msg->from=Auth::user()->id;
+       $msg->save();
+
+       $msg_det=new msg_dt();
+       $msg_det->msg=$message;
+       $msg_det->to= $to;
+       $msg_det->from=Auth::user()->id;
+       $msg_det->save();
+
+    }
+    // dd($message);
+    // $message->sender = Auth::user()->id;
+    // $message->receiver = $request->receiver;
+    // $message->sender_read = "1";
+    // $message->message = $request->message;
+    // $message->save();
+    return response()->json($msg_det);
 
 }
 function message_fortune(Request $request){
