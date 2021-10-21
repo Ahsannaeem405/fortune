@@ -275,9 +275,12 @@
     }
 
     .specific_msg {
-        overflow-y: scroll;
-        height: 590px;
-        /* height: 50px; */
+        /* overflow-y: scroll;
+        height: 590px; */
+
+        max-height: 490px;
+    overflow-y: auto;
+
 
     }
     .back{
@@ -324,7 +327,7 @@
     @media only screen and (min-width:769px) {
 
         /*Big smartphones [426px -> 600px]*/
-       
+
         .openbtn {
             display: none;
         }
@@ -347,9 +350,9 @@
             padding-right: 10px !important;
             padding-left: 10px !important;
         }
-           
 
-     
+
+
     }
 
     @media screen and (max-height: 768px) {
@@ -422,14 +425,17 @@
                 <img src="{{ asset('images/logo2.png') }}" alt="" class="logo">
 
 
+                @if (isset($for))
                 <div class="profile p-3">
                     <div class="image">
-                        <img src="{{ asset('images/slide1.png') }}" alt="">
+                        <img src="{{asset('upload/images/'.$for->file)}}" alt="">
                     </div><br>
-                    <h5>BillBoard</h5>
-                    <p>Lorem ipsum dolor sit amet.</p>
+                    <h5>{{$for->name}}</h5>
+                    <p>{{$for->bio}}</p>
 
                 </div>
+                @endif
+
                 <div class="row name">
                     <div class="col-lg-8 col-8">
                         <h5>Rozmowy</h5>
@@ -485,18 +491,20 @@
             <div class="col-lg-3 col-12 fullscreen">
 
                 <img src="{{ asset('images/logo2.png') }}" alt="" class="logo">
-                @if(isset($for))
 
-                <div class="profile p-3">
-                    <div class="image">
-                        <img src="{{asset('upload/images/'.$for->file)}}" alt="">
-                    </div><br>
-                    <h5>{{$for->name}}</h5>
-                    <p>{{$for->bio}}</p>
+              @if(isset($for))
 
-                </div>
-                @endif
-                
+              <div class="profile p-3">
+                  <div class="image">
+                      <img src="{{asset('upload/images/'.$for->file)}}" alt="">
+                  </div><br>
+                  <h5>{{$for->name}}</h5>
+                  <p>{{$for->bio}}</p>
+
+              </div>
+              @endif
+
+
                 <div class="listend">
                     {{-- <div class="contactlist active">
                         <div class="contact_image">
@@ -532,29 +540,30 @@
             <div class="col-lg-9 col-12 specific_chat ">
                 @if(isset($for))
 
-                
-                    <div  class="prof">
-                        <img src="{{asset('upload/images/'.$for->file)}}" alt="" style="width:80px;height:80px;"> 
 
-                        
+                    <div  class="prof">
+                        <img src="{{asset('upload/images/'.$for->file)}}" alt="" style="width:80px;height:80px;">
+
+
                         <h5 style="">{{$for->name}}</h5>
                         <p style="">{{$for->bio}}</p>
                         <hr>
-                        
+
                     </div>
-                    
-                    
+
+
 
                 @endif
-                <div class="row specific_msg right_box" >
-                     
-
-
-                    <div class="col-lg-12 message_receiver" id="chat">
+                <div class="row specific_msg right_box" id="chat">
 
 
 
-                    </div>
+
+
+
+
+
+
 
 
 
@@ -578,13 +587,17 @@
 
 
                 </div>
-
+                <form method="post">
+                    @csrf
                 <div class="row message_type">
 
                     <div class="col-lg-10 col-sm-9 col-7">
                         <div class="input-group flex-nowrap">
+                            @if (isset($for))
+                            <input type="hidden" class="rec_id" value="{{$for->id}}">
 
-                            <input type="text" class="form-control text" aria-describedby="addon-wrapping">
+                            @endif
+                            <input type="text" id="input" class="form-control text" aria-describedby="addon-wrapping">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="addon-wrapping"><i class="far fa-smile"></i></span>
                             </div>
@@ -592,13 +605,15 @@
 
                     </div>
                     <div class="col-lg-2 col-sm-3 col-5">
-                        <button class="Send_btn">Wyślij <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                        <button class="Send_btn" type="button">Wyślij <i class="fa fa-paper-plane" aria-hidden="true"></i>
                         </button>
+
                     </div>
 
 
 
                 </div>
+                </form>
 
 
             </div>
@@ -609,6 +624,53 @@
     <script>
         $(document).ready(function() {
 
+                $(document).on("click",'.Send_btn',function(){
+
+
+                    var message=$('#input').val();
+                    var rec_id=$('.rec_id').val();
+                    var op=" ";
+                    var id =rec_id;
+                var _token = $("input[name='_token']").val();
+
+
+
+// ajax
+$.ajax({
+
+type: 'post',
+url: '{{ URL::to('/messages_fortune') }}',
+data: {
+    _token:_token,
+    'id': id,'message':message
+
+},
+
+success: function(data) {
+    $('#chat').val(" ");
+    // if(data.sender=={{Auth::user()->id}}){
+    //     op += ' <div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div>';
+    // $('#chat2').append(op);
+
+    // }
+    // else{
+    //     alert(data.msg);
+
+    //     op +='<div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data.msg+'</p></div>';
+    //     $('#chat').append(op);
+
+
+    // }
+    op += '<div class="col-lg-12 message_sender"><div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
+    $('#chat').append(op);
+},
+
+
+});
+
+
+
+                });
             $(".contact1").click(function() {
                 // alert("1");
                 var myId = $('#from_id1').val();
@@ -632,7 +694,7 @@ $.ajax({
 
         for (var i = 0; i < data.length; i++) {
 
-            op +='<div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data[i].msg+'</p></div>'
+            op +='<div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data[i].msg+'</p></div></div>'
 
         }
         // alert(op);
@@ -666,7 +728,7 @@ $.ajax({
 
         for (var i = 0; i < data.length; i++) {
 
-            op +='<div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data[i].msg+'</p></div>'
+            op +='<div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data[i].msg+'</p></div></div>'
 
         }
         // alert(op);

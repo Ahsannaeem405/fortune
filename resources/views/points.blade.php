@@ -106,8 +106,8 @@
                     <div class=" p-4 p-md-5 mt-5">
 
 
-                        {{-- <form method="POST" action="{{ url('charge') }}" name="myForm" class="login-form">
-                            @csrf --}}
+                        <form method="POST" action="{{ url('cashbill') }}" name="myForm" class="login-form">
+                            @csrf
 
                             <div class="form-group">
 
@@ -145,13 +145,16 @@
                                     readonly="" price="22999">
 
                             </div>
+                            <input type="hidden" name="points" id="points1" value="5">
+
+                            <input id="amount1" type="hidden" class="input form-control" name="amount" value="1299">
 
 
                     </div>
                     <div class="row">
                         <div class="col-md-12">
 
-                            <button type="button" class="submit btn  form-control pur" name="submit" data-toggle="modal" data-target="#exampleModal"> Doładuj
+                            <button type="submit" class="submit btn  form-control pur" name="submit"> Doładuj
                                 punkty</button>
                         </div>
                     </div>
@@ -249,62 +252,7 @@
         </div>
     </section>
     <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Payment Method</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-lg-6 col-12">
-                <form method="POST" action="{{ url('charge') }}" name="myForm" class="login-form">
-                            @csrf
-                            {{-- <input type="hidden" name="points" value="5">
-                            <input type="hidden" name="amount" value="1299"> --}}
-                    <button class="button_method" type="submit">
-                    <input type="hidden" name="points" id="points" value="5">
-                    <input id="amount" type="hidden" class="input form-control" name="amount" value="1299">
-
-                        <img src="{{asset('images/paypal.jpg')}}" alt="" class="buttonimage">
-                    </button>
-                </form>
-                </div>
-                <div class="col-lg-6 col-12">
-                    <form action="{{url('/stripedata')}}" method="post">
-                        @csrf
-                    <button class="button_method" type="submit">
-                    <input type="hidden" name="points" id="points1" value="5">
-
-                    <input id="amount1" type="hidden" class="input form-control" name="amount" value="1299">
-
-
-                        <img src="{{asset('images/stripe.png')}}" alt="" class="buttonimage">
-                    </button>
-                </form>
-                </div>
-                <div class="col-lg-12 col-12">
-                    <form action="" method="post">
-                        <button class="button_method" type="submit">
-                            <img src="{{asset('images/pic1.png')}}" alt="" class="buttonimage">
-                        </button>
-                    </form>
-
-
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-        </div>
-      </div>
-    </div>
-  </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
             $(".input").click(function() {
