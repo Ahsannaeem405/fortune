@@ -50,6 +50,7 @@ class facebook extends Controller
 
 
             }
+            dd($user->email);
             else{
                 if ($user->getEmail() !=null){
                         $newUser = User::create([
