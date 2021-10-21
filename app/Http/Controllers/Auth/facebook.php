@@ -39,10 +39,13 @@ class facebook extends Controller
         try {
 
             $user = Socialite::driver('facebook')->user();
+                                                        dd($user->email);
+
 
             $finduser = User::where('facebook_id', $user->id)->first();
 
             if($finduser){
+
                  
                 Auth::login($finduser);
                 return redirect('/user');
@@ -51,7 +54,6 @@ class facebook extends Controller
 
             }
             else{
-                            dd($user->email);
 
                 if ($user->getEmail() !=null){
                         $newUser = User::create([
