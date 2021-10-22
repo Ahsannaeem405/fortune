@@ -117,7 +117,13 @@ return redirect()->back()->with('success', 'Message sent Successfully');
 function cashbill(Request $request){
     $points=$request->points;
     $amount=$request->amount;
+    Session()->put('points',$points);
     return view('cashbill',['points'=>$points ,'amount'=>$amount]);
+}
+function payment_success(){
+    $points=session()->get('points');
+    $user_id=Auth::user()->id;
+
 }
 function chat_start($id){
 

@@ -182,6 +182,7 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
     Route::get('delete/{id}',[App\Http\Controllers\UserController::class,'deleteuser'] );
     Route::post('/message_fortune',[App\Http\Controllers\UserController::class,'message_fortune']);
     Route::any('/chat_start/{id}',[App\Http\Controllers\UserController::class,'chat_start']);
+    Route::get('/payment_success',[App\Http\Controllers\UserController::class,'payment_success']);
 
 
 
