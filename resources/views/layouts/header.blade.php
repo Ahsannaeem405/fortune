@@ -45,6 +45,10 @@
           width: 100%;
           padding: 0px;
       }
+      .log2:hover{
+          color: white !important;
+          background-color: purple !important;
+      }
       .profile{
           background-color: #C42FD5;
           color: white;
@@ -232,7 +236,12 @@ color:#C42FD5;
   <body>
     <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        @if (Auth::user() && Auth::user()->email_verified_at!=null)
         <a class="navbar-brand" href="{{url('/user')}}"><img src="{{asset('images/logo2.png')}}" alt="" style="width:100%;"></a>
+        @else
+        <a class="navbar-brand" href="{{url('/')}}"><img src="{{asset('images/logo2.png')}}" alt="" style="width:100%;"></a>
+        @endif
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -240,16 +249,17 @@ color:#C42FD5;
           <div class="navbar-nav" style="margin-left:auto; ">
             @if (Auth::user())
             <ul class="navbar-nav ml-auto loginhome ">
+                @if ( Auth::user()->email_verified_at!=null)
                 <li class="nav-item">
-                   <a href="{{url('/user')}}"> <i class="fas fa-home" style="color: white"></i></a>
+                    <a href="{{url('/user')}}"> <i class="fas fa-home" style="color: white"></i></a>
 
-                </li>
-                <li class="nav-item">
-                    <a href="{{url('/user/chat')}}">
-                    <i class="far fa-envelope" style="color: white"></i>
-                </a>
-                </li>
-                <li class="nav-item" style="color: white;">
+                 </li>
+                 <li class="nav-item">
+                     <a href="{{url('/user/chat')}}">
+                     <i class="far fa-envelope" style="color: white"></i>
+                 </a>
+                 </li>
+                 <li class="nav-item" style="color: white;">
                     <div class="point">
                         @if (Auth::user()->point!=null)
                       <a href="{{url('/user/points')}}"><span>{{Auth::user()->point}}</span></a>
@@ -263,6 +273,10 @@ color:#C42FD5;
                     <a href="{{url('/user/profile')}}" class="a_tag">
                         Mój profil</a>
                 </li>
+                @endif
+
+
+
                 <li class="nav-item logout_item">
                     <span class="badge" style="border-radius: 200px;background-color:#BA2DCE;color:white;"><a class="dropdown-item logoutbtn" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -276,7 +290,7 @@ color:#C42FD5;
 
 
                 </li>
-
+                @if (Auth::user()->email_verified_at!=null)
                 <li class="nav-item dots">
                     <div class="dropdown">
                         <button onclick="myFunction()" class="dropbtn"><i class="fas fa-ellipsis-v" style="color: white"></i></button>
@@ -296,10 +310,28 @@ color:#C42FD5;
                              </form></span>
 
 
+
+
                         </div>
                       </div>
 
                 </li>
+                @else
+                <li class="nav-item logout_item dots">
+                    <span class="badge" style="border-radius: 200px;background-color:#BA2DCE;color:white;"><a class="dropdown-item logoutbtn log2" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Wyloguj') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form></span>
+
+
+                </li>
+                @endif
+
 
 
             </ul>
@@ -349,7 +381,7 @@ color:#C42FD5;
 
                   <ul class="list-unstyled">
                     <li>
-                        <img src="images/logo.png" alt="">
+                        <img src="{{url('images/logo.png')}}" alt="">
 
                      <p class="img-text">Najlepsze wróżby online dostępne
 
