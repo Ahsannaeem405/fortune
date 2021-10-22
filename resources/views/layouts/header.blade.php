@@ -181,6 +181,10 @@ color:#C42FD5;
 .point span{
 
 }
+.a_point:hover{
+text-decoration: none;
+color: #f1f1f1;
+}
 /* .dropdown a:hover {background-color: #ddd;} */
 
 .show {display: block;}
@@ -262,7 +266,7 @@ color:#C42FD5;
                  <li class="nav-item" style="color: white;">
                     <div class="point">
                         @if (Auth::user()->point!=null)
-                      <a href="{{url('/user/points')}}"><span>{{Auth::user()->point}}</span></a>
+                      <a href="{{url('/user/points')}}" class="a_point"><span>{{Auth::user()->point}}</span></a>
     @else
     <a href="{{url('/user/points')}}" style="color: white;text-decoration:none;"> <span>0</span></a>
                         @endif
