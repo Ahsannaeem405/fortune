@@ -121,6 +121,7 @@ function cashbill(Request $request){
     return view('cashbill',['points'=>$points ,'amount'=>$amount]);
 }
 function payment_success(){
+    dd($_GET['status']);
     $points=session()->get('points');
     $user_id=Auth::user()->id;
 
