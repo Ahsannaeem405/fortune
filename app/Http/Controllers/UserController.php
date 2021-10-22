@@ -8,6 +8,7 @@ use App\Models\Fortune;
 use App\Models\msg_dt;
 use App\Models\msg;
 use App\Models\Contact_message;
+use App\Models\Pointshistory;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -121,9 +122,23 @@ function cashbill(Request $request){
     return view('cashbill',['points'=>$points ,'amount'=>$amount]);
 }
 function payment_success(){
-    dd($_GET['status']);
     $points=session()->get('points');
-    $user_id=Auth::user()->id;
+    $amount=$_GET['amount'];
+
+    // dd($_GET['status']);
+    if ($_GET['status']=="ok") {
+        $user=User::find(Auth::user()->id);
+        $total=$user->point+$points;
+        $user->point=$total;
+        $user->save();
+        $Pointshistory=new Pointshistory();
+        $Pointshistory->user_id=$user->id;
+        $Pointshistory->points=$points;
+       $Pointshistory->amount= $amount;
+       $Pointshistory->save();
+       return redirect('/user');
+    }
+
 
 }
 function chat_start($id){
