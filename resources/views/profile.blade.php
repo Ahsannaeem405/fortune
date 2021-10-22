@@ -119,10 +119,10 @@ input:checked + .slider:before {
                   <h3 class="text-center mb-4" style="color: white">Profil</h3>
                   <form method="POST" action="{{url('/user/updateprofile')}}" class="login-form" enctype="multipart/form-data">
                         @csrf
-                  <div class="form-group">
+                  {{-- <div class="form-group">
 
                     <input type="file" name="file" id="fileElem"  multiple accept="image/*" style="color: white" style="width: 80%">
-                  </div>
+                  </div> --}}
 
                   <div class="form-group">
                     <label style="color: white;">Email</label>
@@ -134,16 +134,16 @@ input:checked + .slider:before {
                       @enderror
                   </div>
 
-                  <div class="form-group">
+                  {{-- <div class="form-group">
                     <label style="color: white;">Imię</label>
                     <input type="text" class="form-control input " placeholder="Imię" value="{{$user->f_name}}"  class="form-control " name="f_name"  autofocus>
 
-                </div>
-                <div class="form-group">
+                </div> --}}
+                {{-- <div class="form-group">
                     <label style="color: white;">Nazwisko</label>
                     <input type="text" class="form-control input " placeholder="Nazwisko" value="{{$user->l_name}}"  class="form-control " name="l_name"   autofocus>
 
-                </div>
+                </div> --}}
                 @if ($user->google_id ==null and $user->facebook_id ==null)
 
                 <div class="form-group">
@@ -178,11 +178,11 @@ input:checked + .slider:before {
                   </div>
                 @endif
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label style="color: white;">Numer telefonu</label>
                     <input type="text" class="form-control input " placeholder="Numer telefonu" value="{{$user->phone}}"  class="form-control " name="phone"   autofocus>
 
-                </div>
+                </div> --}}
                 @if ($user->dob!=null)
                 <div class="form-group">
                     <label style="color: white;">Wiek</label>
@@ -195,39 +195,42 @@ input:checked + .slider:before {
                     <input type="date" class="form-control input " name="dob" placeholder="Data urodzenia"   class="form-control "   autofocus>
                 @endif
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label style="color: white;">Wołacz</label>
                     <input type="text" class="form-control input " placeholder="Wołacz" value="{{$user->vocative}}"  class="form-control " name="vocative"   autofocus>
 
-                </div>
-                <div class="form-group">
+                </div> --}}
+                {{-- <div class="form-group">
                     <label style="color: white;">Imię Miłości</label>
                     <input type="text" class="form-control input " placeholder="Imię Miłości" value="{{$user->nameoflove}}"  class="form-control " name="nameoflove"   autofocus>
 
-                </div>
-                <div class="form-group">
+                </div> --}}
+                {{-- <div class="form-group">
                     <label style="color: white;">Miasto</label>
                     <input type="text" class="form-control input " placeholder="Miasto" value="{{$user->city}}"  class="form-control " name="city"   autofocus>
 
-                </div>
+                </div> --}}
                 <div class="form-group">
                     <label style="color: white;">Notyfikacja</label><br>
-
+                    {{-- @dd($user->notification); --}}
                     <label class="switch">
-                        <input type="checkbox" value="1" name="notification" checked>
+                        <input type="checkbox" value="1" name="notification" @if ($user->notification==1)
+                        checked
+                        @endif  >
                         <span class="slider round"></span>
                       </label>
                 </div>
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label style="color: white;">Bio</label>
                    <textarea name="bio" id="" class="form-control input" rows="2">{{$user->bio}}</textarea>
 
-                </div>
+                </div> --}}
 
                  <br>
                   <div class="row">
                   <div class="col-md-12">
-                    <button type="submit" class="form-control login">Zaloguj się</button>
+                    <button type="submit" class="form-control login">
+                        Aktualizacja</button>
                   </div>
 
                   </div>

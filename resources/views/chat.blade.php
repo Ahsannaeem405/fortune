@@ -292,6 +292,17 @@
         text-decoration:none;
     }
 
+    .no_message{
+        background-color:#2F2F2F;
+        height: 500px;
+        text-align: center;
+        padding-top: 150px;
+        color: white;
+
+    }
+    .right_box{
+        display: none;
+    }
     @media only screen and (max-width: 768px) {
 
         /*Big smartphones [426px -> 600px]*/
@@ -554,6 +565,13 @@
 
 
                 @endif
+                <div class="row">
+                    <div class="col-lg-12 col-12 no_message">
+                        <h5>Rozmowy</h5><br>
+                        <img src="{{url('images\sad.png')}}" alt="">
+                        <p style="color: gray;margin-top:50px;">Wybierz wrozbite z menu po lewej stronie i zadaj pytanie!</p>
+                    </div>
+                </div>
                 <div class="row specific_msg right_box" id="chat">
 
 
@@ -674,6 +692,11 @@ success: function(data) {
             $(".contact1").click(function() {
                 // alert("1");
                 var myId = $('#from_id1').val();
+                $(".no_message").css("display","none");
+                $(".right_box").css("display","block");
+
+
+
                 var op=" ";
 
 
@@ -708,6 +731,9 @@ $.ajax({
 
             $(".contact2").click(function() {
                 var myId = $('#from_id2').val();
+                $(".no_message").css("display","none");
+                $(".right_box").css("display","block");
+
                 var op=" ";
 
 

@@ -181,9 +181,14 @@ color:#C42FD5;
 .point span{
 
 }
+.a_point{
+    color: white;
+    background-color: #C42FD5;
+}
 .a_point:hover{
 text-decoration: none;
 color: #f1f1f1;
+/* background-color: purple; */
 }
 /* .dropdown a:hover {background-color: #ddd;} */
 

@@ -136,11 +136,16 @@ font-size: 13px;
         {{session()->get('success')}}
     </div>
     @endif
+    @if (session()->has('error'))
+    <div class="alert alert-danger">
+        {{session()->get('error')}}
+    </div>
+    @endif
     <div class="row r-1">
 
         {{-- @dd($fortune); --}}
         @foreach ($fortune as $fortunes)
-        
+
         <div class="col-lg-3 col-12 fortune">
             <div class="col-12 profile_div">
                 <a class="a" href="{{url('user/chat_start/' .$fortunes->id)}}">
@@ -155,8 +160,8 @@ font-size: 13px;
 
 
         </div>
-        
-        
+
+
         @endforeach
 
 

@@ -129,6 +129,8 @@ class admin extends Controller
 
 
           $user =User::find($id);
+          $password=Hash::make($request->password);
+          $user->password=$password;
           $user->f_name = $request->input('f_name');
           $user->l_name = $request->input('l_name');
           $user->name = $request->input('f_name').' '.$request->input('l_name');

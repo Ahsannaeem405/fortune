@@ -142,7 +142,11 @@ function payment_success(){
 
 }
 function chat_start($id){
+    $points=Auth::user()->point;
+    if ($points==0) {
+return redirect()->back()->with('error', 'Za mało punktów');
 
+    }
     $user_id=Auth::user()->id;
     $fortune_id=$id;
     $for=Fortune::find($id);
@@ -189,8 +193,8 @@ function updateprofile(Request $request){
 
     }
     $user->email=$request->email;
-    $user->f_name=$request->f_name;
-    $user->l_name=$request->l_name;
+    // $user->f_name=$request->f_name;
+    // $user->l_name=$request->l_name;
     if ($request->password!=null) {
         if (Hash::check($request->password, $user->password)) {
             if ($request->new_password!=null && $request->confirm_password!=null) {
@@ -215,11 +219,11 @@ function updateprofile(Request $request){
     }
 
 
-$user->phone=$request->phone;
-$user->vocative=$request->vocative;
-$user->nameoflove=$request->nameoflove;
-$user->city=$request->city;
-$user->bio=$request->bio;
+// $user->phone=$request->phone;
+// $user->vocative=$request->vocative;
+// $user->nameoflove=$request->nameoflove;
+// $user->city=$request->city;
+// $user->bio=$request->bio;
 $user->notification=$request->notification;
 $user->dob=$request->dob;
 $user->save();
