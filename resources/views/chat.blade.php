@@ -121,7 +121,7 @@
         margin-top: 20px;
         text-align: center !important;
         border-radius: 20px;
-        padding: 20px;
+        /* padding: 20px; */
         height: 670px;
     }
 
