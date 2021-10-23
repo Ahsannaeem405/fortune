@@ -149,6 +149,13 @@ class admin extends Controller
 
 
      }
+     function showchat(){
+        $msg_approve=msg::where('status','!=','null')->get();
+        $msg_na=msg::where('status',null)->get();
+
+
+        return view('admin/chat',['approve_msgs'=>$msg_approve,'Napprove_msgs'=>$msg_na]);
+     }
     public function  user()
     {
       $user=User::whereNull('role')->get();
@@ -242,6 +249,7 @@ class admin extends Controller
           $user =User::find($request->user_id);
           $user->point = $request->input('point');
           $user->update();
+          dd($user);
           if(!is_null($user)) {
             return back()->with('success', 'User Successfully Add.');
           }
@@ -266,10 +274,14 @@ class admin extends Controller
               ->where('from',$fromck)
               ->exists())
               {
+                  $id=msg::where('to', $request->input('user_idy')[$i])
+                  ->where('from',$fromck)
+                  ->value('id');
                  $msg_det=new msg_dt();
                  $msg_det->msg=$request->input('msg');
                  $msg_det->to= $request->input('user_idy')[$i];
                  $msg_det->from=Auth::user()->id;
+                 $msg_det->msg_id=$id;
                  $msg_det->save();
               }
               else{
@@ -280,6 +292,7 @@ class admin extends Controller
                  $msg->save();
 
                  $msg_det=new msg_dt();
+                 $msg_det->msg_id=$msg->id;
                  $msg_det->msg=$request->input('msg');
                  $msg_det->to= $request->input('user_idy')[$i];
                  $msg_det->from=Auth::user()->id;
@@ -287,7 +300,7 @@ class admin extends Controller
 
               }
             }
-
+            // dd($msg_det);
         }
         else{
           $user_idy=User::whereNull('role')->get();

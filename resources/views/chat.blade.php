@@ -121,8 +121,8 @@
         margin-top: 20px;
         text-align: center !important;
         border-radius: 20px;
-        /* padding: 20px; */
-        height: 670px;
+        padding: 20px;
+        height: 700px;
     }
 
     .message_sender {
@@ -303,6 +303,9 @@
     .right_box{
         display: none;
     }
+    .message_type{
+        display: none;
+    }
     @media only screen and (max-width: 768px) {
 
         /*Big smartphones [426px -> 600px]*/
@@ -375,8 +378,10 @@
 
     @media only screen and (min-width:1023px) {
         .Send_btn {
-            padding: 9px;
-            font-size: 14px;
+            /* padding: 9px;
+            font-size: 14px; */
+            padding: 11px;
+    font-size: 10px;
         }
     }
 
@@ -437,6 +442,7 @@
 
 
                 @if (isset($for))
+                <input type="hidden" value="{{$for->id}}" id="for_id">
                 <div class="profile p-3">
                     <div class="image">
                         <img src="{{asset('upload/images/'.$for->file)}}" alt="">
@@ -641,12 +647,18 @@
 
     <script>
         $(document).ready(function() {
+            var for_id=$('#for_id').val();
+            if (for_id!="") {
+                $(".no_message").css("display","none");
+                $(".right_box").css("display","block");
+                $(".message_type").css("display","flex");
+            }
 
                 $(document).on("click",'.Send_btn',function(){
 
 
                     var message=$('#input').val();
-                    var rec_id=$('.rec_id').val();
+                     var rec_id=$('.rec_id').val();
                     var op=" ";
                     var id =rec_id;
                 var _token = $("input[name='_token']").val();
@@ -694,6 +706,9 @@ success: function(data) {
                 var myId = $('#from_id1').val();
                 $(".no_message").css("display","none");
                 $(".right_box").css("display","block");
+                $(".message_type").css("display","flex");
+
+
 
 
 
@@ -733,6 +748,8 @@ $.ajax({
                 var myId = $('#from_id2').val();
                 $(".no_message").css("display","none");
                 $(".right_box").css("display","block");
+                $(".message_type").css("display","flex");
+
 
                 var op=" ";
 

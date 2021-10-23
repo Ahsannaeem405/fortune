@@ -109,7 +109,7 @@
                         <input placeholder="Data urodzenia" class="textbox-n input form-control date"  name="dob" type="text" onfocus="(this.type='date')" id="date">
 
 
-                      
+
 
 
 
@@ -135,7 +135,7 @@
                     </div><br>
                     <div class="row">
                         <div class="col-md-12">
-                          <button type="submit" class="submit form-control login">Załóż konto </button>
+                          <button type="button" class="submit form-control login">Załóż konto </button>
                         </div>
 
                     </div>

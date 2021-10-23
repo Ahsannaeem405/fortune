@@ -60,9 +60,13 @@ function messages_fortune(Request $request){
     ->where('from',$from)
     ->exists())
     {
+        $id=msg::where('to', $to)
+        ->where('from',$from)
+        ->value('id');
        $msg_det=new msg_dt();
        $msg_det->msg=$message;
        $msg_det->to= $to;
+       $msg_det->msg_id=$id;
        $msg_det->from=Auth::user()->id;
        $msg_det->save();
     }
@@ -74,6 +78,7 @@ function messages_fortune(Request $request){
        $msg->save();
 
        $msg_det=new msg_dt();
+       $msg_det->msg_id=$msg->id;
        $msg_det->msg=$message;
        $msg_det->to= $to;
        $msg_det->from=Auth::user()->id;
@@ -127,6 +132,7 @@ function payment_success(){
 
     // dd($_GET['status']);
     if ($_GET['status']=="ok") {
+
         $user=User::find(Auth::user()->id);
         $total=$user->point+$points;
         $user->point=$total;

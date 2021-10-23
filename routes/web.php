@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\msg;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,9 +70,8 @@ Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
     Route::get('/setting', function () {
         return view('admin/setting');
     });
-    Route::get('/chat', function () {
-        return view('admin/chat');
-    });
+    Route::get('/chat',[App\Http\Controllers\admin::class,'showchat']);
+
     Route::get('/site_setting', function () {
         return view('admin/site_setting');
     });

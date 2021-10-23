@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMsgsTable extends Migration
+class AddStatusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateMsgsTable extends Migration
      */
     public function up()
     {
-        Schema::create('msgs', function (Blueprint $table) {
-            $table->id();
-            $table->text('to')->nullable();
-            $table->text('from')->nullable();
+        Schema::table('msgs', function (Blueprint $table) {
+            $table->string('status')->nullable();
 
-            $table->timestamps();
         });
     }
 
@@ -29,6 +26,8 @@ class CreateMsgsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('msgs');
+        Schema::table('msgs', function (Blueprint $table) {
+            //
+        });
     }
 }

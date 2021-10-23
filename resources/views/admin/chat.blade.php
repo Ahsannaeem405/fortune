@@ -34,10 +34,32 @@
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/css/style.css')}}">
-    
+
     <!-- END: Custom CSS-->
 
 </head>
+<style>
+    .request{
+        width: 30%;
+        display: inline-block !important;
+        padding-top:110px;
+    }
+    .box{
+        background-color: white;
+        overflow-y: scroll;
+        height: 470px;
+        padding: 20px;
+
+    }
+    .data{
+        margin-top: 10px;
+    }
+    @media only screen and (max-width: 769px) {
+        .request{
+            display: none !important;
+        }
+    }
+</style>
 <!-- END: Head-->
 
 <!-- BEGIN: Body-->
@@ -46,23 +68,23 @@
 
     <!-- BEGIN: Header-->
     @include('admin.layouts.navbar')
-    
+
     <!-- END: Header-->
 
 
     <!-- BEGIN: Main Menu-->
-    @include('admin.layouts.sidebar')
+    {{-- @include('admin.layouts.sidebar') --}}
     <!-- END: Main Menu-->
 
     <!-- BEGIN: Content-->
-    <div class="app-content content">
+    <div class="app-content content" style="margin-left:0px;display:flex;">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
-        <div class="content-area-wrapper">
+        <div class="content-area-wrapper" style="width: 70%">
             <div class="sidebar-left">
                 <div class="sidebar">
                     <!-- User Chat profile area -->
-                    
+
                                             <!--/ User Chat profile area -->
                     <!-- Chat Sidebar area -->
                     <div class="sidebar-content card">
@@ -89,6 +111,12 @@
                         <div id="users-list" class="chat-user-list list-group position-relative">
                             <h3 class="primary p-1 mb-0">Chats</h3>
                             <ul class="chat-users-list-wrapper media-list">
+
+                                @foreach ($approve_msgs as $msg)
+                                @php
+                                    $msg_dt=App\Models\msg_dt::where('msg_id',$msg->id)->latest()->first();
+
+                                @endphp
                                 <li>
                                     <div class="pr-1">
                                         <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-3.jpg')}}" height="42" width="42" alt="Generic placeholder image">
@@ -97,15 +125,18 @@
                                     </div>
                                     <div class="user-chat-info">
                                         <div class="contact-info">
-                                            <h5 class="font-weight-bold mb-0">Elizabeth Elliott</h5>
-                                            <p class="truncate">Cake pie jelly jelly beans. Marzipan lemon drops halvah cake. Pudding cookie lemon drops icing</p>
+                                            <h5 class="font-weight-bold mb-0">{{$msg->getuser->name}}}</h5>
+                                            <p class="truncate">{{$msg_dt->message}}</p>
                                         </div>
                                         <div class="contact-meta">
-                                            <span class="float-right mb-25">4:14 PM</span>
+                                            <span class="float-right mb-25">{{$msg_dt->created_at}}</span>
                                             <span class="badge badge-primary badge-pill float-right">3</span>
                                         </div>
                                     </div>
                                 </li>
+                                @endforeach
+
+
                                 <li>
                                     <div class="pr-1">
                                         <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-7.jpg')}}" height="42" width="42" alt="Generic placeholder image">
@@ -123,134 +154,14 @@
                                     </div>
                                 </li>
 
-                                <li>
-                                    <div class="pr-1">
-                                        <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-8.jpg')}}" height="42" width="42" alt="Generic placeholder image">
-                                            <i></i>
-                                        </span>
-                                    </div>
-                                    <div class="user-chat-info">
-                                        <div class="contact-info">
-                                            <h5 class="font-weight-bold mb-0">Sarah Woods</h5>
-                                            <p class="truncate">Cake pie jelly jelly beans. Marzipan lemon drops halvah cake. Pudding cookie lemon drops icing.</p>
-                                        </div>
-                                        <div class="contact-meta">
-                                            <span class="float-right mb-25"></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="pr-1">
-                                        <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-7.jpg')}}" height="42" width="42" alt="Generic placeholder image">
-                                            <i></i>
-                                        </span>
-                                    </div>
-                                    <div class="user-chat-info">
-                                        <div class="contact-info">
-                                            <h5 class="font-weight-bold mb-0">Jenny Perich</h5>
-                                            <p class="truncate">Tart dragée carrot cake chocolate bar. Chocolate cake jelly beans caramels tootsie roll candy canes.</p>
-                                        </div>
-                                        <div class="contact-meta">
-                                            <span class="float-right mb-25"></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="pr-1">
-                                        <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-5.jpg')}}" height="42" width="42" alt="Generic placeholder image">
-                                            <i></i>
-                                        </span>
-                                    </div>
-                                    <div class="user-chat-info">
-                                        <div class="contact-info">
-                                            <h5 class="font-weight-bold mb-0">Sarah Montgomery</h5>
-                                            <p class="truncate">Tootsie roll sesame snaps biscuit icing jelly-o biscuit chupa chups powder.</p>
-                                        </div>
-                                        <div class="contact-meta">
-                                            <span class="float-right mb-25"></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="pr-1">
-                                        <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-9.jpg')}}" height="42" width="42" alt="Generic placeholder image">
-                                            <i></i>
-                                        </span>
-                                    </div>
-                                    <div class="user-chat-info">
-                                        <div class="contact-info">
-                                            <h5 class="font-weight-bold mb-0">Heather Howell</h5>
-                                            <p class="truncate">Tart cookie dragée sesame snaps halvah. Fruitcake sugar plum gummies cheesecake toffee.</p>
-                                        </div>
-                                        <div class="contact-meta">
-                                            <span class="float-right mb-25"></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="pr-1">
-                                        <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-7.jpg')}}" height="42" width="42" alt="Generic placeholder image">
-                                            <i></i>
-                                        </span>
-                                    </div>
-                                    <div class="user-chat-info">
-                                        <div class="contact-info">
-                                            <h5 class="font-weight-bold mb-0">Kelly Reyes</h5>
-                                            <p class="truncate">Wafer toffee tart jelly cake croissant chocolate bar cupcake donut. Fruitcake gingerbread tiramisu sweet jelly-o.</p>
-                                        </div>
-                                        <div class="contact-meta">
-                                            <span class="float-right mb-25"></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="pr-1">
-                                        <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-14.jpg')}}" height="42" width="42" alt="Generic placeholder image">
-                                            <i></i>
-                                        </span>
-                                    </div>
-                                    <div class="user-chat-info">
-                                        <div class="contact-info">
-                                            <h5 class="font-weight-bold mb-0">Vincent Nelson</h5>
-                                            <p class="truncate">Toffee gummi bears sugar plum gummi bears chocolate bar donut. Pudding cookie lemon drops icing</p>
-                                        </div>
-                                        <div class="contact-meta">
-                                            <span class="float-right mb-25"></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="pr-1">
-                                        <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-3.jpg')}}" height="42" width="42" alt="Generic placeholder image">
-                                            <i></i>
-                                        </span>
-                                    </div>
-                                    <div class="user-chat-info">
-                                        <div class="contact-info">
-                                            <h5 class="font-weight-bold mb-0">Elizabeth Elliott</h5>
-                                            <p class="truncate">Candy canes ice cream jelly beans carrot cake chocolate bar pastry candy jelly-o.</p>
-                                        </div>
-                                        <div class="contact-meta">
-                                            <span class="float-right mb-25"></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="pr-1">
-                                        <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-7.jpg')}}" height="42" width="42" alt="Generic placeholder image">
-                                            <i></i>
-                                        </span>
-                                    </div>
-                                    <div class="user-chat-info">
-                                        <div class="contact-info">
-                                            <h5 class="font-weight-bold mb-0">Kristopher Candy</h5>
-                                            <p class="truncate">Marzipan bonbon chocolate bar biscuit lemon drops muffin jelly-o sweet jujubes.</p>
-                                        </div>
-                                        <div class="contact-meta">
-                                            <span class="float-right mb-25"></span>
-                                        </div>
-                                    </div>
-                                </li>
+
+
+
+
+
+
+
+
                             </ul>
                         </div>
                     </div>
@@ -426,6 +337,101 @@
                 </div>
             </div>
         </div>
+        <div class="request">
+            <div class="box">
+                <div class="data">
+                    <div class="pr-1">
+                        <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-7.jpg')}}" height="42" width="42" alt="Generic placeholder image">
+                            <i></i>
+                        </span>
+                        <button class="btn btn-primary" style="margin-left: 157px;">Join</button>
+                    </div><br>
+                    <div class="user-chat-info">
+                        <div class="contact-info">
+                            <h5 class="font-weight-bold mb-0">Kristopher Candy</h5>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="data">
+                    <div class="pr-1">
+                        <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-7.jpg')}}" height="42" width="42" alt="Generic placeholder image">
+                            <i></i>
+                        </span>
+                        <button class="btn btn-primary" style="margin-left: 157px;">Join</button>
+                    </div><br>
+                    <div class="user-chat-info">
+                        <div class="contact-info">
+                            <h5 class="font-weight-bold mb-0">Kristopher Candy</h5>
+
+                        </div>
+
+                    </div>
+                </div> <div class="data">
+                    <div class="pr-1">
+                        <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-7.jpg')}}" height="42" width="42" alt="Generic placeholder image">
+                            <i></i>
+                        </span>
+                        <button class="btn btn-primary" style="margin-left: 157px;">Join</button>
+                    </div><br>
+                    <div class="user-chat-info">
+                        <div class="contact-info">
+                            <h5 class="font-weight-bold mb-0">Kristopher Candy</h5>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="data">
+                    <div class="pr-1">
+                        <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-7.jpg')}}" height="42" width="42" alt="Generic placeholder image">
+                            <i></i>
+                        </span>
+                        <button class="btn btn-primary" style="margin-left: 157px;">Join</button>
+                    </div><br>
+                    <div class="user-chat-info">
+                        <div class="contact-info">
+                            <h5 class="font-weight-bold mb-0">Kristopher Candy</h5>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="data">
+                    <div class="pr-1">
+                        <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-7.jpg')}}" height="42" width="42" alt="Generic placeholder image">
+                            <i></i>
+                        </span>
+                        <button class="btn btn-primary" style="margin-left: 157px;">Join</button>
+                    </div><br>
+                    <div class="user-chat-info">
+                        <div class="contact-info">
+                            <h5 class="font-weight-bold mb-0">Kristopher Candy</h5>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="data">
+                    <div class="pr-1">
+                        <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-7.jpg')}}" height="42" width="42" alt="Generic placeholder image">
+                            <i></i>
+                        </span>
+                        <button class="btn btn-primary" style="margin-left: 157px;">Join</button>
+                    </div><br>
+                    <div class="user-chat-info">
+                        <div class="contact-info">
+                            <h5 class="font-weight-bold mb-0">Kristopher Candy</h5>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
     </div>
     <!-- END: Content-->
 
@@ -433,7 +439,7 @@
     <div class="drag-target"></div>
 
     <!-- BEGIN: Footer-->
-   
+
     <!-- END: Footer-->
 
 
