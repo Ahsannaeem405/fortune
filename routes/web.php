@@ -81,6 +81,9 @@ Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
     Route::get('fortune_edit/{id}',[App\Http\Controllers\admin::class,'edit_fortune']);
     Route::post('/update_fortune',[App\Http\Controllers\admin::class,'update_fortune']);
     Route::get('/fortune_del/{id}',[App\Http\Controllers\admin::class,'del_fortune']);
+    Route::post('/join',[App\Http\Controllers\admin::class,'join']);
+    Route::get('/admin_messages',[App\Http\Controllers\admin::class,'admin_messages']);
+    Route::post('/sendMSG',[\App\Http\Controllers\admin::class,'sendMSG']);
 
 
 

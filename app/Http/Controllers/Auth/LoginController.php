@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\User;
 use Auth;
 
 class LoginController extends Controller
@@ -41,9 +42,14 @@ class LoginController extends Controller
         }
         else{
 
+            Auth::user()->login_time =  date('Y-m-d H:i:s');
+            Auth::user()->save();
+            // dd(Auth::user());
+
             return 'user/';
+
         }
-        
+
     }
     /**
      * Create a new controller instance.

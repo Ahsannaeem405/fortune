@@ -579,7 +579,24 @@
                     </div>
                 </div>
                 <div class="row specific_msg right_box" id="chat">
-
+                    @foreach ($msg_details as $msg)
+                    @if ($msg->from==Auth::user()->id||$msg->to==Auth::user()->id)
+                    <div class="col-lg-12 message_sender">
+                        <div class="message">
+                            <p>{{$msg->msg}}</p><i class="fas fa-caret-right"></i>
+                            <img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt="">
+                        </div>
+                    </div>
+                    @else
+                    <div class="col-lg-12 message_receiver">
+                        <div class="message1">
+                            <img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt="">
+                            <i class="fas fa-caret-left"></i>
+                            <p>{{$msg->msg}}</p>
+                        </div>
+                    </div>
+                    @endif
+                    @endforeach
 
 
 

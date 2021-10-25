@@ -89,6 +89,11 @@ font-size: 13px;
 
 
 @section('body')
+@if (session()->has('error'))
+<div class="alert alert-danger">
+{{session()->get('error')}}
+</div>
+@endif
 <div class="container-fluid header">
 <img src="{{asset('images/header.png')}}" alt="" style="width: 100%">
 </div>

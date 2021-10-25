@@ -31,27 +31,27 @@ class super extends Controller
           }
 
           $user->save();
-        
+
             return back()->with('success', 'Your Profile Update Successfully .');
 
 
     }
     public function  password(Request $request)
     {
-    	if (!Hash::check($request->input('old_password'), Auth::user()->password)) 
+    	if (!Hash::check($request->input('old_password'), Auth::user()->password))
     	{
             return back()->with('success', 'Your Old Password Is wronge ');
         }
         else
         {
         	$request->validate([
-               
+
                 'password'         =>      'required | confirmed',
-                
-               
+
+
             ]);
 
-          
+
           $user =User::find(Auth::user()->id);
           $user->password =Hash::make($request->input('password'));
           $user->update();
@@ -114,61 +114,75 @@ class super extends Controller
     public function  send_poke(Request $request)
     {
 
-    
+
         $fromck= Auth::user()->id;
         if(isset($request->user_idy))
         {
-          for ($i =0; $i < count($request->user_idy); $i++) 
+          for ($i =0; $i < count($request->user_idy); $i++)
             {
               if (msg::where('to', $request->input('user_idy')[$i])
               ->where('from',$fromck)
-              ->exists()) 
+              ->exists())
               {
+                  $id=msg::where('to', $request->input('user_idy')[$i])
+                  ->where('from',$fromck)
+                  ->value('id');
                  $msg_det=new msg_dt();
                  $msg_det->msg=$request->input('msg');
                  $msg_det->to= $request->input('user_idy')[$i];
                  $msg_det->from=Auth::user()->id;
+                 $msg_det->msg_id=$id;
                  $msg_det->save();
               }
               else{
 
                  $msg=new msg();
+                 $msg->msg_type='1';
+
                  $msg->to= $request->input('user_idy')[$i];
                  $msg->from=Auth::user()->id;
                  $msg->save();
 
                  $msg_det=new msg_dt();
+                 $msg_det->msg_id=$msg->id;
                  $msg_det->msg=$request->input('msg');
                  $msg_det->to= $request->input('user_idy')[$i];
                  $msg_det->from=Auth::user()->id;
                  $msg_det->save();
 
               }
-            }  
+            }
 
         }
         else{
           $user_idy=User::whereNull('role')->get();
-          for ($i =0; $i < count($user_idy); $i++) 
+          for ($i =0; $i < count($user_idy); $i++)
             {
               if (msg::where('to', $user_idy[$i]->id)
               ->where('from',$fromck)
-              ->exists()) 
+              ->exists())
               {
+                  $id=msg::where('to', $user_idy[$i]->id)
+                  ->where('from',$fromck)
+                  ->value('id');
                  $msg_det=new msg_dt();
                  $msg_det->msg=$request->input('msg');
                  $msg_det->to= $user_idy[$i]->id;
                  $msg_det->from=Auth::user()->id;
+                 $msg_det->msg_id=$id;
+
                  $msg_det->save();
               }
               else{
 
                  $msg=new msg();
                  $msg->to= $user_idy[$i]->id;
+                 $msg->msg_type='1';
                  $msg->from=Auth::user()->id;
                  $msg->save();
 
                  $msg_det=new msg_dt();
+                 $msg_det->msg_id=$msg->id;
                  $msg_det->msg=$request->input('msg');
                  $msg_det->to= $user_idy[$i]->id;
                  $msg_det->from=Auth::user()->id;
@@ -178,9 +192,9 @@ class super extends Controller
             }
 
         }
-        
 
-      
+
+
               return back()->with('success', 'Poke Message Successfully Send.');
 
 

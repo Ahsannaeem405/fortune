@@ -149,12 +149,50 @@ class admin extends Controller
 
 
      }
+     function sendMSG(Request $request){
+         $message=$request->message;
+         $from=$request->from;
+         $to=$request->to;
+         $msgdt=new msg_dt;
+         $msgdt->to=$to;
+         $msgdt->from=$from;
+         $msgdt->msg=$message;
+         $msgdt->msg_id=$request->msg_id;
+         $msgdt->save();
+         return response()->json($msgdt);
+
+
+
+     }
      function showchat(){
         $msg_approve=msg::where('status','!=','null')->get();
-        $msg_na=msg::where('status',null)->get();
+        $msg_na=msg::where('status',null)->where('msg_type','=','2')->get();
 
 
         return view('admin/chat',['approve_msgs'=>$msg_approve,'Napprove_msgs'=>$msg_na]);
+     }
+     function admin_messages(Request $request){
+        $message=msg_dt::where('msg_id',$request->msgid)->get();
+        $name=msg::where('id',$request->msgid)->get();
+        $get_name=$name[0]->getuser->name;
+        $user_id=$name[0]->from;
+        $fortune_id=$name[0]->to;
+
+
+
+
+        return response()->json(['message'=>$message,'name'=>$get_name,'user_id'=>$user_id,'fortune_id'=>$fortune_id]);
+     }
+     function join(Request $request){
+         $id=$request->msg_id;
+         $msg=msg::find($id);
+        $msg->status='Approved';
+        $msg->save();
+        // dd($msg);
+        return redirect()->back()->with('success', 'Successfully Approved');
+
+
+
      }
     public function  user()
     {
@@ -249,7 +287,7 @@ class admin extends Controller
           $user =User::find($request->user_id);
           $user->point = $request->input('point');
           $user->update();
-          dd($user);
+        //   dd($user);
           if(!is_null($user)) {
             return back()->with('success', 'User Successfully Add.');
           }
@@ -287,6 +325,7 @@ class admin extends Controller
               else{
 
                  $msg=new msg();
+                 $msg->msg_type='1';
                  $msg->to= $request->input('user_idy')[$i];
                  $msg->from=Auth::user()->id;
                  $msg->save();
@@ -310,7 +349,12 @@ class admin extends Controller
               ->where('from',$fromck)
               ->exists())
               {
+                $id=msg::where('to', $user_idy[$i]->id)
+                ->where('from',$fromck)
+                ->value('id');
+
                  $msg_det=new msg_dt();
+                 $msg_det->msg_id=$id;
                  $msg_det->msg=$request->input('msg');
                  $msg_det->to= $user_idy[$i]->id;
                  $msg_det->from=Auth::user()->id;
@@ -319,11 +363,14 @@ class admin extends Controller
               else{
 
                  $msg=new msg();
+                 $msg->msg_type='1';
                  $msg->to= $user_idy[$i]->id;
                  $msg->from=Auth::user()->id;
                  $msg->save();
 
+
                  $msg_det=new msg_dt();
+                 $msg_det->msg_id=$msg->id;
                  $msg_det->msg=$request->input('msg');
                  $msg_det->to= $user_idy[$i]->id;
                  $msg_det->from=Auth::user()->id;
