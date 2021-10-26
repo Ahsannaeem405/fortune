@@ -181,6 +181,7 @@ function chat_start($id){
     }
     else{
         $chat_id=0;
+        $msg_detail=msg_dt::where('msg_id',0)->get();
     }
     $id=Auth::user()->id;
     $msg=msg::where('to',$id)->get();

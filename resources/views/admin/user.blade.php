@@ -4,7 +4,7 @@
 @section('content')
 
 <style type="text/css">
-    
+
     #DataTables_Table_4_wrapper{
         visibility: collapse;
     }
@@ -13,39 +13,39 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-           
+
 
                 <div class="card-header">
                     <h4 class="card-title">User</h4>
                 </div>
-           
-           
+
+
                 <button type="button" class="btn btn-primary mr-1 waves-effect waves-light" data-toggle="modal" data-target="#pri" style="width:20%;margin-left:auto;float: right;">
                     Poke Message
                 </button>
-               
+
 
                 <div class="card-content">
                     <div class="card-body card-dashboard">
-                        
+
                         <div class="table-responsive" style="overflow-x: hidden;">
-                            <div class="dt-buttons btn-group">     
-                                <button class="btn btn-secondary buttons-copy ma buttons-html5 csv" tabindex="0" aria-controls="DataTables_Table_4"><span>CSV</span></button> 
-                                <button class="btn btn-secondary make_pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_4"><span>PDF</span></button> 
-                                <button class="btn btn-secondary make_print" tabindex="0" aria-controls="DataTables_Table_4"><span>Print</span></button> 
+                            <div class="dt-buttons btn-group">
+                                <button class="btn btn-secondary buttons-copy ma buttons-html5 csv" tabindex="0" aria-controls="DataTables_Table_4"><span>CSV</span></button>
+                                <button class="btn btn-secondary make_pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_4"><span>PDF</span></button>
+                                <button class="btn btn-secondary make_print" tabindex="0" aria-controls="DataTables_Table_4"><span>Print</span></button>
                             </div>
-                            
+
                         <form class="form form-horizontal" method="POST" action="{{ url('admins/send_poke') }}">
-                        @csrf    
+                        @csrf
                             <table class="table zero-configuration dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                                                
-                            
+
+
 
                                 <thead>
                                     <tr>
                                         <th><fieldset class="checkbox">
                                                 <div class="vs-checkbox-con vs-checkbox-primary">
-                                                    <input type="checkbox" id="checkall"> 
+                                                    <input type="checkbox" id="checkall">
                                                     <span class="vs-checkbox">
                                                         <span class="vs-checkbox--check">
                                                             <i class="vs-icon feather icon-check"></i>
@@ -70,21 +70,81 @@
                                                                     <span aria-hidden="true">×</span>
                                                                 </button>
                                                             </div>
-                                                          
+
                                                             <div class="modal-body">
-                                                                <div class="col-md-12 col-12">
-                                                                    <div class="form-label-group"> 
+                                                                <div class="row" style="margin-left:0px;margin-right:0px;">
+                                                                        <div class="col-md-4 col-6">
+
+                                                                            <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                                <input type="checkbox" name="days" class="cb-element example3" value="7">
+                                                                                <span class="vs-checkbox">
+                                                                                    <span class="vs-checkbox--check">
+                                                                                        <i class="vs-icon feather icon-check"></i>
+                                                                                    </span>
+                                                                                </span>
+                                                                                <span class="">Last 7 Days</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 col-6">
+
+                                                                            <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                                <input type="checkbox" name="days" class="cb-element example3" value="14">
+                                                                                <span class="vs-checkbox">
+                                                                                    <span class="vs-checkbox--check">
+                                                                                        <i class="vs-icon feather icon-check"></i>
+                                                                                    </span>
+                                                                                </span>
+                                                                                <span class="">Last 14 Days</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 col-6">
+
+                                                                            <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                                <input type="checkbox" name="days" class="cb-element example3" value="30">
+                                                                                <span class="vs-checkbox">
+                                                                                    <span class="vs-checkbox--check">
+                                                                                        <i class="vs-icon feather icon-check"></i>
+                                                                                    </span>
+                                                                                </span>
+                                                                                <span class="">Last 30 Days</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        @php 
+                                                                            $for=App\Models\Fortune::all();
+                                                                        @endphp
+                                                                        @foreach($for as $row_for)
+                                                                        <div class="col-md-6 col-12">
+
+                                                                            <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                                <input type="checkbox" name="fortune_id[]" class="cb-element" value="{{$row_for->id}}">
+                                                                                <span class="vs-checkbox">
+                                                                                    <span class="vs-checkbox--check">
+                                                                                        <i class="vs-icon feather icon-check"></i>
+                                                                                    </span>
+                                                                                </span>
+                                                                                <span class="">{{$row_for->name}}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        @endforeach
                                                                        
 
+                                                                </div>
+
+
+
+                                                                <div class="col-md-12 col-12">
+                                                                    <div class="form-label-group">
+
+
                                                                         <textarea class="form-control" id="basicTextarea" rows="3" placeholder="Textarea" name="msg"></textarea>
-                                                                    
+
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="submit" class="btn btn-primary waves-effect waves-light">send</button>
                                                             </div>
-                                                        
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -97,10 +157,10 @@
 
                                         <td>
 
-            
 
 
-                                            
+
+
                                                 <div class="vs-checkbox-con vs-checkbox-primary">
                                                     <input type="checkbox" name="user_idy[]" class="cb-element" value="{{$row->id}}">
                                                     <span class="vs-checkbox">
@@ -110,20 +170,20 @@
                                                     </span>
                                                     <span class="">{{$row->name}}</span>
                                                 </div>
-                                            
-                                                                              
-          
+
+
+
                                             </td>
 
                                         <td>{{$row->email}}</td>
                                         <td>
                                             @if($row->point==null)
-                                            0                                       
+                                            0
                                             @else
                                             {{$row->point}}
                                             @endif
                                         </td>
-                       
+
                                         <td>
                                             <div class="dropdown ">
                                                 <button class="btn btn-primary dropdown-toggle mr-1 waves-effect waves-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -135,16 +195,16 @@
                                                     <a class="dropdown-item point"  data-toggle="modal" data-target="#primary" abc="{{$row->point}}">Add point</a>
                                                 </div>
                                             </div>
-                                            
-                                            
-                                           
+
+
+
 
                                         </td>
-                                        
+
                                     </tr>
-                                     
+
                                     @endforeach
-                                                           
+
                                 </tbody>
 
                             </table>
@@ -156,7 +216,7 @@
                                     <tr>
                                         <th><fieldset class="checkbox">
                                                 <div class="vs-checkbox-con vs-checkbox-primary">
-                                                    <input type="checkbox" id="checkall"> 
+                                                    <input type="checkbox" id="checkall">
                                                     <span class="vs-checkbox">
                                                         <span class="vs-checkbox--check">
                                                             <i class="vs-icon feather icon-check"></i>
@@ -167,7 +227,7 @@
                                             </fieldset></th>
                                         <th>Email</th>
                                         <th>Points</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -192,17 +252,17 @@
                                         <td>{{$row->email}}</td>
                                         <td>
                                             @if($row->point==null)
-                                            0                                       
+                                            0
                                             @else
                                             {{$row->point}}
                                             @endif
                                         </td>
-                                        
-                                        
+
+
                                     </tr>
-                                     
+
                                     @endforeach
-                                                           
+
                                 </tbody>
 
                             </table>
@@ -210,12 +270,12 @@
                     </div>
                 </div>
 
-                                   
+
 
             </div>
         </div>
     </div>
-      
+
 </section>
 
 <div class="modal fade text-left show" id="primary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" style="padding-right: 17px;" aria-modal="true">
@@ -228,21 +288,21 @@
                                                                     </button>
                                                                 </div>
                                                             <form class="form form-horizontal" method="POST" action="{{ url('admins/add_points') }}">
-                                                            @csrf   
+                                                            @csrf
                                                                 <div class="modal-body">
                                                                     <div class="col-md-12 col-12">
-                                                                        <div class="form-label-group"> 
+                                                                        <div class="form-label-group">
                                                                             <input type="hidden" id="first-name-column" class="form-control" placeholder="First Name" name="user_id" value="{{$row->id}}">
 
                                                                             <input type="text" id="first-name-column" class="form-control mt-2 uppo" placeholder="Enter Points" name="point" value="">
-                                                                           
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
                                                                 </div>
-                                                            </form>    
+                                                            </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -284,16 +344,19 @@ $('.point').click(function(){
 
 
 });
+$(document).on('click','.example3', function() {
+        $('input.example3').not(this).prop('checked', false);
+      });
 
 </script>
 
 <script>
-  
+
   $('.csv').on('click',function(){
-  
+
     $("#DataTables_Table_4").tableHTMLExport({type:'csv',filename:'sample.csv'});
   })
- 
+
   </script>
   <script>
 try {
