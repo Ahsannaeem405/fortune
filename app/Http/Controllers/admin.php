@@ -150,10 +150,12 @@ class admin extends Controller
 
      }
      function sendMSG(Request $request){
+        //  dd($request->msg_id);
          $message=$request->message;
          $from=$request->from;
          $to=$request->to;
          $msgdt=new msg_dt;
+         $msgdt->msg_type="Admin";
          $msgdt->to=$to;
          $msgdt->from=$from;
          $msgdt->msg=$message;
@@ -167,6 +169,10 @@ class admin extends Controller
      function showchat(){
         $msg_approve=msg::where('status','!=','null')->get();
         $msg_na=msg::where('status',null)->where('msg_type','=','2')->get();
+        $msg=msg::all();
+        $ms=msg_dt::all();
+
+
 
 
         return view('admin/chat',['approve_msgs'=>$msg_approve,'Napprove_msgs'=>$msg_na]);
@@ -177,11 +183,13 @@ class admin extends Controller
         $get_name=$name[0]->getuser->name;
         $user_id=$name[0]->from;
         $fortune_id=$name[0]->to;
+        $Fortune=Fortune::find($fortune_id);
+        $img=$Fortune->file;
 
 
 
 
-        return response()->json(['message'=>$message,'name'=>$get_name,'user_id'=>$user_id,'fortune_id'=>$fortune_id]);
+        return response()->json(['message'=>$message,'name'=>$get_name,'user_id'=>$user_id,'fortune_id'=>$fortune_id,'img'=>$img]);
      }
      function join(Request $request){
          $id=$request->msg_id;

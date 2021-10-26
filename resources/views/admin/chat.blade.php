@@ -127,7 +127,14 @@
                         <div id="users-list" class="chat-user-list list-group position-relative">
                             <h3 class="primary p-1 mb-0">Chats</h3>
                             <ul class="chat-users-list-wrapper media-list">
+                                <?php
+                                if (isset($_GET['id'])) {
+                                    $id=$_GET['id'];
+                                } else {
+                                    $id=0;
+                                }
 
+                                ?>
                                 @foreach ($approve_msgs as $msg)
                                     @php
                                         $msg_dt = App\Models\msg_dt::where('msg_id', $msg->id)
@@ -135,10 +142,11 @@
                                             ->first();
 
                                     @endphp
-                                    <li class="active">
+                                    <a href="/admins/chat?id={{ $msg->id }}" style="color:black">
+                                    <li class="@if($id == $msg->id) active @endif">
                                         <div class="pr-1">
                                             <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle"
-                                                    src="https://thumbs.dreamstime.com/b/default-avatar-pro…icon-social-media-user-vector-image-209162840.jpg"
+                                                    src="{{asset('images/avatar.jpg')}}"
                                                     height="42" width="42" alt="Generic placeholder image">
                                                 <i></i>
                                             </span>
@@ -148,10 +156,9 @@
 
 
 
-                                                <input type="hidden" id="msg_id" value="{{ $msg->id }}">
                                                 <h5 class="font-weight-bold mb-0">
-                                                    <a href="/admins/chat?id={{ $msg->id }}">
-                                                        {{ $msg->getuser->name }}</a>
+
+                                                        {{ $msg->getuser->name }}
                                                 </h5>
                                                 <p class="truncate">{{ $msg_dt->message }}</p>
 
@@ -163,6 +170,7 @@
                                             </div>
                                         </div>
                                     </li>
+                                    </a>
                                 @endforeach
 
                                 {{-- <li>
@@ -210,11 +218,13 @@
                             <?php
                             if (isset($_GET['id'])) {
                                 $msg = 1;
+
                             } else {
                                 $msg = 0;
                             }
 
                             ?>
+
                             @if ($msg == 0)
                                 <div class="start-chat-area">
                                     <span class="mb-1 start-chat-icon feather icon-message-square"></span>
@@ -231,7 +241,7 @@
                                                 <div class="sidebar-toggle d-block d-lg-none mr-1"><i
                                                         class="feather icon-menu font-large-1"></i></div>
                                                 <div class="avatar user-profile-toggle m-0 m-0 mr-1">
-                                                    <img src="https://thumbs.dreamstime.com/b/default-avatar-pro…icon-social-media-user-vector-image-209162840.jpg"
+                                                    <img src="{{asset('images/avatar.jpg')}}"
                                                         alt="" height="40" width="40" />
                                                     <span class="avatar-status-busy"></span>
                                                 </div>
@@ -242,46 +252,38 @@
                                         </header>
                                     </div>
                                     <div class="user-chats">
-                                        <div class="chats">
-                                            {{-- <div class="chat">
-                                            <div class="chat-avatar">
-                                                <a class="avatar m-0" data-toggle="tooltip" href="#"
-                                                    data-placement="right" title="" data-original-title="">
-                                                    <img src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-1.jpg') }}"
-                                                        alt="avatar" height="40" width="40" />
-                                                </a>
-                                            </div>
-                                            <div class="chat-body">
-                                                <div class="chat-content">
-                                                    <p>How can we help? We're here for you!</p>
+                                        <div class="chats all_chats">
+
+                                                {{-- <div class="chat-avatar">
+                                                    <a class="avatar m-0" data-toggle="tooltip" href="#"
+                                                        data-placement="right" title="" data-original-title="">
+                                                        <img src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-1.jpg') }}"
+                                                            alt="avatar" height="40" width="40" />
+                                                    </a>
                                                 </div>
-                                            </div>
-                                        </div> --}}
-                                            {{-- <div class="chat chat-left">
-                                            <div class="chat-avatar">
-                                                <a class="avatar m-0" data-toggle="tooltip" href="#"
-                                                    data-placement="left" title="" data-original-title="">
-                                                    <img src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-7.jpg') }}"
-                                                        alt="avatar" height="40" width="40" />
-                                                </a>
-                                            </div>
-                                            <div class="chat-body">
-                                                <div class="chat-content">
-                                                    <p>Hey John, I am looking for the best admin template.</p>
-                                                    <p>Could you please help me to find it out?</p>
+                                                <div class="chat-body">
+                                                    <div class="chat-content">
+                                                        <p>How can we help? We're here for you!</p>
+                                                    </div>
+                                                </div> --}}
+
+
+                                                {{-- <div class="chat-avatar">
+                                                    <a class="avatar m-0" data-toggle="tooltip" href="#"
+                                                        data-placement="left" title="" data-original-title="">
+                                                        <img src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-7.jpg') }}"
+                                                            alt="avatar" height="40" width="40" />
+                                                    </a>
                                                 </div>
-                                                <div class="chat-content">
-                                                    <p>It should be Bootstrap 4 compatible.</p>
-                                                </div>
-                                            </div>
-                                        </div> --}}
-                                            {{-- <div class="divider">
-                                            <div class="divider-text">Yesterday</div>
-                                        </div> --}}
-
-
-
-
+                                                <div class="chat-body">
+                                                    <div class="chat-content">
+                                                        <p>Hey John, I am looking for the best admin template.</p>
+                                                        <p>Could you please help me to find it out?</p>
+                                                    </div>
+                                                    <div class="chat-content">
+                                                        <p>It should be Bootstrap 4 compatible.</p>
+                                                    </div>
+                                                </div> --}}
 
                                         </div>
                                     </div>
@@ -297,7 +299,7 @@
 
                                             <input type="text" class="form-control message mr-1 ml-50" id="message"
                                                 placeholder="Type your message" >
-                                            <button type="submit" class="btn btn-primary send"
+                                            <button type="button" class="btn btn-primary send"
                                                 ><i class="fa fa-paper-plane-o d-lg-none"></i>
                                                 <span class="d-none d-lg-block">Send</span></button>
                                         </form>
@@ -346,7 +348,7 @@
                             @csrf
                             <div class="pr-1">
                                 <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle"
-                                        src="{{ asset('admin/app-assets/images/portrait/small/avatar-s-7.jpg') }}"
+                                        src="{{ asset('images/avatar.jpg') }}"
                                         height="42" width="42" alt="Generic placeholder image">
                                     <i></i>
                                 </span>
@@ -406,10 +408,9 @@ if (isset($_GET['id'])) {
 
             var msg_id = "<?php echo $_GET['id']; ?>";
 
-            // alert("Helloo");
-
-            // alert(msg_id);
-            var op = " ";
+            window.setInterval(function(){
+                var op = " ";
+                var opp= " ";
             $.ajax({
 
                 type: 'get',
@@ -419,52 +420,121 @@ if (isset($_GET['id'])) {
                 },
 
                 success: function(data) {
-                    $('.chats').empty();
+                    $('.all_chats').empty();
 
                     for (var i = 0; i < data['message'].length; i++) {
-                        if (data['message'][i].from == {{ Auth::user()->id }} || data['message'][i]
-                            .to ==
-                            {{ Auth::user()->id }}) {
-                            op +=
-                                ' <div class="chat"><div class="chat-avatar"><a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg"alt="avatar" height="40" width="40" /></a></div><div class="chat-body"><div class="chat-content"><p>'+data['message'][i].msg + '</p></div></div></div>';
-                            // alert(op);
-                            +
-                            data[0].to +
-                                $('.chats').append(op);
 
-                        } else {
-                            op +=
-                                '<div class="chat chat-left"><div class="chat-avatar"><a class="avatar m-0" data-toggle="tooltip" href="#"data-placement="left" title="" data-original-title=""><img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg"alt="avatar" height="40" width="40" /></a></div><div class="chat-body"><div class="chat-content"><p>' +
-                                data['message'][i].msg + '</p></div></div></div>';
-                            // alert(op);
+                            if(data['message'][i].msg_type=='Admin')
+                            {
+                                op +=
+                                '<div class="chat chat-right"><div class="chat-avatar">'+
+                                   '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
+                                       '<img src="{{ asset("'+data['img']+'") }}" height="40" width="40" />'+
+                                    '</a>'+
+                                '</div>'+
+                                '<div class="chat-body">'+
+                                    '<div class="chat-content">'+
+                                        '<p>'+data['message'][i].msg +'</p>'+
+                                    '</div>'+
+                                '</div>';
 
-                            $('.chats').append(op);
 
-                        }
+                            }
+                            if(data['message'][i].msg_type=='User'){
+                                op+='<div class="chat chat-left"><div class="chat-avatar">'+
+                                        '<a class="avatar m-0" data-toggle="tooltip" href="#"data-placement="left" title="" data-original-title="">'+
+                                            '<img src="{{ asset("images/avatar.jpg") }}"alt="avatar" height="40" width="40" />'+
+                                        '</a>'+
+                                    '</div>'+
+                                    '<div class="chat-body">'+
+                                        '<div class="chat-content"><p>'+data['message'][i].msg +'</p>'+
+                                        '</div>'+
+                                    '</div></div>';
+
+                            }
+
+
+                    }
+                        $('.all_chats').append(op);
                         $('.user_nmae').text(data['name']);
                         $('#to').val(data['user_id']);
                         $('#from').val(data['fortune_id']);
 
+                    // alert(op);
+
+                },
+            })
+
+            },10000000000);
+            // alert("Helloo");
+
+            // alert(msg_id);
+            var op = " ";
+            var opp= " ";
+            $.ajax({
+
+                type: 'get',
+                url: '{{ URL::to('/admins/admin_messages') }}',
+                data: {
+                    'msgid': msg_id
+                },
+
+                success: function(data) {
+                    $('.all_chats').empty();
+                    var sre="upload/images/"+data['img'];
 
 
+                    for (var i = 0; i < data['message'].length; i++) {
+
+                        if(data['message'][i].msg_type=='Admin')
+                            {
+                                op +=
+                                '<div class="chat chat-right"><div class="chat-avatar">'+
+                                   '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
+                                       '<img src="{{asset('+sre+')}}" height="40" width="40" />'+
+                                    '</a>'+
+                                '</div>'+
+                                '<div class="chat-body">'+
+                                    '<div class="chat-content">'+
+                                        '<p>'+data['message'][i].msg +'</p>'+
+                                    '</div>'+
+                                '</div>';
 
 
+                            }
+                            if(data['message'][i].msg_type=='User'){
+                                op+='<div class="chat chat-left"><div class="chat-avatar">'+
+                                        '<a class="avatar m-0" data-toggle="tooltip" href="#"data-placement="left" title="" data-original-title="">'+
+                                            '<img src="{{ asset("images/avatar.jpg") }}"alt="avatar" height="40" width="40" />'+
+                                        '</a>'+
+                                    '</div>'+
+                                    '<div class="chat-body">'+
+                                        '<div class="chat-content"><p>'+data['message'][i].msg +'</p>'+
+                                        '</div>'+
+                                    '</div></div>';
 
+                            }
 
 
                     }
+                        $('.all_chats').append(op);
+                        $('.user_nmae').text(data['name']);
+                        $('#to').val(data['user_id']);
+                        $('#from').val(data['fortune_id']);
+                        $('.user-chats').scrollTop($('.user-chats')[0].scrollHeight);
+
                     // alert(op);
 
                 },
 
 
             });
-            $("#send_form").submit(function() {
+            $(".send").click(function () {
                 var message=$('#message').val();
                 var to=$('#to').val();
                 var from=$('#from').val();
                 var msg_id=$('#msg_id').val();
-                alert(message);
+                // alert(msg_id);
                 var _token = $("input[name='_token']").val();
                 if (message != '' && message != ' ') {
                     $.ajax({
@@ -473,8 +543,9 @@ if (isset($_GET['id'])) {
                         dataType: 'JSON',
                         data: {_token: _token, 'message': message, 'from': from,'to':to,'msg_id':msg_id},
                         success: function (data) {
+                            $('.user-chats').scrollTop($('.user-chats')[0].scrollHeight);
                             $('.chats').val(" ");
-                            op +='<div class="chat"><div class="chat-avatar"><a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-image-icon-default-avatar-profile-icon-social-media-user-vector-image-209162840.jpg"alt="avatar" height="40" width="40" /></a></div><div class="chat-body"><div class="chat-content"><p>'+data.msg + '</p></div></div></div>';
+                            op +='<div class="chat"><div class="chat-avatar"><a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="'+data['img']+'"alt="avatar" height="40" width="40" /></a></div><div class="chat-body"><div class="chat-content"><p>'+data.msg + '</p></div></div></div>';
                             $('.chats').append(op);
 
 

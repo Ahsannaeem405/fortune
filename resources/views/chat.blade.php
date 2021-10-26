@@ -432,6 +432,8 @@
 
 <body>
 
+    <input type="hidden" value="{{$chat_id}}" id="chat_id">
+
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         {{-- <a href="{{url('/user')}}"><i class="fas fa-arrow-circle-left"></i> Back</a> --}}
@@ -471,7 +473,7 @@
                                 <img src="{{ asset('images/slide1.png') }}" class="contact_image" alt="">
                             </div>
                             <div class="contact_name">
-                                <p>{{ $to->getuser->name }}</p>
+                                <p>{{ $to->getuser2->name }}</p>
                             </div>
                             <div class="circle">
                                 <i class="fas fa-circle"></i>
@@ -543,7 +545,7 @@
                                 <img src="{{ asset('images/slide1.png') }}" class="contact_image" alt="">
                             </div>
                             <div class="contact_name">
-                                <p>{{ $to->getuser->name }}</p>
+                                <p>{{ $to->getuser2->name }}</p>
                             </div>
                             <div class="circle">
                                 <i class="fas fa-circle"></i>
@@ -580,7 +582,7 @@
                 </div>
                 <div class="row specific_msg right_box" id="chat">
                     @foreach ($msg_details as $msg)
-                    @if ($msg->from==Auth::user()->id||$msg->to==Auth::user()->id)
+                    @if ($msg->from==Auth::user()->id)
                     <div class="col-lg-12 message_sender">
                         <div class="message">
                             <p>{{$msg->msg}}</p><i class="fas fa-caret-right"></i>
@@ -670,6 +672,44 @@
                 $(".right_box").css("display","block");
                 $(".message_type").css("display","flex");
             }
+            window.setInterval(function(){
+            var op = " ";
+            var chat_id=$('#chat_id').val();
+            $.ajax({
+                type: 'get',
+                url: '{{ URL::to('/user/user_messages') }}',
+                data: {
+                    'msg_id': chat_id
+                },
+
+                success: function(dat) {
+                    $('#chat').empty();
+
+                    for (var i = 0; i < dat.length; i++) {
+
+
+                            if(dat[i].from=={{Auth::user()->id}})
+                            {
+                                op +=' <div class="col-lg-12 message_sender"><div class="message"><p>'+dat[i].msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
+
+
+                            }
+                            else{
+                                op +=' <div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+dat[i].msg+'</p></div></div>';
+                            }
+
+
+                    }
+                        $('#chat').append(op);
+                        // $('.user_nmae').text(data['name']);
+                        // $('#to').val(data['user_id']);
+                        // $('#from').val(data['fortune_id']);
+
+                    // alert(op);
+
+                },
+            })
+        },1000);
 
                 $(document).on("click",'.Send_btn',function(){
 

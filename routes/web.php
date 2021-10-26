@@ -70,7 +70,7 @@ Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
     Route::get('/setting', function () {
         return view('admin/setting');
     });
-    Route::get('/chat',[App\Http\Controllers\admin::class,'showchat']);
+    Route::any('/chat',[App\Http\Controllers\admin::class,'showchat']);
 
     Route::get('/site_setting', function () {
         return view('admin/site_setting');
@@ -186,6 +186,7 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
     Route::post('/message_fortune',[App\Http\Controllers\UserController::class,'message_fortune']);
     Route::any('/chat_start/{id}',[App\Http\Controllers\UserController::class,'chat_start']);
     Route::get('/payment_success',[App\Http\Controllers\UserController::class,'payment_success']);
+    Route::get('/user_messages',[App\Http\Controllers\UserController::class,'getmessages']);
 
 
 

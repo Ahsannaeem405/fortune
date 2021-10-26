@@ -12,4 +12,8 @@ class msg extends Model
 
         return $this->belongsTo('App\Models\User', 'from');
     }
+    public function getuser2(){
+
+        return $this->belongsTo('App\Models\Fortune', 'to');
+    }
 }
