@@ -125,6 +125,15 @@
                             </div>
                         </div>
                         <div id="users-list" class="chat-user-list list-group position-relative">
+                            <div class="row" style="padding: 10px;width:100%;">
+                                <div class="col-lg-12" style="text-align: center">
+                                    <img src="https://thumbs.dreamstime.com/b/default-avatar-pro…icon-social-media-user-vector-image-209162840.jpg" class="rounded-circle" alt="Cinque Terre" width="20%">
+                                    <h5 style="margin-top: 20px">Name</h5>
+                                    <p style="margin-top: 20px">Bio</p>
+
+                                </div>
+
+                            </div>
                             <h3 class="primary p-1 mb-0">Chats</h3>
                             <ul class="chat-users-list-wrapper media-list">
                                 <?php
