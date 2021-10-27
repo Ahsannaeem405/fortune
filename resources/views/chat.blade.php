@@ -273,7 +273,7 @@
     }
 
     .active {
-        background-color: purple !important;
+        background-color: #2F2F2F !important;
         border-radius: 10px;
     }
 
@@ -436,12 +436,6 @@
 <body>
 
     <input type="hidden" value="{{$chat_id}}" id="chat_id">
-        @if (isset( $_GET['id']))
-        <?php $link_id=$_GET['id']; ?>
-        @endif
-
-
-
 
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
@@ -480,16 +474,10 @@
 
 
                 </div>
-
                 <div class="listend">
                     @foreach ($msg as $to)
-                    <a href="/user/chat?id={{ $to->id }}" style="color:white;text-decoration:none;">
-                        @if (isset( $_GET['id']))
-                        <div class="contactlist @if($link_id==$to->id) active @endif">
-                            @else
-                            <div class="contactlist">
-                        @endif
-
+                    <a href="/user/chat?id={{ $to->id }}" style="color:white;" class="link">
+                        <div class="contactlist">
                             <input type="hidden" id="from_id1" value={{ $to->getuser->id }}>
                             <div class="contact_image">
                                 <img src="{{ asset('images/slide1.png') }}" class="contact_image" alt="">
@@ -497,7 +485,7 @@
                             <div class="contact_name">
                                 <p>{{ $to->getuser2->name }}</p>
                             </div>
-                            {{-- <div class="circle" @if ($link_id==$to->id) style="color:white;" @endif>
+                            {{-- <div class="circle">
                                 <i class="fas fa-circle"></i>
                             </div> --}}
                         </div>
@@ -528,7 +516,7 @@
     </div>
 
     <div class="container p-5 ">
-        <a href="{{url('/user')}}" class="back"><i class="fas fa-arrow-circle-left"></i> Powrót</a>
+        <a href="{{url('/user')}}" class="back"><i class="fas fa-arrow-circle-left" ></i> Powrót</a>
         <div class="row row1">
             <div class="col-lg-3 col-12 fullscreen">
 
@@ -566,15 +554,9 @@
                         </div>
                     </div> --}}
                     @foreach ($msg as $to)
-                    <a href="/user/chat?id={{ $to->id }}" style="color:white;text-decoration:none;">
-                        @if (isset( $_GET['id']))
-                        <div class="contactlist @if ($link_id==$to->id) active @endif " id="">
-                            @else
-                            <div class="contactlist">
+                    <a href="/user/chat?id={{ $to->id }}" style="color:white;" class="link{{$to->id}}">
 
-                        @endif
-
-
+                        <div class="contactlist " id="">
                             <input type="hidden" id="from_id2" value={{ $to->getuser->id }}>
 
 
@@ -587,7 +569,7 @@
                                 <div class="contact_name">
                                     <p>{{ $to->getuser2->name }}</p>
                                 </div>
-                                {{-- <div class="circle" @if ($link_id==$to->id) style="color:white;" @endif>
+                                {{-- <div class="circle">
                                     <i class="fas fa-circle"></i>
                                 </div> --}}
 
@@ -710,13 +692,9 @@
 
     <script>
         $(document).ready(function() {
-//             var link_id = "<?php echo $_GET['id']; ?>";
-
-
-
-//   $('.link'+link_id).addClass("active");
-
-
+            $(".my-link").click(function() {
+  $(this).addClass("active");
+})
             var for_id=$('#for_id').val();
             if (for_id!="") {
                 $(".no_message").css("display","none");
