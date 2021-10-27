@@ -429,7 +429,7 @@ if (isset($_GET['id'])) {
                                 op +=
                                 '<div class="chat chat-right"><div class="chat-avatar">'+
                                    '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
-                                       '<img src="{{ asset("'+data['img']+'") }}" height="40" width="40" />'+
+                                       '<img src="/upload/images/'+data['img']+'" height="40" width="40" />'+
                                     '</a>'+
                                 '</div>'+
                                 '<div class="chat-body">'+
@@ -481,17 +481,16 @@ if (isset($_GET['id'])) {
 
                 success: function(data) {
                     $('.all_chats').empty();
-                    var sre="upload/images/"+data['img'];
+                    // var sre="upload/images/"+data['img'];
 
 
                     for (var i = 0; i < data['message'].length; i++) {
-
                         if(data['message'][i].msg_type=='Admin')
                             {
                                 op +=
                                 '<div class="chat chat-right"><div class="chat-avatar">'+
                                    '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
-                                       '<img src="{{asset('+sre+')}}" height="40" width="40" />'+
+                                       '<img src="/upload/images/'+data['img']+'" height="40" width="40" />'+
                                     '</a>'+
                                 '</div>'+
                                 '<div class="chat-body">'+
