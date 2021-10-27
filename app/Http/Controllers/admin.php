@@ -136,7 +136,48 @@ class admin extends Controller
             return back()->with('success', 'User Successfully Update.');
         } else {
             return back()->with('error', 'Whoops! some error encountered. Please try again.');
-        }
+              }
+
+
+
+
+     }
+     function sendMSG(Request $request){
+        //  dd($request->msg_id);
+         $message=$request->message;
+         $from=$request->from;
+         $to=$request->to;
+         $msgdt=new msg_dt;
+         $msgdt->msg_type="Admin";
+         $msgdt->to=$to;
+         $msgdt->from=$from;
+         $msgdt->msg=$message;
+         $msgdt->msg_id=$request->msg_id;
+         $msgdt->save();
+         return response()->json($msgdt);
+
+
+
+     }
+     function showchat(){
+        $msg_approve=msg::where('status','!=','null')->get();
+        $msg_na=msg::where('status',null)->where('msg_type','=','2')->get();
+        $msg=msg::all();
+        $ms=msg_dt::all();
+
+
+
+
+        return view('admin/chat',['approve_msgs'=>$msg_approve,'Napprove_msgs'=>$msg_na]);
+     }
+     function admin_messages(Request $request){
+        $message=msg_dt::where('msg_id',$request->msgid)->get();
+        $name=msg::where('id',$request->msgid)->get();
+        $get_name=$name[0]->getuser->name;
+        $user_id=$name[0]->from;
+        $fortune_id=$name[0]->to;
+        $Fortune=Fortune::find($fortune_id);
+        $img=$Fortune->file;
 
     }
     public function sendMSG(Request $request)
@@ -168,13 +209,12 @@ class admin extends Controller
         $user_id    = $name[0]->from;
         $fortune_id = $name[0]->to;
 
-        return response()->json(['message' => $message, 'name' => $get_name, 'user_id' => $user_id, 'fortune_id' => $fortune_id]);
-    }
-    public function join(Request $request)
-    {
-        $id          = $request->msg_id;
-        $msg         = msg::find($id);
-        $msg->status = 'Approved';
+        return response()->json(['message'=>$message,'name'=>$get_name,'user_id'=>$user_id,'fortune_id'=>$fortune_id,'img'=>$img]);
+     }
+     function join(Request $request){
+         $id=$request->msg_id;
+         $msg=msg::find($id);
+        $msg->status='Approved';
         $msg->save();
         // dd($msg);
         return redirect()->back()->with('success', 'Successfully Approved');
@@ -285,10 +325,10 @@ class admin extends Controller
           $day_cal=date('Y-m-d', strtotime('-30 days'));
 
         }
-        $days=User::whereDate('login_time','>=',$day_cal)->get();     
+        $days=User::whereDate('login_time','>=',$day_cal)->get();
         for($i=0 ; $i<count($days);$i++)
         {
-          $arr[]=[  
+          $arr[]=[
               'id'=>$days[$i]->id
           ];
         }
@@ -296,41 +336,41 @@ class admin extends Controller
       }
       for($j=0 ; $j<count($request->fortune_id);$j++)
       {
-      
-        $msg=msg::where('to',$request->fortune_id[$j])->get();
-      
 
-        
-        
+        $msg=msg::where('to',$request->fortune_id[$j])->get();
+
+
+
+
         for($k=0 ; $k<count($msg);$k++)
         {
-          $arr[]=[  
+          $arr[]=[
               'id'=>intval($msg[$k]->from)
           ];
         }
-        
+
       }
 
       $final=array();
       $ky=0;
-    
+
       for($m=0 ; $m<count($arr);$m++)
-      { 
+      {
 
         $check=0;
         if($m >=1)
-        {    
+        {
           for($l=0 ; $l<count($final);$l++)
           {
             if( $arr[$m]['id'] == $final[$l]['final_id'] )
             {
               $check=1;
             }
-            
+
           }
           if($check==0)
           {
-            $final[]=[  
+            $final[]=[
               'final_id'=>$arr[$m]['id']
             ];
           }
@@ -338,16 +378,16 @@ class admin extends Controller
         }
         else
         {
-               
-          $final[]=[  
+
+          $final[]=[
             'final_id'=>$arr[$m]['id']
-          ]; 
+          ];
         }
       }
-                      
-                    
 
-                    
+
+
+
 
         $fromck = Auth::user()->id;
         if ($request->days !=null and   count($request->fortune_id) !=null) {
@@ -415,11 +455,11 @@ class admin extends Controller
 
                 }
                 $data = $request->input('msg');
-           
+
         $subscriber_emails =subscribe::pluck('email')->toArray();
         Mail::send('dynamic_email_template',['data' => $data], function($message) use ($subscriber_emails)
-        {    
-        $message->bcc($subscriber_emails)->subject('Alert');    
+        {
+        $message->bcc($subscriber_emails)->subject('Alert');
         });
      // mail::to('shiahelprefrences12@gmail.com')->send(new SendMail($data));
             }

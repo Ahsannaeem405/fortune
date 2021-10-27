@@ -38,10 +38,12 @@ function deleteuser($id){
 }
 function chat(){
     $id=Auth::user()->id;
-    $msg=msg::where('to',$id)->get();
+    $msg=msg::where('to',$id )->orwhere('from',$id)->get();
     $chat_detail=msg_dt::where('to',$id)->get();
     $for=null;
-    return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg,'for'=>$for]);
+    $chat_id=0;
+     $msg_detail=msg_dt::where('msg_id',$chat_id)->get();
+    return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg,'for'=>$for,'chat_id'=>$chat_id,'msg_details'=>$msg_detail]);
 }
 function messages(Request $request){
     $user=Auth::user()->id;
@@ -70,6 +72,7 @@ function messages_fortune(Request $request){
             ->value('id');
            $msg_det=new msg_dt();
            $msg_det->msg=$message;
+           $msg_det->msg_type="User";
            $msg_det->to= $to;
            $msg_det->msg_id=$id;
            $msg_det->from=Auth::user()->id;
@@ -85,6 +88,7 @@ function messages_fortune(Request $request){
 
            $msg_det=new msg_dt();
            $msg_det->msg_id=$msg->id;
+           $msg_det->msg_type="User";
            $msg_det->msg=$message;
            $msg_det->to= $to;
            $msg_det->from=Auth::user()->id;
@@ -181,16 +185,22 @@ function chat_start($id){
     }
     else{
         $chat_id=0;
-        $msg_detail=msg_dt::where('msg_id',0)->get();
+        $msg_detail=msg_dt::where('msg_id',$chat_id)->get();
+
     }
+    $fortune_id=$id;
     $id=Auth::user()->id;
     $msg=msg::where('to',$id)->get();
     $chat_detail=msg_dt::where('to',$id)->get();
-    return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg, 'for'=>$for,'msg_details'=>$msg_detail]);
+    return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg, 'for'=>$for,'msg_details'=>$msg_detail,'fortune_id'=>$fortune_id,'chat_id'=>$chat_id]);
 
 
 }
-
+function getmessages(Request $request){
+$msg_id=$request->msg_id;
+$msg_dt=msg_dt::where('msg_id',$msg_id)->get();
+return response()->json($msg_dt);
+}
 function addmessage(Request $request){
 $contact=new Contact_message();
 $contact->name=$request->name;
