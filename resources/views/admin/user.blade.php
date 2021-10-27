@@ -150,9 +150,15 @@
                                                 </div>
 
 
-                                    @php $m=0; @endphp
+                                    @php $m=0;
+                                         $k=0;
+
+                                     @endphp
                                     @foreach($user as $row)
-                                    @php ++$m; @endphp
+                                    @php ++$m;
+                                          ++$k;
+
+                                     @endphp
                                     <tr>
 
                                         <td>
@@ -192,7 +198,7 @@
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
                                                     <a class="dropdown-item" href="{{url('admins/user_edit/' .$row->id)}}">Edit</a>
                                                     <a class="dropdown-item" href="{{url('admins/user_del/' .$row->id)}}">Delete</a>
-                                                    <a class="dropdown-item point"  data-toggle="modal" data-target="#primary" abc="{{$row->point}}">Add point</a>
+                                                    <a class="dropdown-item point"  data-toggle="modal" data-target="#primary{{$k}}" abc="{{$row->point}}">Add point</a>
                                                 </div>
                                             </div>
 
@@ -202,6 +208,36 @@
                                         </td>
 
                                     </tr>
+                                     <div class="modal fade text-left show" id="primary{{$k}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" style="padding-right: 17px;" aria-modal="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-primary white">
+                                                    <h5 class="modal-title" id="myModalLabel160">Update Points</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                            <form class="form form-horizontal" method="POST" action="{{ url('admins/add_points') }}">
+                                            @csrf
+                                                <div class="modal-body">
+                                                    <div class="col-md-12 col-12">
+                                                        <div class="form-label-group">
+                                                            <input type="hidden" id="first-name-column" class="form-control" placeholder="First Name" name="user_id" value="{{$row->id}}">
+
+                                                            <input type="text" id="first-name-column" class="form-control mt-2 uppo" placeholder="Enter Points" name="point" value="">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
 
                                     @endforeach
 
@@ -278,34 +314,6 @@
 
 </section>
 
-<div class="modal fade text-left show" id="primary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" style="padding-right: 17px;" aria-modal="true">
-                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header bg-primary white">
-                                                                    <h5 class="modal-title" id="myModalLabel160">Update Points</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">×</span>
-                                                                    </button>
-                                                                </div>
-                                                            <form class="form form-horizontal" method="POST" action="{{ url('admins/add_points') }}">
-                                                            @csrf
-                                                                <div class="modal-body">
-                                                                    <div class="col-md-12 col-12">
-                                                                        <div class="form-label-group">
-                                                                            <input type="hidden" id="first-name-column" class="form-control" placeholder="First Name" name="user_id" value="{{$row->id}}">
-
-                                                                            <input type="text" id="first-name-column" class="form-control mt-2 uppo" placeholder="Enter Points" name="point" value="">
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
-                                                                </div>
-                                                            </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

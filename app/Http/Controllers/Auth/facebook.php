@@ -59,6 +59,7 @@ class facebook extends Controller
                             'name' => $user->name,
                             'email' => $user->email,
                             'facebook_id'=> $user->id,
+                            'point'=>1,
                             'password' => encrypt('Superman_test'),
                             'email_verified_at'=>date('Y-m-d H:i:s'),
 
@@ -72,6 +73,7 @@ class facebook extends Controller
                         'name' => $user->name,
                         'email' => 'edcdvdfvfdbbv@gmail.com',
                         'facebook_id'=> $user->id,
+                        'point'=>1,
                         'password' => encrypt('Superman_test'),
                         'email_verified_at'=>date('Y-m-d H:i:s'),
 
