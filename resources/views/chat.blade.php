@@ -13,6 +13,9 @@
     <title>Chat</title>
 </head>
 <style>
+    .p_java , .p_java2{
+        display: none;
+    }
     body {
         background-color: #1B1B1B;
         color: white;
@@ -453,6 +456,12 @@
                     <p>{{$for->bio}}</p>
 
                 </div>
+                @else
+                <input type="hidden" id="for_id">
+                <div class="profile p-3 p_java">
+
+
+                </div>
                 @endif
 
                 <div class="row name">
@@ -467,7 +476,8 @@
                 </div>
                 <div class="listend">
                     @foreach ($msg as $to)
-                        <div class="contactlist contact1">
+                    <a href="/user/chat?id={{ $to->id }}" style="color:white;" class="link{{$to->id}}">
+                        <div class="contactlist">
                             <input type="hidden" id="from_id1" value={{ $to->getuser->id }}>
                             <div class="contact_image">
                                 <img src="{{ asset('images/slide1.png') }}" class="contact_image" alt="">
@@ -479,6 +489,7 @@
                                 <i class="fas fa-circle"></i>
                             </div>
                         </div>
+                    </a>
                     @endforeach
                     {{-- <div class="contactlist active">
                     <div class="contact_image">
@@ -521,6 +532,12 @@
                   <p>{{$for->bio}}</p>
 
               </div>
+              @else
+              <div class="profile p-3 p_java2">
+
+
+            </div>
+
               @endif
 
 
@@ -537,20 +554,27 @@
                         </div>
                     </div> --}}
                     @foreach ($msg as $to)
+                    <a href="/user/chat?id={{ $to->id }}" style="color:white;" class="link{{$to->id}}">
 
-                        <div class="contactlist contact2" id="">
+                        <div class="contactlist " id="">
                             <input type="hidden" id="from_id2" value={{ $to->getuser->id }}>
 
-                            <div class="contact_image">
-                                <img src="{{ asset('images/slide1.png') }}" class="contact_image" alt="">
-                            </div>
-                            <div class="contact_name">
-                                <p>{{ $to->getuser2->name }}</p>
-                            </div>
-                            <div class="circle">
-                                <i class="fas fa-circle"></i>
-                            </div>
+
+
+
+                                <div class="contact_image">
+                                    <img src="{{ asset('images/slide1.png') }}" class="contact_image" alt="">
+                                </div>
+
+                                <div class="contact_name">
+                                    <p>{{ $to->getuser2->name }}</p>
+                                </div>
+                                <div class="circle">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+
                         </div>
+                    </a>
                     @endforeach
                 </div>
 
@@ -638,6 +662,8 @@
                         <div class="input-group flex-nowrap">
                             @if (isset($for))
                             <input type="hidden" class="rec_id" value="{{$for->id}}">
+                            @else
+                            <input type="hidden" class="rec_id id1">
 
                             @endif
                             <input type="text" id="input" class="form-control text" aria-describedby="addon-wrapping">
@@ -666,6 +692,11 @@
 
     <script>
         $(document).ready(function() {
+            var link_id = "<?php echo $_GET['id']; ?>";
+
+
+  $('.link'+link_id).addClass("active");
+
             var for_id=$('#for_id').val();
             if (for_id!="") {
                 $(".no_message").css("display","none");
@@ -709,7 +740,7 @@
 
                 },
             })
-        },1000);
+        },1000000);
 
                 $(document).on("click",'.Send_btn',function(){
 
@@ -800,12 +831,21 @@ $.ajax({
 
 });
             });
+            <?php
+if (isset($_GET['id'])) {
+?>
+window.setInterval(function(){
 
-            $(".contact2").click(function() {
-                var myId = $('#from_id2').val();
+                var myId = "<?php echo $_GET['id']; ?>";
+
+
+
                 $(".no_message").css("display","none");
                 $(".right_box").css("display","block");
                 $(".message_type").css("display","flex");
+                $(".p_java").css("display","block");
+                $(".p_java2").css("display","block");
+
 
 
                 var op=" ";
@@ -815,30 +855,117 @@ $.ajax({
                 var id =myId;
 
 
-$.ajax({
+                $.ajax({
 
-    type: 'get',
-    url: '{{ URL::to('/messages') }}',
-    data: {
-        'id': id
-    },
+                    type: 'get',
+                    url: '{{ URL::to('/messages') }}',
+                    data: {
+                        'id': id
+                    },
 
-    success: function(data) {
-        $('#chat').empty();
+                    success: function(data) {
+                        $('#chat').empty();
+                        // alert(data['fortune'].bio);
 
-        for (var i = 0; i < data.length; i++) {
+                        for (var i = 0; i < data['message'].length; i++) {
+                            if (data['message'][i].from=={{Auth::user()->id}}) {
 
-            op +='<div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data[i].msg+'</p></div></div>'
+                                op +='<div class="col-lg-12 message_sender"><div class="message"><p>'+data['message'][i].msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>'
+                            }
+                            else{
 
-        }
-        // alert(op);
-        $('#chat').append(op);
-
-    },
+                                op +='<div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data['message'][i].msg+'</p></div></div>'
+                            }
 
 
-});
-            });
+                        }
+
+                        profile +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+' alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
+                        profile2 +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+'" alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
+                        // alert(op);
+                        $('#chat').append(op);
+
+                        // alert(data['to']);
+                        $('.id1').val(data['to']);
+
+
+
+
+                    },
+
+
+                });
+            },1000);
+
+               var myId = "<?php echo $_GET['id']; ?>";
+
+
+
+                $(".no_message").css("display","none");
+                $(".right_box").css("display","block");
+                $(".message_type").css("display","flex");
+                $(".p_java").css("display","block");
+                $(".p_java2").css("display","block");
+
+
+
+                var op=" ";
+
+
+                // alert(myId);
+                var id =myId;
+                var profile=" ";
+                var profile2=" ";
+
+
+                $.ajax({
+
+                    type: 'get',
+                    url: '{{ URL::to('/messages') }}',
+                    data: {
+                        'id': id
+                    },
+
+                    success: function(data) {
+                        $('#chat').empty();
+                        $('.p_java').empty();
+                        $('.p_java2').empty();
+
+
+                        // alert(data['fortune'].bio);
+
+                        for (var i = 0; i < data['message'].length; i++) {
+                            if (data['message'][i].from=={{Auth::user()->id}}) {
+
+                                op +='<div class="col-lg-12 message_sender"><div class="message"><p>'+data['message'][i].msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>'
+                            }
+                            else{
+
+                                op +='<div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data['message'][i].msg+'</p></div></div>'
+                            }
+
+
+                        }
+
+                        profile +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+' alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
+                        profile2 +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+'" alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
+                        // alert(op);
+                        $('#chat').append(op);
+                        $('.p_java').append(profile);
+                        $('.p_java2').append(profile2);
+
+                        // alert(data['to']);
+                        $('.id1').val(data['to']);
+
+
+
+
+                    },
+
+
+                });
+<?php }
+?>
         });
     </script>
     <script>

@@ -47,10 +47,12 @@ function chat(){
 }
 function messages(Request $request){
     $user=Auth::user()->id;
-     $message=msg_dt::where('from',$request->id)->where('to',$user)->get();
+     $message=msg_dt::where('msg_id',$request->id)->get();
+     $to=msg::find($request->id);
+     $fortune=Fortune::find($to->to);
 
 
-        return response()->json($message);
+        return response()->json(['message'=>$message,'to'=>$to,'fortune'=>$fortune]);
 
 }
 function messages_fortune(Request $request){
@@ -188,9 +190,10 @@ function chat_start($id){
         $msg_detail=msg_dt::where('msg_id',$chat_id)->get();
 
     }
+
     $fortune_id=$id;
     $id=Auth::user()->id;
-    $msg=msg::where('to',$id)->get();
+    $msg=msg::where('to',$id )->orwhere('from',$id)->get();
     $chat_detail=msg_dt::where('to',$id)->get();
     return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg, 'for'=>$for,'msg_details'=>$msg_detail,'fortune_id'=>$fortune_id,'chat_id'=>$chat_id]);
 

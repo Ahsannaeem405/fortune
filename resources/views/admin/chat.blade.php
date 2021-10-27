@@ -465,7 +465,7 @@ if (isset($_GET['id'])) {
                 },
             })
 
-            },10000000000);
+            },10000);
             // alert("Helloo");
 
             // alert(msg_id);

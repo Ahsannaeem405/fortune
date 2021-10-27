@@ -159,41 +159,32 @@ class admin extends Controller
 
 
      }
-     function showchat(){
-        $msg_approve=msg::where('status','!=','null')->get();
-        $msg_na=msg::where('status',null)->where('msg_type','=','2')->get();
-        $msg=msg::all();
-        $ms=msg_dt::all();
+    //  function showchat(){
+    //     $msg_approve=msg::where('status','!=','null')->get();
+    //     $msg_na=msg::where('status',null)->where('msg_type','=','2')->get();
+    //     $msg=msg::all();
+    //     $ms=msg_dt::all();
 
 
 
 
-        return view('admin/chat',['approve_msgs'=>$msg_approve,'Napprove_msgs'=>$msg_na]);
-     }
-     function admin_messages(Request $request){
-        $message=msg_dt::where('msg_id',$request->msgid)->get();
-        $name=msg::where('id',$request->msgid)->get();
-        $get_name=$name[0]->getuser->name;
-        $user_id=$name[0]->from;
-        $fortune_id=$name[0]->to;
-        $Fortune=Fortune::find($fortune_id);
-        $img=$Fortune->file;
+    //     return view('admin/chat',['approve_msgs'=>$msg_approve,'Napprove_msgs'=>$msg_na]);
+    //  }
 
-    }
-    public function sendMSG(Request $request)
-    {
-        $message       = $request->message;
-        $from          = $request->from;
-        $to            = $request->to;
-        $msgdt         = new msg_dt;
-        $msgdt->to     = $to;
-        $msgdt->from   = $from;
-        $msgdt->msg    = $message;
-        $msgdt->msg_id = $request->msg_id;
-        $msgdt->save();
-        return response()->json($msgdt);
+    // public function sendMSG(Request $request)
+    // {
+    //     $message       = $request->message;
+    //     $from          = $request->from;
+    //     $to            = $request->to;
+    //     $msgdt         = new msg_dt;
+    //     $msgdt->to     = $to;
+    //     $msgdt->from   = $from;
+    //     $msgdt->msg    = $message;
+    //     $msgdt->msg_id = $request->msg_id;
+    //     $msgdt->save();
+    //     return response()->json($msgdt);
 
-    }
+    // }
     public function showchat()
     {
         $msg_approve = msg::where('status', '!=', 'null')->get();
@@ -203,11 +194,15 @@ class admin extends Controller
     }
     public function admin_messages(Request $request)
     {
-        $message    = msg_dt::where('msg_id', $request->msgid)->get();
-        $name       = msg::where('id', $request->msgid)->get();
-        $get_name   = $name[0]->getuser->name;
-        $user_id    = $name[0]->from;
-        $fortune_id = $name[0]->to;
+        $message=msg_dt::where('msg_id',$request->msgid)->get();
+        $name=msg::where('id',$request->msgid)->get();
+        $get_name=$name[0]->getuser->name;
+        $user_id=$name[0]->from;
+        $fortune_id=$name[0]->to;
+        $Fortune=Fortune::find($fortune_id);
+        $img=$Fortune->file;
+
+
 
         return response()->json(['message'=>$message,'name'=>$get_name,'user_id'=>$user_id,'fortune_id'=>$fortune_id,'img'=>$img]);
      }
