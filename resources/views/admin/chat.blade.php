@@ -125,15 +125,7 @@
                             </div>
                         </div>
                         <div id="users-list" class="chat-user-list list-group position-relative">
-                            <div class="row profile_div" style="padding: 10px;width:100%;">
-                                <div class="col-lg-12" style="text-align: center">
-                                    <img src="https://thumbs.dreamstime.com/b/default-avatar-pro…icon-social-media-user-vector-image-209162840.jpg" class="rounded-circle" alt="Cinque Terre" width="20%">
-                                    <h5 style="margin-top: 20px">Name</h5>
-                                    <p style="margin-top: 20px">Bio</p>
 
-                                </div>
-
-                            </div>
                             <h3 class="primary p-1 mb-0">Chats</h3>
                             <ul class="chat-users-list-wrapper media-list">
                                 <?php
@@ -151,7 +143,7 @@
                                             ->first();
 
                                     @endphp
-                                    <a href="/admins/chat?id={{ $msg->id }}" style="color:black">
+                                    <a href="/admins/chat?id={{ $msg->id }}" style="color:black" class="a_tag">
                                     <li class="@if($id == $msg->id) active @endif">
                                         <div class="pr-1">
                                             <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle"
@@ -165,7 +157,7 @@
 
 
 
-                                                <h5 class="font-weight-bold mb-0">
+                                                <h5 class="font-weight-bold mb-0" class="name_user">
 
                                                         {{ $msg->getuser->name }}
                                                 </h5>
@@ -317,29 +309,28 @@
                             @endif
 
                         </section>
-                        <!-- User Chat profile right area -->
-                        <div class="user-profile-sidebar">
-                            <header class="user-profile-header">
-                                <span class="close-icon">
-                                    <i class="feather icon-x"></i>
-                                </span>
-                                <div class="header-profile-sidebar">
-                                    <div class="avatar">
-                                        <img src="../../../app-assets/images/portrait/small/avatar-s-1.jpg"
-                                            alt="user_avatar" height="70" width="70">
-                                        <span class="avatar-status-busy avatar-status-lg"></span>
-                                    </div>
-                                    <h4 class="chat-user-name"></h4>
+                      <!-- User Chat profile right area -->
+                      <div class="user-profile-sidebar">
+                        <header class="user-profile-header">
+                            <span class="close-icon">
+                                <i class="feather icon-x"></i>
+                            </span>
+                            <div class="header-profile-sidebar">
+                                <div class="avatar">
+                                    <img src="{{asset('images/avatar.jpg')}}"
+                                        alt="user_avatar" height="70" width="70">
+                                    <span class="avatar-status-busy avatar-status-lg"></span>
                                 </div>
-                            </header>
-                            <div class="user-profile-sidebar-area p-2">
-                                <h6>About</h6>
-                                <p>Toffee caramels jelly-o tart gummi bears cake I love ice cream lollipop. Sweet
-                                    liquorice croissant candy danish dessert icing. Cake macaroon gingerbread toffee
-                                    sweet.</p>
+                                <h4 class="chat-user-name"></h4>
                             </div>
+                        </header>
+                        <div class="user-profile-sidebar-area p-2">
+                            <h6 class="name_prof"></h6>
+                            {{-- <p class="email"></p> --}}
                         </div>
-                        <!--/ User Chat profile right area -->
+                    </div>
+                    <!--/ User Chat profile right area -->
+
 
                     </div>
                 </div>
@@ -414,6 +405,7 @@ if (isset($_GET['id'])) {
 ?>
     <script>
         $(document).ready(function() {
+
 
             var msg_id = "<?php echo $_GET['id']; ?>";
 
@@ -527,6 +519,8 @@ if (isset($_GET['id'])) {
                     }
                         $('.all_chats').append(op);
                         $('.user_nmae').text(data['name']);
+                        $('.name_prof').text(data['name']);
+
                         $('#to').val(data['user_id']);
                         $('#from').val(data['fortune_id']);
                         $('.user-chats').scrollTop($('.user-chats')[0].scrollHeight);
@@ -566,6 +560,10 @@ if (isset($_GET['id'])) {
                 }
 
             });
+            // $('.a_tag').click(function(){
+            //    var hh= $('.name_user').html(str);
+            //    alert(hh);
+            // });
 
 
         });

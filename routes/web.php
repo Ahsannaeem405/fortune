@@ -134,9 +134,7 @@ Route::prefix('/super')->middleware(['auth','supervisor'])->group(function (){
     Route::get('/', function () {
     return view('super/index');
     });
-    Route::get('/chat', function () {
-        return view('super/chat');
-    });
+    Route::any('/chat',[App\Http\Controllers\super::class,'showchat']);
     Route::get('/setting', function () {
         return view('super/setting');
     });
@@ -149,6 +147,12 @@ Route::prefix('/super')->middleware(['auth','supervisor'])->group(function (){
     Route::post('/add_points', [App\Http\Controllers\admin::class, 'add_points']);
     Route::post('/send_poke', [App\Http\Controllers\admin::class, 'send_poke']);
     Route::get('/pointshistory',[App\Http\Controllers\admin::class,'superpoints']);
+    Route::get('/admin_messages',[App\Http\Controllers\super::class,'admin_messages']);
+    Route::post('/sendMSG',[\App\Http\Controllers\super::class,'sendMSG']);
+    Route::post('/join',[App\Http\Controllers\super::class,'join']);
+
+
+
 
 
 

@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\msg;
+use App\Models\msg_dt;
+use App\Models\Fortune;
+
+
 use App\Models\User;
 use Auth;
 
@@ -32,27 +37,33 @@ class woker extends Controller
           }
 
           $user->save();
-        
+
             return back()->with('success', 'Your Profile Update Successfully .');
 
 
     }
+    function showchat(){
+        $msg_approve = msg::where('status', '!=', 'null')->get();
+        $msg_na      = msg::where('status', null)->where('msg_type', '=', '2')->get();
+
+        return view('woker/chats', ['approve_msgs' => $msg_approve, 'Napprove_msgs' => $msg_na]);
+    }
     public function  password(Request $request)
     {
-    	if (!Hash::check($request->input('old_password'), Auth::user()->password)) 
+    	if (!Hash::check($request->input('old_password'), Auth::user()->password))
     	{
             return back()->with('success', 'Your Old Password Is wronge ');
         }
         else
         {
         	$request->validate([
-               
+
                 'password'         =>      'required | confirmed',
-                
-               
+
+
             ]);
 
-          
+
           $user =User::find(Auth::user()->id);
           $user->password =Hash::make($request->input('password'));
           $user->update();
