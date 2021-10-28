@@ -171,10 +171,12 @@ function payment_success(){
 function chat_start($id){
 
     $points=Auth::user()->point;
+    $no_chat=0;
     if ($points==0) {
     return redirect()->back()->with('error', 'Za mało punktów');
 
     }
+
     $user_id=Auth::user()->id;
     $fortune_id=$id;
     $for=Fortune::find($id);
@@ -198,7 +200,7 @@ function chat_start($id){
     $id=Auth::user()->id;
     $msg=msg::where('to',$id )->orwhere('from',$id)->get();
     $chat_detail=msg_dt::where('to',$id)->get();
-    return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg, 'for'=>$for,'msg_details'=>$msg_detail,'fortune_id'=>$fortune_id,'chat_id'=>$chat_id]);
+    return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg, 'for'=>$for,'msg_details'=>$msg_detail,'fortune_id'=>$fortune_id,'chat_id'=>$chat_id,'no_chat'=>$no_chat]);
 
 
 }
