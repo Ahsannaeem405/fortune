@@ -34,7 +34,7 @@
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/css/style.css')}}">
-    
+
     <!-- END: Custom CSS-->
 
 </head>
@@ -46,7 +46,7 @@
 
     <!-- BEGIN: Header-->
     @include('woker.layouts.navbar')
-    
+
     <!-- END: Header-->
 
 
@@ -62,7 +62,7 @@
             <div class="sidebar-left">
                 <div class="sidebar">
                     <!-- User Chat profile area -->
-                    
+
                                             <!--/ User Chat profile area -->
                     <!-- Chat Sidebar area -->
                     <div class="sidebar-content card">
@@ -433,7 +433,7 @@
     <div class="drag-target"></div>
 
     <!-- BEGIN: Footer-->
-   
+
     <!-- END: Footer-->
 
 
