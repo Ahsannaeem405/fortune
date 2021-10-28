@@ -303,12 +303,8 @@
         color: white;
 
     }
-    .right_box{
-        display: none;
-    }
-    .message_type{
-        display: none;
-    }
+    
+    
     @media only screen and (max-width: 768px) {
 
         /*Big smartphones [426px -> 600px]*/
@@ -563,7 +559,7 @@
                         </div>
                     </div> --}}
                     @foreach ($msg as $to)
-                    <a href="/user/chat?id={{ $to->id }}" style="color:white;text-decoration:none;"">
+                    <a href="/user/chat?id={{ $to->id }}" style="color:white;text-decoration:none;">
 
                         <div class="contactlist " id="">
                             <input type="hidden" id="from_id2" value={{ $to->getuser->id }}>
@@ -589,7 +585,7 @@
 
 
             </div>
-            <div class="col-lg-9 col-12 specific_chat ">
+            <div class="col-lg-9 col-12 specific_chat">
                 @if(isset($for))
 
 
@@ -613,8 +609,8 @@
                         <p style="color: gray;margin-top:50px;">Wybierz wrozbite z menu po lewej stronie i zadaj pytanie!</p>
                     </div>
                 </div>
-                <div class="row prof">
-                    <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12 prof">
                         @if(isset($for))
 
                         <div class="profile p-3">
@@ -634,7 +630,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="row specific_msg right_box" id="chat">
+                <div class="row specific_msg right_box" id="chat" style="margin-left:0px; margin-right: 0px;width: 100%;">
 
 
                     @foreach ($msg_details as $msg)
@@ -655,70 +651,48 @@
                     </div>
                     @endif
                     @endforeach
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    {{-- <div class="col-lg-12 message_sender">
-                        <div class="message">
-                            <p>Hellooo </p><i class="fas fa-caret-right"></i>
-                            <img src="{{ asset('images/slide1.png') }}" class="contact_image" alt="">
-                        </div>
-
-
-                    </div> --}}
-
-
-
-
-
-
-
-
                 </div>
-                <form method="post">
-                    @csrf
-                <div class="row message_type">
+                @if($no_chat == 0)
+                <div class="row message_type" style="margin-left:0px; margin-right: 0px;">
+                
+                    <form method="post" style="width:100%;"class="form-inline" >
+                            @csrf
+                      
 
-                    <div class="col-lg-10 col-sm-9 col-7">
-                        <div class="input-group flex-nowrap">
-                            @if (isset($for))
-                            <input type="hidden" class="rec_id" value="{{$for->id}}">
-                            @else
-                            <input type="hidden" class="rec_id id1">
+                            <div class="col-lg-10 col-sm-9 col-7">
+                                <div class="input-group flex-nowrap">
+                                    @if (isset($for))
+                                    <input type="hidden" class="rec_id" value="{{$for->id}}">
+                                    @else
+                                    <input type="hidden" class="rec_id id1">
 
-                            @endif
-                            <input type="text" id="input" class="form-control text" aria-describedby="addon-wrapping">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="addon-wrapping"><i class="far fa-smile"></i></span>
+                                    @endif
+                                    <input type="text" id="input" class="form-control text" aria-describedby="addon-wrapping">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="addon-wrapping"><i class="far fa-smile"></i></span>
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
+                            <div class="col-lg-2 col-sm-3 col-5">
+                                <button class="Send_btn" type="button">Wyślij <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                </button>
 
-                    </div>
-                    <div class="col-lg-2 col-sm-3 col-5">
-                        <button class="Send_btn" type="button">Wyślij <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                        </button>
-
-                    </div>
+                            </div>
 
 
 
+                    </form>
                 </div>
-                </form>
+                @endif
+
+            </div>    
+                
 
 
-            </div>
+
         </div>
+    </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -793,19 +767,7 @@ data: {
 
 success: function(data) {
     $('#chat').val(" ");
-    // if(data.sender=={{Auth::user()->id}}){
-    //     op += ' <div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div>';
-    // $('#chat2').append(op);
-
-    // }
-    // else{
-    //     alert(data.msg);
-
-    //     op +='<div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data.msg+'</p></div>';
-    //     $('#chat').append(op);
-
-
-    // }
+   
     op += '<div class="col-lg-12 message_sender"><div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
     $('#chat').append(op);
 },
