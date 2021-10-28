@@ -281,7 +281,7 @@
         /* overflow-y: scroll;
         height: 590px; */
 
-        max-height: 490px;
+        max-height: 315px;
     overflow-y: auto;
 
 
@@ -338,6 +338,9 @@
         .contact_name {
             margin-left: 20px;
         }
+        .    .prof{
+            display: block;
+        }
 
     }
 
@@ -350,6 +353,12 @@
         }
         .row1{
             margin-top: 60px;
+        }
+        .prof{
+            display: none;
+        }
+        .specific_msg{
+            max-height: 560px;
         }
     }
 
@@ -476,18 +485,18 @@
                 </div>
                 <div class="listend">
                     @foreach ($msg as $to)
-                    <a href="/user/chat?id={{ $to->id }}" style="color:white;" class="link{{$to->id}}">
+                    <a href="/user/chat?id={{ $to->id }}" style="color:white;text-decoration:none;" >
                         <div class="contactlist">
                             <input type="hidden" id="from_id1" value={{ $to->getuser->id }}>
                             <div class="contact_image">
-                                <img src="{{ asset('images/slide1.png') }}" class="contact_image" alt="">
+                                <img src="{{asset('upload/images/'.$to->getuser2->file) }}" class="contact_image" alt="">
                             </div>
                             <div class="contact_name">
                                 <p>{{ $to->getuser2->name }}</p>
                             </div>
-                            <div class="circle">
+                            {{-- <div class="circle">
                                 <i class="fas fa-circle"></i>
-                            </div>
+                            </div> --}}
                         </div>
                     </a>
                     @endforeach
@@ -516,7 +525,7 @@
     </div>
 
     <div class="container p-5 ">
-        <a href="{{url('/user')}}" class="back"><i class="fas fa-arrow-circle-left"></i> Powrót</a>
+        <a href="{{url('/user')}}" class="back"><i class="fas fa-arrow-circle-left" ></i> Powrót</a>
         <div class="row row1">
             <div class="col-lg-3 col-12 fullscreen">
 
@@ -554,7 +563,7 @@
                         </div>
                     </div> --}}
                     @foreach ($msg as $to)
-                    <a href="/user/chat?id={{ $to->id }}" style="color:white;" class="link{{$to->id}}">
+                    <a href="/user/chat?id={{ $to->id }}" style="color:white;text-decoration:none;"">
 
                         <div class="contactlist " id="">
                             <input type="hidden" id="from_id2" value={{ $to->getuser->id }}>
@@ -563,15 +572,15 @@
 
 
                                 <div class="contact_image">
-                                    <img src="{{ asset('images/slide1.png') }}" class="contact_image" alt="">
+                                    <img src="{{ asset('upload/images/'.$to->getuser2->file) }}" class="contact_image" alt="">
                                 </div>
 
                                 <div class="contact_name">
                                     <p>{{ $to->getuser2->name }}</p>
                                 </div>
-                                <div class="circle">
+                                {{-- <div class="circle">
                                     <i class="fas fa-circle"></i>
-                                </div>
+                                </div> --}}
 
                         </div>
                     </a>
@@ -604,7 +613,30 @@
                         <p style="color: gray;margin-top:50px;">Wybierz wrozbite z menu po lewej stronie i zadaj pytanie!</p>
                     </div>
                 </div>
+                <div class="row prof">
+                    <div class="col-lg-12">
+                        @if(isset($for))
+
+                        <div class="profile p-3">
+                            <div class="image">
+                                <img src="{{asset('upload/images/'.$for->file)}}" alt="">
+                            </div><br>
+                            <h5>{{$for->name}}</h5>
+                            <p>{{$for->bio}}</p>
+
+
+                        @else
+                        <div class="profile p-3 p_java2">
+
+
+                      </div>
+
+                        @endif
+                    </div>
+                </div>
                 <div class="row specific_msg right_box" id="chat">
+
+
                     @foreach ($msg_details as $msg)
                     @if ($msg->from==Auth::user()->id)
                     <div class="col-lg-12 message_sender">
@@ -692,8 +724,6 @@
 
     <script>
         $(document).ready(function() {
-            
-
             var for_id=$('#for_id').val();
             if (for_id!="") {
                 $(".no_message").css("display","none");
@@ -944,7 +974,7 @@ window.setInterval(function(){
 
                         }
 
-                        profile +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+' alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
+                        profile +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+'" alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
                         profile2 +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+'" alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
                         // alert(op);
                         $('#chat').append(op);

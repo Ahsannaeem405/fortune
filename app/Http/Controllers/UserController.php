@@ -40,7 +40,8 @@ function chat(){
     $id=Auth::user()->id;
     $msg=msg::where('to',$id )->orwhere('from',$id)->get();
     $chat_detail=msg_dt::where('to',$id)->get();
-    $for=null;
+    $for=Fortune::find(0);
+
     $chat_id=0;
      $msg_detail=msg_dt::where('msg_id',$chat_id)->get();
     return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg,'for'=>$for,'chat_id'=>$chat_id,'msg_details'=>$msg_detail]);

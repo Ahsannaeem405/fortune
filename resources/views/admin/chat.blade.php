@@ -125,6 +125,15 @@
                             </div>
                         </div>
                         <div id="users-list" class="chat-user-list list-group position-relative">
+                            <div class="row" style="padding: 10px;width:100%;">
+                                <div class="col-lg-12" style="text-align: center">
+                                    <img src="https://thumbs.dreamstime.com/b/default-avatar-pro…icon-social-media-user-vector-image-209162840.jpg" class="rounded-circle" alt="Cinque Terre" width="20%">
+                                    <h5 style="margin-top: 20px">Name</h5>
+                                    <p style="margin-top: 20px">Bio</p>
+
+                                </div>
+
+                            </div>
                             <h3 class="primary p-1 mb-0">Chats</h3>
                             <ul class="chat-users-list-wrapper media-list">
                                 <?php
@@ -429,7 +438,7 @@ if (isset($_GET['id'])) {
                                 op +=
                                 '<div class="chat chat-right"><div class="chat-avatar">'+
                                    '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
-                                       '<img src="{{ asset("'+data['img']+'") }}" height="40" width="40" />'+
+                                       '<img src="/upload/images/'+data['img']+'" height="40" width="40" />'+
                                     '</a>'+
                                 '</div>'+
                                 '<div class="chat-body">'+
@@ -481,17 +490,16 @@ if (isset($_GET['id'])) {
 
                 success: function(data) {
                     $('.all_chats').empty();
-                    var sre="upload/images/"+data['img'];
+                    // var sre="upload/images/"+data['img'];
 
 
                     for (var i = 0; i < data['message'].length; i++) {
-
                         if(data['message'][i].msg_type=='Admin')
                             {
                                 op +=
                                 '<div class="chat chat-right"><div class="chat-avatar">'+
                                    '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
-                                       '<img src="{{asset('+sre+')}}" height="40" width="40" />'+
+                                       '<img src="/upload/images/'+data['img']+'" height="40" width="40" />'+
                                     '</a>'+
                                 '</div>'+
                                 '<div class="chat-body">'+
