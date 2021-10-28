@@ -154,11 +154,14 @@ class admin extends Controller
          $msgdt->msg=$message;
          $msgdt->msg_id=$request->msg_id;
          $msgdt->save();
-         return response()->json($msgdt);
+         $msg=$message;
+         $Fortune=Fortune::find($from);
+         $img=$Fortune->file;
 
 
 
-     }
+         return response()->json(['msg'=>$msg,'img'=>$img]);
+    }
     //  function showchat(){
     //     $msg_approve=msg::where('status','!=','null')->get();
     //     $msg_na=msg::where('status',null)->where('msg_type','=','2')->get();
@@ -187,6 +190,7 @@ class admin extends Controller
     // }
     public function showchat()
     {
+
         $msg_approve = msg::where('status', '!=', 'null')->get();
         $msg_na      = msg::where('status', null)->where('msg_type', '=', '2')->get();
 
@@ -194,6 +198,7 @@ class admin extends Controller
     }
     public function admin_messages(Request $request)
     {
+        
         $message=msg_dt::where('msg_id',$request->msgid)->get();
         $name=msg::where('id',$request->msgid)->get();
         $get_name=$name[0]->getuser->name;

@@ -436,9 +436,38 @@
         background: #C530D6;
     }
 
+
+    .loader {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 70%;
+    z-index: 1;
+    width: 120px;
+    height: 120px;
+    margin: -76px 0 0 -76px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #C530D6;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+
 </style>
 
 <body>
+    
+
 
     <input type="hidden" value="{{$chat_id}}" id="chat_id">
 
@@ -486,7 +515,7 @@
                         <div class="contactlist">
                             <input type="hidden" id="from_id1" value={{ $to->getuser->id }}>
                             <div class="contact_image">
-                                <img src="{{asset('upload/images/'.$to->getuser2->file) }}" class="contact_image" alt="">
+                                <!--  -->
                             </div>
                             <div class="contact_name">
                                 <p>{{ $to->getuser2->name }}</p>
@@ -522,6 +551,7 @@
     </div>
 
     <div class="container p-5 ">
+        <div class="loader"></div>
         <a href="{{url('/user')}}" class="back"><i class="fas fa-arrow-circle-left" ></i> Powrót</a>
         <div class="row row1">
             <div class="col-lg-3 col-12 fullscreen">
@@ -654,10 +684,10 @@
                     @endif
                     @endforeach
                 </div>
-                @if($no_chat == 1)
+                @if($no_chat == 0 or isset($_GET['id']))
                 <div class="row message_type" style="margin-left:0px; margin-right: 0px;">
                 
-                    <form method="post" style="width:100%;"class="form-inline" >
+                    <form method="post" style="width:100%;"class="form-inline typing" >
                             @csrf
                       
 
@@ -669,7 +699,7 @@
                                     <input type="hidden" class="rec_id id1">
 
                                     @endif
-                                    <input type="text" id="input" class="form-control text" aria-describedby="addon-wrapping">
+                                    <input type="text" id="input" class="form-control text typing_msg" aria-describedby="addon-wrapping">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="addon-wrapping"><i class="far fa-smile"></i></span>
                                     </div>
@@ -686,6 +716,8 @@
 
                     </form>
                 </div>
+                @else
+                
                 @endif
 
             </div>    
@@ -700,6 +732,8 @@
 
     <script>
         $(document).ready(function() {
+            $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
+
             var for_id=$('#for_id').val();
             if (for_id!="") {
                 $(".no_message").css("display","none");
@@ -707,80 +741,85 @@
                 $(".message_type").css("display","flex");
             }
             window.setInterval(function(){
-            var op = " ";
-            var chat_id=$('#chat_id').val();
-            $.ajax({
-                type: 'get',
-                url: '{{ URL::to('/user/user_messages') }}',
-                data: {
-                    'msg_id': chat_id
-                },
+                var op = " ";
+                var chat_id=$('#chat_id').val();
+                $.ajax({
+                    type: 'get',
+                    url: '{{ URL::to('/user/user_messages') }}',
+                    data: {
+                        'msg_id': chat_id
+                    },
 
-                success: function(dat) {
-                    $('#chat').empty();
+                    success: function(dat) {
+                        $('#chat').empty();
 
-                    for (var i = 0; i < dat.length; i++) {
-
-
-                            if(dat[i].from=={{Auth::user()->id}})
-                            {
-                                op +=' <div class="col-lg-12 message_sender"><div class="message"><p>'+dat[i].msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
+                        for (var i = 0; i < dat.length; i++) {
 
 
-                            }
-                            else{
-                                op +=' <div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+dat[i].msg+'</p></div></div>';
-                            }
+                                if(dat[i].from=={{Auth::user()->id}})
+                                {
+                                    op +=' <div class="col-lg-12 message_sender"><div class="message"><p>'+dat[i].msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
 
 
-                    }
-                        $('#chat').append(op);
-                        // $('.user_nmae').text(data['name']);
-                        // $('#to').val(data['user_id']);
-                        // $('#from').val(data['fortune_id']);
-
-                    // alert(op);
-
-                },
-            })
-        },1000000);
-
-                $(document).on("click",'.Send_btn',function(){
+                                }
+                                else{
+                                    op +=' <div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+dat[i].msg+'</p></div></div>';
+                                }
 
 
-                    var message=$('#input').val();
-                     var rec_id=$('.rec_id').val();
-                    var op=" ";
-                    var id =rec_id;
+                        }
+                            $('#chat').append(op);
+                            // $('.user_nmae').text(data['name']);
+                            // $('#to').val(data['user_id']);
+                            // $('#from').val(data['fortune_id']);
+
+                        // alert(op);
+
+                    },
+                })
+            },1000000);
+
+            $(document).on("click",'.Send_btn',function(){
+
+
+                $(".loader").css('display','block');
+
+                var message=$('#input').val();
+                var rec_id=$('.rec_id').val();
+                var op=" ";
+                var id =rec_id;
                 var _token = $("input[name='_token']").val();
+                $.ajax({
 
+                    type: 'post',
+                    url: '{{ URL::to('/messages_fortune') }}',
+                    data: {
+                        _token:_token,
+                        'id': id,'message':message
 
+                    },
 
-// ajax
-$.ajax({
+                    success: function(data) {
 
-type: 'post',
-url: '{{ URL::to('/messages_fortune') }}',
-data: {
-    _token:_token,
-    'id': id,'message':message
+                        
 
-},
+                        $(".typing_msg").val(" ");
+                        
 
-success: function(data) {
-    $('#chat').val(" ");
-   
-    op += '<div class="col-lg-12 message_sender"><div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
-    $('#chat').append(op);
-},
+                        $(".loader").css('display','none');
 
+                        $('#chat').val(" ");
+                   
+                        op += '<div class="col-lg-12 message_sender"><div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
+                        $('#chat').append(op);
+                                            $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
 
-});
-
-
-
+                    },
                 });
+
+            });
             $(".contact1").click(function() {
+
                 // alert("1");
                 var myId = $('#from_id1').val();
                 $(".no_message").css("display","none");
@@ -788,54 +827,6 @@ success: function(data) {
                 $(".message_type").css("display","flex");
 
 
-
-
-
-                var op=" ";
-
-
-                // alert(myId);
-                var id =myId;
-
-
-$.ajax({
-
-    type: 'get',
-    url: '{{ URL::to('/messages') }}',
-    data: {
-        'id': id
-    },
-
-    success: function(data) {
-        $('#chat').empty();
-
-        for (var i = 0; i < data.length; i++) {
-
-            op +='<div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data[i].msg+'</p></div></div>'
-
-        }
-        // alert(op);
-        $('#chat').append(op);
-
-    },
-
-
-});
-            });
-            <?php
-if (isset($_GET['id'])) {
-    ?>
-window.setInterval(function(){
-
-                var myId = "<?php echo $_GET['id']; ?>";
-
-
-
-                $(".no_message").css("display","none");
-                $(".right_box").css("display","block");
-                $(".message_type").css("display","flex");
-                $(".p_java").css("display","block");
-                $(".p_java2").css("display","block");
 
 
 
@@ -856,39 +847,91 @@ window.setInterval(function(){
 
                     success: function(data) {
                         $('#chat').empty();
-                        // alert(data['fortune'].bio);
 
-                        for (var i = 0; i < data['message'].length; i++) {
-                            if (data['message'][i].from=={{Auth::user()->id}}) {
+                        for (var i = 0; i < data.length; i++) {
 
-                                op +='<div class="col-lg-12 message_sender"><div class="message"><p>'+data['message'][i].msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>'
-                            }
-                            else{
-
-                                op +='<div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data['message'][i].msg+'</p></div></div>'
-                            }
-
+                            op +='<div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data[i].msg+'</p></div></div>'
 
                         }
-
-                        profile +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+' alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
-                        profile2 +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+'" alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
                         // alert(op);
                         $('#chat').append(op);
-
-                        // alert(data['to']);
-                        $('.id1').val(data['to']);
-
-
-
 
                     },
 
 
                 });
-            },1000);
+            });
+            <?php
+            if (isset($_GET['id'])) {
+                ?>
 
-               var myId = "<?php echo $_GET['id']; ?>";
+                window.setInterval(function(){
+
+                    var myId = "<?php echo $_GET['id']; ?>";
+
+
+
+                    $(".no_message").css("display","none");
+                    $(".right_box").css("display","block");
+                    $(".message_type").css("display","flex");
+                    $(".p_java").css("display","block");
+                    $(".p_java2").css("display","block");
+
+
+
+                    var op=" ";
+
+
+                    // alert(myId);
+                    var id =myId;
+
+
+                    $.ajax({
+
+                        type: 'get',
+                        url: '{{ URL::to('/messages') }}',
+                        data: {
+                            'id': id
+                        },
+                        
+                        success: function(data) {
+                            $('#chat').empty();
+                            // alert(data['fortune'].bio);
+
+                            for (var i = 0; i < data['message'].length; i++) {
+                                if (data['message'][i].from=={{Auth::user()->id}}) {
+
+                                    op +='<div class="col-lg-12 message_sender"><div class="message"><p>'+data['message'][i].msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>'
+                                }
+                                else{
+
+                                    op +='<div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data['message'][i].msg+'</p></div></div>'
+                                }
+
+
+                            }
+
+                            profile +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+' alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
+                            profile2 +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+'" alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
+                            // alert(op);
+                            $('#chat').append(op);
+
+                            // alert(data['to']);
+                            $('.id1').val(data['to']);
+
+
+
+
+                        },
+
+
+                    });
+                },1000);
+
+                var myId = "<?php echo $_GET['id']; ?>";
+                $(".loader").css('display','block');
+                $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
+
 
 
 
@@ -918,6 +961,7 @@ window.setInterval(function(){
                     },
 
                     success: function(data) {
+                        $(".loader").css('display','none');
                         $('#chat').empty();
                         $('.p_java').empty();
                         $('.p_java2').empty();
@@ -952,11 +996,16 @@ window.setInterval(function(){
 
 
                     },
-
-
                 });
-<?php }
-?>
+            <?php }
+            ?>
+
+            $(document).on("submit",'.typing',function(){
+                $(".Send_btn").click();
+
+
+            });
+
         });
     </script>
     <script>

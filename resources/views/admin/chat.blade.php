@@ -66,6 +66,32 @@
             display: none !important;
         }
     }
+    .loader {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 120px;
+    height: 120px;
+    margin: -76px 0 0 -76px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #7367F0;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+
 
 </style>
 <!-- END: Head-->
@@ -74,6 +100,7 @@
 
 <body class="vertical-layout vertical-menu-modern content-left-sidebar chat-application navbar-floating footer-static  "
     data-open="click" data-menu="vertical-menu-modern" data-col="content-left-sidebar">
+        <div class="loader"></div>
 
     <!-- BEGIN: Header-->
     @include('admin.layouts.navbar')
@@ -91,6 +118,7 @@
             {{ session()->get('success') }}
         </div>
     @endif
+
     <div class="app-content content" style="margin-left:0px;display:flex;">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
@@ -299,7 +327,7 @@
                                      echo $_GET['id'];
                                  }?>">
 
-                                            <input type="text" class="form-control message mr-1 ml-50" id="message"
+                                            <input type="text" class="form-control type_msg message mr-1 ml-50" id="message"
                                                 placeholder="Type your message" >
                                             <button type="button" class="btn btn-primary send"
                                                 ><i class="fa fa-paper-plane-o d-lg-none"></i>
@@ -406,9 +434,11 @@ if (isset($_GET['id'])) {
 ?>
     <script>
         $(document).ready(function() {
+            $('.user-chats').scrollTop($('.user-chats')[0].scrollHeight);
 
 
             var msg_id = "<?php echo $_GET['id']; ?>";
+
 
             window.setInterval(function(){
                 var op = " ";
@@ -533,11 +563,12 @@ if (isset($_GET['id'])) {
 
             });
             $(".send").click(function () {
+                $(".loader").css('display','block');
+
                 var message=$('#message').val();
                 var to=$('#to').val();
                 var from=$('#from').val();
                 var msg_id=$('#msg_id').val();
-                // alert(msg_id);
                 var _token = $("input[name='_token']").val();
                 if (message != '' && message != ' ') {
                     $.ajax({
@@ -546,9 +577,15 @@ if (isset($_GET['id'])) {
                         dataType: 'JSON',
                         data: {_token: _token, 'message': message, 'from': from,'to':to,'msg_id':msg_id},
                         success: function (data) {
+
                             $('.user-chats').scrollTop($('.user-chats')[0].scrollHeight);
-                            $('.chats').val(" ");
-                            op +='<div class="chat"><div class="chat-avatar"><a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="'+data['img']+'"alt="avatar" height="40" width="40" /></a></div><div class="chat-body"><div class="chat-content"><p>'+data.msg + '</p></div></div></div>';
+
+
+                            $(".loader").css('display','none');
+                            $(".type_msg").val(" ");
+
+                            
+                            op +='<div class="chat"><div class="chat-avatar"><a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="/upload/images/'+data.img+'"alt="avatar" height="40" width="40" /></a></div><div class="chat-body"><div class="chat-content"><p>'+data.msg + '</p></div></div></div>';
                             $('.chats').append(op);
 
 
