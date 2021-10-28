@@ -141,9 +141,10 @@
                                         $msg_dt = App\Models\msg_dt::where('msg_id', $msg->id)
                                             ->latest()
                                             ->first();
+                                        $msg_id=$msg->id;
 
                                     @endphp
-                                    <a href="/admins/chat?id={{ $msg->id }}" style="color:black" class="a_tag">
+                                    <a href="{{url('/admins/chat?id=' .$msg_id)}}" style="color:black" class="a_tag">
                                     <li class="@if($id == $msg->id) active @endif">
                                         <div class="pr-1">
                                             <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle"

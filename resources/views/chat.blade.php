@@ -481,7 +481,8 @@
                 </div>
                 <div class="listend">
                     @foreach ($msg as $to)
-                    <a href="/user/chat?id={{ $to->id }}" style="color:white;text-decoration:none;" >
+                    @php $to_id2=$to->id; @endphp
+                    <a href="{{url('/user/chat?id='. $to_id2)}}" style="color:white;text-decoration:none;" >
                         <div class="contactlist">
                             <input type="hidden" id="from_id1" value={{ $to->getuser->id }}>
                             <div class="contact_image">
@@ -559,7 +560,8 @@
                         </div>
                     </div> --}}
                     @foreach ($msg as $to)
-                    <a href="/user/chat?id={{ $to->id }}" style="color:white;text-decoration:none;">
+                    @php $to_id=$to->id; @endphp
+                    <a href="{{url('/user/chat?id='. $to_id)}}" style="color:white;text-decoration:none;">
 
                         <div class="contactlist " id="">
                             <input type="hidden" id="from_id2" value={{ $to->getuser->id }}>
@@ -652,7 +654,7 @@
                     @endif
                     @endforeach
                 </div>
-                @if($no_chat == 0)
+                @if($no_chat == 1)
                 <div class="row message_type" style="margin-left:0px; margin-right: 0px;">
                 
                     <form method="post" style="width:100%;"class="form-inline" >
