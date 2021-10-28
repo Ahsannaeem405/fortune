@@ -692,10 +692,7 @@
 
     <script>
         $(document).ready(function() {
-            var link_id = "<?php echo $_GET['id']; ?>";
-
-
-  $('.link'+link_id).addClass("active");
+            
 
             var for_id=$('#for_id').val();
             if (for_id!="") {
@@ -833,7 +830,7 @@ $.ajax({
             });
             <?php
 if (isset($_GET['id'])) {
-?>
+    ?>
 window.setInterval(function(){
 
                 var myId = "<?php echo $_GET['id']; ?>";

@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css" id="theme-styles">
     <link rel="stylesheet" type="text/css" href="{{asset('admin//app-assets/css/plugins/forms/wizard.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('admin/app-assets/fonts/line-awesome/css/line-awesome.min.css')}}">
+        
+
 
 @show
     <!-- END: Page CSS-->
@@ -73,8 +75,7 @@
 
 @php $site=App\Models\site_setting::all(); @endphp
 
-
-
+   
 <footer class="footer footer-static footer-light">
         <p class="clearfix blue-grey lighten-2 mb-0">
 
@@ -139,11 +140,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.min.js"></script>
  <script src="{{asset('tableHTMLExport.js')}}"></script>
+ 
 @show
 @yield('js')
 
 
 <script>
+     $(document).ready(function(){
+        $(".placement-grid-btn").click();
+  
+});
+
 
 
 
