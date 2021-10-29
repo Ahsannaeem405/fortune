@@ -1,7 +1,7 @@
 <style type="text/css">
      .nav-item2{
        
-        display: block;
+        display: none;
 
     }
 
