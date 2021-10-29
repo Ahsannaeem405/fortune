@@ -54,7 +54,7 @@
     }
     .nav-item2{
         padding-top:1.2%;
-        display: block;
+        display: block!important;
 
     }
 
