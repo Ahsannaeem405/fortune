@@ -442,7 +442,7 @@
     display: none;
     position: absolute;
     left: 50%;
-    top: 70%;
+    top: 75%;
     z-index: 1;
     width: 120px;
     height: 120px;
@@ -552,9 +552,11 @@
     </div>
 
     <div class="container p-5 ">
-        <div class="loader"></div>
+        
         <a href="{{url('/user')}}" class="back"><i class="fas fa-arrow-circle-left" ></i> Powrót</a>
         <div class="row row1">
+            <div class="loader"></div>
+
             <div class="col-lg-3 col-12 fullscreen">
 
                 <img src="{{ asset('images/logo2.png') }}" alt="" class="logo">
@@ -1019,6 +1021,8 @@
                     if (event.which == '13') {
               
                         event.preventDefault();
+                        $(".Send_btn").click();
+
                     }
             });
 

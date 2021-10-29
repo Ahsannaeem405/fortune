@@ -619,6 +619,16 @@ if (isset($_GET['id'])) {
             //    var hh= $('.name_user').html(str);
             //    alert(hh);
             // });
+            $(document).keypress(
+                function(event){
+                    if (event.which == '13') {
+              
+                        event.preventDefault();
+                        $(".send").click();
+
+                    }
+            });
+
 
 
         });
