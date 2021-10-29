@@ -48,7 +48,7 @@ function chat(){
     return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg,'for'=>$for,'chat_id'=>$chat_id,'msg_details'=>$msg_detail,'no_chat'=>$no_chat]);
 }
 function messages(Request $request){
-    $user=Auth::user()->id;
+     $user=Auth::user()->id;
      $message=msg_dt::where('msg_id',$request->id)->get();
      $to=msg::find($request->id);
      $fortune=Fortune::find($to->to);

@@ -497,7 +497,7 @@ if (isset($_GET['id'])) {
                 },
             })
 
-            },10000);
+            },1000000);
             // alert("Helloo");
 
             // alert(msg_id);
@@ -564,6 +564,7 @@ if (isset($_GET['id'])) {
             });
             $(".send").click(function () {
                 $(".loader").css('display','block');
+                var op=" ";
 
                 var message=$('#message').val();
                 var to=$('#to').val();
@@ -583,6 +584,7 @@ if (isset($_GET['id'])) {
 
                             $(".loader").css('display','none');
                             $(".type_msg").val(" ");
+                            console.log(data.msg);
 
                             
                             op +='<div class="chat"><div class="chat-avatar"><a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="/upload/images/'+data.img+'"alt="avatar" height="40" width="40" /></a></div><div class="chat-body"><div class="chat-content"><p>'+data.msg + '</p></div></div></div>';

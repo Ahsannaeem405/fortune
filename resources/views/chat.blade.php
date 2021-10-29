@@ -696,7 +696,7 @@
                                     @if (isset($for))
                                     <input type="hidden" class="rec_id" value="{{$for->id}}">
                                     @else
-                                    <input type="hidden" class="rec_id id1">
+                                    <input type="hidden" class="rec_id rec_id2 id1" value="">
 
                                     @endif
                                     <input type="text" id="input" class="form-control text typing_msg" aria-describedby="addon-wrapping">
@@ -740,44 +740,7 @@
                 $(".right_box").css("display","block");
                 $(".message_type").css("display","flex");
             }
-            window.setInterval(function(){
-                var op = " ";
-                var chat_id=$('#chat_id').val();
-                $.ajax({
-                    type: 'get',
-                    url: '{{ URL::to('/user/user_messages') }}',
-                    data: {
-                        'msg_id': chat_id
-                    },
 
-                    success: function(dat) {
-                        $('#chat').empty();
-
-                        for (var i = 0; i < dat.length; i++) {
-
-
-                                if(dat[i].from=={{Auth::user()->id}})
-                                {
-                                    op +=' <div class="col-lg-12 message_sender"><div class="message"><p>'+dat[i].msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
-
-
-                                }
-                                else{
-                                    op +=' <div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+dat[i].msg+'</p></div></div>';
-                                }
-
-
-                        }
-                            $('#chat').append(op);
-                            // $('.user_nmae').text(data['name']);
-                            // $('#to').val(data['user_id']);
-                            // $('#from').val(data['fortune_id']);
-
-                        // alert(op);
-
-                    },
-                })
-            },1000000);
 
             $(document).on("click",'.Send_btn',function(){
 
@@ -786,6 +749,7 @@
 
                 var message=$('#input').val();
                 var rec_id=$('.rec_id').val();
+
                 var op=" ";
                 var id =rec_id;
                 var _token = $("input[name='_token']").val();
@@ -812,7 +776,7 @@
                    
                         op += '<div class="col-lg-12 message_sender"><div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
                         $('#chat').append(op);
-                                            $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
+                        $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
 
                     },
                 });
@@ -917,7 +881,7 @@
                             $('#chat').append(op);
 
                             // alert(data['to']);
-                            $('.id1').val(data['to']);
+                            $('.rec_id2').val(data['fortune'].id);
 
 
 
@@ -961,6 +925,7 @@
                     },
 
                     success: function(data) {
+
                         $(".loader").css('display','none');
                         $('#chat').empty();
                         $('.p_java').empty();
@@ -989,14 +954,56 @@
                         $('.p_java').append(profile);
                         $('.p_java2').append(profile2);
 
-                        // alert(data['to']);
-                        $('.id1').val(data['to']);
+                        $('.rec_id2').val(data['fortune'].id);
 
 
 
 
                     },
                 });
+            <?php }else{
+            ?>    
+             window.setInterval(function(){
+                var op = " ";
+                var chat_id=$('#chat_id').val();
+                
+
+                $.ajax({
+                    type: 'get',
+                    url: '{{ URL::to('/user/user_messages') }}',
+                    data: {
+                        'msg_id': chat_id
+                    },
+
+                    success: function(dat) {
+                        $('#chat').empty();
+
+                        for (var i = 0; i < dat.length; i++) {
+
+
+                                if(dat[i].from=={{Auth::user()->id}})
+                                {
+                                    op +=' <div class="col-lg-12 message_sender"><div class="message"><p>'+dat[i].msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
+
+
+                                }
+                                else{
+                                    op +=' <div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+dat[i].msg+'</p></div></div>';
+                                }
+
+
+                        }
+                            $('#chat').append(op);
+                            // $('.user_nmae').text(data['name']);
+                            // $('#to').val(data['user_id']);
+                            // $('#from').val(data['fortune_id']);
+
+                        // alert(op);
+
+                    },
+                })
+            },1000);
+            
             <?php }
             ?>
 
