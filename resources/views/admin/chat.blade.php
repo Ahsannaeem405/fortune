@@ -43,6 +43,21 @@
 
 </head>
 <style>
+.header-navbar{
+        width:95%!important;
+    }
+    .navbar-nav{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+    }
+    .nav-item2{
+        padding-top:1.2%;
+        display: block;
+
+    }
+
     .request {
         width: 30%;
         display: inline-block !important;

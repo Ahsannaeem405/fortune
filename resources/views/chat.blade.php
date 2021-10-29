@@ -20,6 +20,7 @@
         background-color: #1B1B1B;
         color: white;
     }
+    
     .prof{
             display: none;
 
@@ -765,14 +766,17 @@
 
                     success: function(data) {
 
+
                         
 
                         $(".typing_msg").val(" ");
+                        data.msg_id
                         
 
                         $(".loader").css('display','none');
 
-                        $('#chat').val(" ");
+                        $('#chat').val("");
+                        $('#chat_id').val(data.msg_id);
                    
                         op += '<div class="col-lg-12 message_sender"><div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
                         $('#chat').append(op);
@@ -966,7 +970,8 @@
              window.setInterval(function(){
                 var op = " ";
                 var chat_id=$('#chat_id').val();
-                
+
+
 
                 $.ajax({
                     type: 'get',
@@ -975,8 +980,11 @@
                         'msg_id': chat_id
                     },
 
+
                     success: function(dat) {
+
                         $('#chat').empty();
+
 
                         for (var i = 0; i < dat.length; i++) {
 
@@ -1002,17 +1010,12 @@
 
                     },
                 })
-            },1000);
+            },5000);
             
             <?php }
             ?>
 
-            $(document).on("submit",'.typing',function(){
-                $(".Send_btn").click();
-
-
-            });
-
+           
         });
     </script>
     <script>

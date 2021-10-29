@@ -1,3 +1,11 @@
+<style type="text/css">
+     .nav-item2{
+       
+        display: block;
+
+    }
+
+</style>
 <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-light navbar-shadow">
     <div class="navbar-wrapper">
         <div class="navbar-container content">
@@ -9,6 +17,10 @@
                     <h3 class="m-auto">@yield('heading')</h3>
                 </div>
                 <ul class="nav navbar-nav float-right">
+                    <li class="nav-item nav-item2">
+                            <a class="" href="{{ url('admins/') }}">Back To Home</a>
+                        
+                    </li>
 
                     <li class="dropdown dropdown-user nav-item">
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">

@@ -121,6 +121,14 @@ class admin extends Controller
 
     public function update_ws(Request $request, $id)
     {
+        $request->validate([
+            'f_name'   => 'required',
+            'l_name'   => 'required',
+            'email' => 'unique:users,email,'.$id
+            
+           
+
+        ]);
 
         $user           = User::find($id);
         $password       = Hash::make($request->password);
@@ -241,8 +249,13 @@ class admin extends Controller
     {
 
         $user        = User::find($id);
-        $user->name  = $request->input('name');
+        $user->name  = $request->input('f_name');
         $user->email = $request->input('email');
+        if($request->password != null)
+        {
+            $user->password = Hash::make($request->input('password'));
+
+        }
         $user->save();
         if (!is_null($user)) {
             return back()->with('success', 'User Successfully Add.');

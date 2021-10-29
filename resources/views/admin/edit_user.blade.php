@@ -12,7 +12,7 @@
                                 <hr>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-horizontal" method="POST" action="{{ url('admins/update_ws/'  .$user->id) }}">
+                                        <form class="form form-horizontal" method="POST" action="{{ url('admins/update_user/'  .$user->id) }}">
                                         @csrf
                                             <div class="form-body">
                                                 <div class="row">
@@ -43,7 +43,7 @@
                                                                 <span>Password</span>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <input type="password"  class="form-control" name="password"  value="{{$user->password}}">
+                                                                <input type="password"  class="form-control" name="password"  value="">
                                                             </div>
                                                         </div>
                                                     </div>

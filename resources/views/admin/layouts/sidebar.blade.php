@@ -62,8 +62,8 @@
            <li class=""><a href="{{url('admins/chat')}}" class="{{ (request()->is('admins/chat')) ? 'active' : '' }}"><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Dashboard">Chat</span></a>
             </li>
             <li class=""><a href="{{url('admins/pointshistory')}}" class="{{ (request()->is('admins/pointshistory')) ? 'active' : '' }}"><i class="la la-usd"></i><span class="menu-title" data-i18n="Dashboard">Points history</span></a>
-                <li class=""><a href="{{url('admins/view_comments')}}" class=""><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Dashboard">Messages</span></a>
-                </li>
+            </li>
+               
 
 
 
