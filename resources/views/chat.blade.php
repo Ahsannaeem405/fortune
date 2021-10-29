@@ -7,8 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <title>Chat</title>
 </head>
@@ -550,6 +554,17 @@
     <div id="main">
         <button class="openbtn" onclick="openNav()">☰</button>
     </div>
+<div aria-live="polite" aria-atomic="true" style="position: relative;min-height: 0px;z-index: 1;">
+  <div class="toast" style="position: absolute; top: 10; right:0;">
+    <div class="toast-header" style="background-color:#C530D6;border-bottom: 1px solid #C530D6;color: white;">
+      <h6>You Have New Message</h6>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+  </div>
+</div>
 
     <div class="container p-5 ">
         
@@ -592,12 +607,19 @@
                             <i class="fas fa-circle"></i>
                         </div>
                     </div> --}}
+
+                    @php $cl=0; @endphp
                     @foreach ($msg as $to)
-                    @php $to_id=$to->id; @endphp
+                    @php $to_id=$to->id; 
+                        
+
+                    @endphp
                     <a href="{{url('/user/chat?id='. $to_id)}}" style="color:white;text-decoration:none;">
 
                         <div class="contactlist " id="">
                             <input type="hidden" id="from_id2" value={{ $to->getuser->id }}>
+                            <input type="hidden" id="count_msg_id{{$cl}}" value={{ $to->id }}>
+ 
 
 
 
@@ -609,13 +631,15 @@
                                 <div class="contact_name">
                                     <p>{{ $to->getuser2->name }}</p>
                                 </div>
-                                {{-- <div class="circle">
-                                    <i class="fas fa-circle"></i>
-                                </div> --}}
+                                <div class="circle countycir{{$cl}}" style="color: #C530D6;position: absolute;right: 15%;">
+                                    
+                                </div> 
 
                         </div>
                     </a>
+                    @php  $cl++; @endphp
                     @endforeach
+                    <input type="hidden" name="" value="{{$cl}}" class="count_lent">
                 </div>
 
 
@@ -731,6 +755,8 @@
         </div>
     </div>
     </div>
+       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
@@ -743,6 +769,7 @@
                 $(".right_box").css("display","block");
                 $(".message_type").css("display","flex");
             }
+
 
 
             $(document).on("click",'.Send_btn',function(){
@@ -835,6 +862,7 @@
             if (isset($_GET['id'])) {
                 ?>
 
+
                 window.setInterval(function(){
 
                     var myId = "<?php echo $_GET['id']; ?>";
@@ -897,6 +925,8 @@
 
                     });
                 },1000);
+
+
 
                 var myId = "<?php echo $_GET['id']; ?>";
                 $(".loader").css('display','block');
@@ -967,6 +997,7 @@
 
                     },
                 });
+
             <?php }else{
             ?>    
              window.setInterval(function(){
@@ -1012,7 +1043,7 @@
 
                     },
                 })
-            },5000);
+            },1000);
             
             <?php }
             ?>
@@ -1025,6 +1056,43 @@
 
                     }
             });
+            window.setInterval(function(){
+
+                var count=$(".count_lent").val();
+                for (i = 0; i < count ; i++) {
+
+                    
+                    var msg_id=$("#count_msg_id"+i).val();
+
+                    $.ajax({
+
+                        type: 'get',
+                        async: false,
+                        url: '{{ URL::to('/user/count_unread') }}',
+                        data: {
+                        'msg_id': msg_id
+                        },
+                        success: function(data){
+                            if(data != 0)
+                            {
+                                $(".countycir"+i).text(data);
+                                $('.toast').toast('show');
+
+      
+                            }
+
+
+                            
+
+
+                                                    
+                                
+                            
+                        },
+                    })
+                }    
+
+            },1000);
 
            
         });

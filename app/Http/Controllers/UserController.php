@@ -13,6 +13,7 @@ use App\Models\Pointshistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use DB;
 
 class UserController extends Controller
 {
@@ -52,6 +53,11 @@ function messages(Request $request){
      $message=msg_dt::where('msg_id',$request->id)->get();
      $to=msg::find($request->id);
      $fortune=Fortune::find($to->to);
+     DB::table('msg_dts')->where('msg_id', $request->id)->where('msg_type','Admin')
+           ->update([
+               'read_to' => 1
+            ]);
+
 
 
         return response()->json(['message'=>$message,'to'=>$to,'fortune'=>$fortune]);
@@ -203,24 +209,30 @@ function chat_start($id){
     return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg, 'for'=>$for,'msg_details'=>$msg_detail,'fortune_id'=>$fortune_id,'chat_id'=>$chat_id,'no_chat'=>$no_chat]);
 
 
-}
-function getmessages(Request $request){
-$msg_id=$request->msg_id;
-$msg_dt=msg_dt::where('msg_id',$msg_id)->get();
-return response()->json($msg_dt);
-}
-function addmessage(Request $request){
-$contact=new Contact_message();
-$contact->name=$request->name;
-$contact->email=$request->email;
-$contact->topic=$request->topic;
-$contact->message=$request->message;
-// dd($contact);
-$contact->save();
-return redirect()->back()->with('success', 'Message sent Successfully');
+    }
+    function getmessages(Request $request){
+    $msg_id=$request->msg_id;
+     DB::table('msg_dts')->where('id', $msg_id)->where('msg_type','Admin')
+           ->update([
+               'read_to' => 1
+            ]);
 
-}
-function updateprofile(Request $request){
+
+    $msg_dt=msg_dt::where('msg_id',$msg_id)->get();
+    return response()->json($msg_dt);
+    }
+    function addmessage(Request $request){
+    $contact=new Contact_message();
+    $contact->name=$request->name;
+    $contact->email=$request->email;
+    $contact->topic=$request->topic;
+    $contact->message=$request->message;
+    // dd($contact);
+    $contact->save();
+    return redirect()->back()->with('success', 'Message sent Successfully');
+
+    }
+    function updateprofile(Request $request){
     $user_id=Auth::user()->id;
     $user=User::find($user_id);
     if($request->hasFile('file')){
@@ -258,17 +270,25 @@ function updateprofile(Request $request){
     }
 
 
-// $user->phone=$request->phone;
-// $user->vocative=$request->vocative;
-// $user->nameoflove=$request->nameoflove;
-// $user->city=$request->city;
-// $user->bio=$request->bio;
-$user->notification=$request->notification;
-$user->dob=$request->dob;
-$user->save();
-// dd($user);
-return redirect()->back()->with('success', 'Updated Successfully');
+        // $user->phone=$request->phone;
+        // $user->vocative=$request->vocative;
+        // $user->nameoflove=$request->nameoflove;
+        // $user->city=$request->city;
+        // $user->bio=$request->bio;
+        $user->notification=$request->notification;
+        $user->dob=$request->dob;
+        $user->save();
+        // dd($user);
+        return redirect()->back()->with('success', 'Updated Successfully');
 
 
-}
+    }
+    function count_unread(Request $request){
+        $county=msg_dt::where('msg_id',$request->msg_id)->where('msg_type','Admin')->whereNull('read_to')->count();
+        return response()->json($county);
+
+
+    }
+
+    
 }

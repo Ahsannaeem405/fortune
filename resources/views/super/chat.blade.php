@@ -43,6 +43,22 @@
 
 </head>
 <style>
+.header-navbar{
+     width:95%!important;
+    }
+    .navbar-nav{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+    }
+    .nav-item2{
+        padding-top:1.2%;
+        display: block!important;
+
+    }
+
+
     .request {
         width: 30%;
         display: inline-block !important;
@@ -66,6 +82,32 @@
             display: none !important;
         }
     }
+    .loader {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 100px;
+    height: 100px;
+    margin: -76px 0 0 -76px;
+    border: 7px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 7px solid #7367F0;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+
 
 </style>
 <!-- END: Head-->
@@ -74,6 +116,7 @@
 
 <body class="vertical-layout vertical-menu-modern content-left-sidebar chat-application navbar-floating footer-static  "
     data-open="click" data-menu="vertical-menu-modern" data-col="content-left-sidebar">
+    <div class="loader"></div>
 
     <!-- BEGIN: Header-->
     @include('super.layouts.navbar')
@@ -306,7 +349,7 @@
                                      echo $_GET['id'];
                                  }?>">
 
-                                            <input type="text" class="form-control message mr-1 ml-50" id="message"
+                                            <input type="text" class="form-control type_msg message mr-1 ml-50" id="message"
                                                 placeholder="Type your message" >
                                             <button type="button" class="btn btn-primary send"
                                                 ><i class="fa fa-paper-plane-o d-lg-none"></i>
@@ -349,27 +392,29 @@
                     {{-- @php
                 $msg_dt=App\Models\msg_dt::where('msg_id',$msg->id)->latest()->first();
 
-            @endphp --}}
+                @endphp --}}
                     <div class="data">
-                        <form action="{{ url('/super/join') }}" method="post">
+                        <form action="{{ url('/super/join') }}" method="post" class="">
                             @csrf
-                            <div class="pr-1">
-                                <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle"
-                                        src="{{ asset('images/avatar.jpg') }}"
-                                        height="42" width="42" alt="Generic placeholder image">
-                                    <i></i>
-                                </span>
-                                <input type="hidden" name="msg_id" value="{{ $msg->id }}">
-                                <button type="submit" class="btn btn-primary" style="margin-left: 157px;">Join</button>
-                            </div><br>
-                            <div class="user-chat-info">
-                                <div class="contact-info">
+                            <div class="wiat_list">
+                                <div class="pr-1">
+                                    <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle"
+                                            src="{{ asset('images/avatar.jpg') }}"
+                                            height="42" width="42" alt="Generic placeholder image">
+                                        <i></i>
+                                    </span>
+                                    <input type="hidden" name="msg_id" value="{{ $msg->id }}">
+                                    <button type="submit" class="btn btn-primary" style="margin-left: 157px;">Join</button>
+                                </div><br>
+                                <div class="user-chat-info">
+                                    <div class="contact-info">
 
-                                    <h5 class="font-weight-bold mb-0">{{ $msg->getuser->name }}</h5>
+                                        <h5 class="font-weight-bold mb-0">{{ $msg->getuser->name }}</h5>
+
+                                    </div>
 
                                 </div>
-
-                            </div>
+                            </div>    
                         </form>
                     </div>
                 @endforeach
@@ -407,11 +452,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- END: Page JS-->
-    <?php
-if (isset($_GET['id'])) {
-?>
+
     <script>
         $(document).ready(function() {
+
+            <?php
+            if (isset($_GET['id'])) {
+            ?>
 
 
             var msg_id = "<?php echo $_GET['id']; ?>";
@@ -474,7 +521,29 @@ if (isset($_GET['id'])) {
             })
 
             },10000);
-            // alert("Helloo");
+            <?php }
+            ?>
+            window.setInterval(function(){
+               
+               $('.wiat_list').empty();
+                $.ajax({
+
+                    type: 'get',
+                    url: '{{ URL::to('super/chat2') }}',
+                    success: function(data){
+
+                        
+
+
+                        $('.wiat_list').html(data);
+                        
+                            
+                        
+                    },
+                })
+
+            },10000);
+
 
             // alert(msg_id);
             var op = " ";
@@ -543,6 +612,7 @@ if (isset($_GET['id'])) {
 
             });
             $(".send").click(function () {
+                (".loader").css('display','none');
                 var message=$('#message').val();
                 var to=$('#to').val();
                 var from=$('#from').val();
@@ -556,6 +626,8 @@ if (isset($_GET['id'])) {
                         dataType: 'JSON',
                         data: {_token: _token, 'message': message, 'from': from,'to':to,'msg_id':msg_id},
                         success: function (data) {
+                            (".loader").css('display','none');
+                            $(".type_msg").val(" ");
                             $('.user-chats').scrollTop($('.user-chats')[0].scrollHeight);
                             $('.chats').val(" ");
                             op +='<div class="chat"><div class="chat-avatar"><a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="'+data['img']+'"alt="avatar" height="40" width="40" /></a></div><div class="chat-body"><div class="chat-content"><p>'+data.msg + '</p></div></div></div>';
@@ -579,8 +651,8 @@ if (isset($_GET['id'])) {
 
         });
     </script>
-    <?php }
-?>
+    
+
 </body>
 <!-- END: Body-->
 

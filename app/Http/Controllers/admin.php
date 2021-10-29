@@ -199,8 +199,8 @@ class admin extends Controller
     public function showchat()
     {
 
-        $msg_approve = msg::where('status', '!=', 'null')->get();
-        $msg_na      = msg::where('status', null)->where('msg_type', '=', '2')->get();
+        $msg_approve = msg::where('status', '!=', 'null')->where('user_id',Auth::user()->id)->get();
+        $msg_na= msg::where('status', null)->where('msg_type', '=', '2')->get();
 
         return view('admin/chat', ['approve_msgs' => $msg_approve, 'Napprove_msgs' => $msg_na]);
     }
@@ -219,10 +219,12 @@ class admin extends Controller
 
         return response()->json(['message'=>$message,'name'=>$get_name,'user_id'=>$user_id,'fortune_id'=>$fortune_id,'img'=>$img]);
      }
+     
      function join(Request $request){
-         $id=$request->msg_id;
-         $msg=msg::find($id);
+        $id=$request->msg_id;
+        $msg=msg::find($id);
         $msg->status='Approved';
+        $msg->user_id=Auth::user()->id;
         $msg->save();
         // dd($msg);
         return redirect()->back()->with('success', 'Successfully Approved');

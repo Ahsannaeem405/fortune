@@ -135,6 +135,8 @@ Route::prefix('/super')->middleware(['auth','supervisor'])->group(function (){
     return view('super/index');
     });
     Route::any('/chat',[App\Http\Controllers\super::class,'showchat']);
+    Route::any('/chat2',[App\Http\Controllers\super::class,'showchat2']);
+
     Route::get('/setting', function () {
         return view('super/setting');
     });
@@ -162,17 +164,25 @@ Route::prefix('/super')->middleware(['auth','supervisor'])->group(function (){
 
 
 Route::prefix('/woker')->middleware(['auth','worker'])->group(function (){
-	Route::get('/', function () {
-    return view('woker/chat');
-    });
-    Route::get('/chat', function () {
-        return view('woker/chat');
-    });
+	Route::any('/',[App\Http\Controllers\woker::class,'showchat']);
+    
+    Route::any('/chat',[App\Http\Controllers\woker::class,'showchat']);
+    
+
+
     Route::get('/setting', function () {
         return view('woker/setting');
     });
     Route::post('/setting_update', [App\Http\Controllers\woker::class, 'setting_update']);
     Route::post('/password', [App\Http\Controllers\woker::class, 'password']);
+    Route::get('/admin_messages',[App\Http\Controllers\woker::class,'admin_messages']);
+    Route::any('/chat2',[App\Http\Controllers\woker::class,'showchat2']);
+    Route::post('/join',[App\Http\Controllers\woker::class,'join']);
+    Route::post('/sendMSG',[\App\Http\Controllers\woker::class,'sendMSG']);
+
+
+
+
 
 
 });
@@ -190,8 +200,10 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
     Route::post('/message_fortune',[App\Http\Controllers\UserController::class,'message_fortune']);
     Route::any('/chat_start/{id}',[App\Http\Controllers\UserController::class,'chat_start']);
     Route::get('/payment_success',[App\Http\Controllers\UserController::class,'payment_success']);
-    
+
     Route::get('/user_messages',[App\Http\Controllers\UserController::class,'getmessages']);
+    Route::get('/count_unread',[App\Http\Controllers\UserController::class,'count_unread']);
+    
 
 
 

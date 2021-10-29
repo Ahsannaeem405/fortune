@@ -115,10 +115,21 @@ class super extends Controller
 
     }
     function showchat(){
-        $msg_approve = msg::where('status', '!=', 'null')->get();
+      
+     
+        $msg_approve = msg::where('status', '!=', 'null')->where('user_id',Auth::user()->id)->get();
         $msg_na      = msg::where('status', null)->where('msg_type', '=', '2')->get();
 
+
         return view('super/chat', ['approve_msgs' => $msg_approve, 'Napprove_msgs' => $msg_na]);
+    }
+    function showchat2(){
+    
+        $msg_na=msg::where('status', null)->where('msg_type', '=', '2')->get();
+        dd($msg_na);
+        return view('waiting_list' ,compact('msg_na'));
+
+     
     }
     function admin_messages(Request $request){
         $message=msg_dt::where('msg_id',$request->msgid)->get();
@@ -151,6 +162,7 @@ class super extends Controller
         $id=$request->msg_id;
         $msg=msg::find($id);
        $msg->status='Approved';
+       $msg->user_id=Auth::user()->id;
        $msg->save();
        // dd($msg);
        return redirect()->back()->with('success', 'Successfully Approved');

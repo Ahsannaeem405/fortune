@@ -250,17 +250,10 @@ color: #f1f1f1;
 
 <div aria-live="polite" aria-atomic="true" style="position: relative;min-height: 0px;z-index: 1;">
   <div class="toast" style="position: absolute; top: 10; right: 20;">
-    <div class="toast-header">
-      <img src="..." class="rounded mr-2" alt="...">
-      <strong class="mr-auto">Bootstrap</strong>
-      <small>11 mins ago</small>
-      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="toast-body">
-      Hello, world! This is a toast message.
-    </div>
+    <div class="toast-header" style="background-color:#C530D6;border-bottom: 1px solid #C530D6;color: white;">
+      <h6>You Have New Massge</h6>    
+  </div>
+    
   </div>
 </div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -533,7 +526,7 @@ color: #f1f1f1;
     <script type="text/javascript">
 $(document).ready(function(){
     $(".toast").toast({
-        delay: 5000
+        delay: 50000
 
     });
     $('.toast').toast('show');

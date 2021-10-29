@@ -44,7 +44,7 @@
 </head>
 <style>
 .header-navbar{
-        width:95%!important;
+     width:95%!important;
     }
     .navbar-nav{
         width: 100%;
@@ -87,12 +87,12 @@
     left: 50%;
     top: 50%;
     z-index: 1;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     margin: -76px 0 0 -76px;
-    border: 16px solid #f3f3f3;
+    border: 7px solid #f3f3f3;
     border-radius: 50%;
-    border-top: 16px solid #7367F0;
+    border-top: 7px solid #7367F0;
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
     }
