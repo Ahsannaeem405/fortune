@@ -15,9 +15,9 @@ class CreateFortunesTable extends Migration
     {
         Schema::create('fortunes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('file');
-            $table->text('bio');
+            $table->string('name')->nullable();
+            $table->string('file')->nullable();
+            $table->text('bio')->nullable();
 
 
 
