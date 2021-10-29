@@ -20,7 +20,7 @@
         background-color: #1B1B1B;
         color: white;
     }
-    
+
     .prof{
             display: none;
 
@@ -688,7 +688,7 @@
                 @if($no_chat == 0 or isset($_GET['id']))
                 <div class="row message_type" style="margin-left:0px; margin-right: 0px;">
                 
-                    <form method="post" style="width:100%;"class="form-inline typing" >
+                    <form style="width:100%;"class="form-inline typing" >
                             @csrf
                       
 
@@ -1014,6 +1014,13 @@
             
             <?php }
             ?>
+            $(document).keypress(
+                function(event){
+                    if (event.which == '13') {
+              
+                        event.preventDefault();
+                    }
+            });
 
            
         });
