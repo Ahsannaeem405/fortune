@@ -80,6 +80,14 @@
         .request {
             display: none !important;
         }
+        .bookmark-wrapper{
+            display: none !important;
+        }
+        .nav-item2{
+        padding-top:5%;
+        display: block!important;
+
+        }
     }
     .loader {
     display: none;

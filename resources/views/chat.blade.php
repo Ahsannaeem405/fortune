@@ -766,7 +766,7 @@
                 var message=$('#input').val();
                 var rec_id=$('.rec_id').val();
 
-                var op=" ";
+                var ope=" ";
                 var id =rec_id;
                 var _token = $("input[name='_token']").val();
                 $.ajax({
@@ -790,10 +790,9 @@
 
                         $(".loader").css('display','none');
 
-                        $('#chat').val("");
                         $('#chat_id').val(data.msg_id);
                    
-                        op += '<div class="col-lg-12 message_sender"><div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
+                        ope += '<div class="col-lg-12 message_sender"><div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
                         $('#chat').append(op);
                         $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
 
