@@ -785,7 +785,7 @@
                         
 
                         $(".typing_msg").val(" ");
-                        data.msg_id
+                        alert('dddd');
                         
 
                         $(".loader").css('display','none');
@@ -793,7 +793,7 @@
                         $('#chat_id').val(data.msg_id);
                    
                         ope += '<div class="col-lg-12 message_sender"><div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
-                        $('#chat').append(op);
+                        $('#chat').append(ope);
                         $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
 
                     },
