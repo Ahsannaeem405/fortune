@@ -785,7 +785,6 @@
                         
 
                         $(".typing_msg").val(" ");
-                        alert('dddd');
                         
 
                         $(".loader").css('display','none');
