@@ -523,7 +523,9 @@
                                 <!--  -->
                             </div>
                             <div class="contact_name">
-                                <p>{{ $to->getuser2->name }}</p>
+                                <p>@if($to->getuser2 !=null)
+                                    {{ $to->getuser2->name }}
+                                @endif</p>
                             </div>
                             {{-- <div class="circle">
                                 <i class="fas fa-circle"></i>
@@ -625,11 +627,13 @@
 
 
                                 <div class="contact_image">
+                                    @if($to->getuser2 !=null)
                                     <img src="{{ asset('upload/images/'.$to->getuser2->file) }}" class="contact_image" alt="">
+                                    @endif
                                 </div>
 
                                 <div class="contact_name">
-                                    <p>{{ $to->getuser2->name }}</p>
+                                    <p>@if($to->getuser2 !=null){{ $to->getuser2->name }}@endif</p>
                                 </div>
                                 <div class="circle countycir{{$cl}}" style="color: #C530D6;position: absolute;right: 15%;">
                                     
@@ -666,27 +670,6 @@
                         <h5>Rozmowy</h5><br>
                         <img src="{{url('images\sad.png')}}" alt="">
                         <p style="color: gray;margin-top:50px;">Wybierz wrozbite z menu po lewej stronie i zadaj pytanie!</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 prof">
-                        @if(isset($for))
-
-                        <div class="profile p-3">
-                            <div class="image">
-                                <img src="{{asset('upload/images/'.$for->file)}}" alt="">
-                            </div><br>
-                            <h5>{{$for->name}}</h5>
-                            <p>{{$for->bio}}</p>
-
-
-                        @else
-                        <div class="profile p-3 p_java2">
-
-
-                      </div>
-
-                        @endif
                     </div>
                 </div>
                 <div class="row specific_msg right_box" id="chat" style="margin-left:0px; margin-right: 0px;width: 100%;">
@@ -761,6 +744,9 @@
 
     <script>
         $(document).ready(function() {
+            
+
+
             $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
 
             var for_id=$('#for_id').val();

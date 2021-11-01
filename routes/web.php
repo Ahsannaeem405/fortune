@@ -84,14 +84,7 @@ Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
     Route::post('/join',[App\Http\Controllers\admin::class,'join']);
     Route::get('/admin_messages',[App\Http\Controllers\admin::class,'admin_messages']);
     Route::post('/sendMSG',[\App\Http\Controllers\admin::class,'sendMSG']);
-
-
-
-Route::get('/pointshistory',[App\Http\Controllers\admin::class,'points']);
-
-
-
-
+    Route::get('/pointshistory',[App\Http\Controllers\admin::class,'points']);
 	Route::post('/save_ws', [App\Http\Controllers\admin::class, 'save_ws']);
     Route::get('/view_ws', [App\Http\Controllers\admin::class, 'view_ws']);
     Route::get('/sup_del/{id}', [App\Http\Controllers\admin::class, 'sup_del']);
@@ -108,6 +101,10 @@ Route::get('/pointshistory',[App\Http\Controllers\admin::class,'points']);
     Route::post('/mana_password/{id}', [App\Http\Controllers\admin::class, 'mana_password']);
     Route::post('/update_site', [App\Http\Controllers\admin::class, 'update_site']);
     Route::get('/view_comments',[App\Http\Controllers\admin::class,'view_comments']);
+    Route::any('/chat2',[App\Http\Controllers\admin::class,'showchat2']);
+    Route::any('/sendtri_MSG',[App\Http\Controllers\admin::class,'sendtri_MSG']);
+
+
 
 
 
@@ -152,6 +149,8 @@ Route::prefix('/super')->middleware(['auth','supervisor'])->group(function (){
     Route::get('/admin_messages',[App\Http\Controllers\super::class,'admin_messages']);
     Route::post('/sendMSG',[\App\Http\Controllers\super::class,'sendMSG']);
     Route::post('/join',[App\Http\Controllers\super::class,'join']);
+    Route::any('/sendtri_MSG',[App\Http\Controllers\super::class,'sendtri_MSG']);
+
 
 
 
@@ -179,6 +178,8 @@ Route::prefix('/woker')->middleware(['auth','worker'])->group(function (){
     Route::any('/chat2',[App\Http\Controllers\woker::class,'showchat2']);
     Route::post('/join',[App\Http\Controllers\woker::class,'join']);
     Route::post('/sendMSG',[\App\Http\Controllers\woker::class,'sendMSG']);
+    Route::any('/sendtri_MSG',[App\Http\Controllers\woker::class,'sendtri_MSG']);
+
 
 
 

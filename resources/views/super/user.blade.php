@@ -61,7 +61,7 @@
                                 </thead>
                                 <tbody>
 
-                                                <div class="modal fade text-left show" id="pri" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" style="padding-right: 17px;" aria-modal="true">
+                                                 <div class="modal fade text-left show" id="pri" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" style="padding-right: 17px;" aria-modal="true">
                                                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header bg-primary white">
@@ -70,24 +70,85 @@
                                                                     <span aria-hidden="true">×</span>
                                                                 </button>
                                                             </div>
-                                                          
+
                                                             <div class="modal-body">
-                                                                <div class="col-md-12 col-12">
-                                                                    <div class="form-label-group"> 
+                                                                <div class="row" style="margin-left:0px;margin-right:0px;">
+                                                                        <div class="col-md-4 col-6">
+
+                                                                            <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                                <input type="checkbox" name="days" class="cb-element example3" value="7">
+                                                                                <span class="vs-checkbox">
+                                                                                    <span class="vs-checkbox--check">
+                                                                                        <i class="vs-icon feather icon-check"></i>
+                                                                                    </span>
+                                                                                </span>
+                                                                                <span class="">Last 7 Days</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 col-6">
+
+                                                                            <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                                <input type="checkbox" name="days" class="cb-element example3" value="14">
+                                                                                <span class="vs-checkbox">
+                                                                                    <span class="vs-checkbox--check">
+                                                                                        <i class="vs-icon feather icon-check"></i>
+                                                                                    </span>
+                                                                                </span>
+                                                                                <span class="">Last 14 Days</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 col-6">
+
+                                                                            <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                                <input type="checkbox" name="days" class="cb-element example3" value="30">
+                                                                                <span class="vs-checkbox">
+                                                                                    <span class="vs-checkbox--check">
+                                                                                        <i class="vs-icon feather icon-check"></i>
+                                                                                    </span>
+                                                                                </span>
+                                                                                <span class="">Last 30 Days</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        @php 
+                                                                            $for=App\Models\Fortune::all();
+                                                                        @endphp
+                                                                        @foreach($for as $row_for)
+                                                                        <div class="col-md-6 col-12">
+
+                                                                            <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                                <input type="checkbox" name="fortune_id[]" class="cb-element" value="{{$row_for->id}}">
+                                                                                <span class="vs-checkbox">
+                                                                                    <span class="vs-checkbox--check">
+                                                                                        <i class="vs-icon feather icon-check"></i>
+                                                                                    </span>
+                                                                                </span>
+                                                                                <span class="">{{$row_for->name}}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        @endforeach
                                                                        
 
+                                                                </div>
+
+
+
+                                                                <div class="col-md-12 col-12">
+                                                                    <div class="form-label-group">
+
+
                                                                         <textarea class="form-control" id="basicTextarea" rows="3" placeholder="Textarea" name="msg"></textarea>
-                                                                    
+
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="submit" class="btn btn-primary waves-effect waves-light">send</button>
                                                             </div>
-                                                        
+
                                                         </div>
                                                     </div>
                                                 </div>
+
 
 
                                     @php $m=0; @endphp

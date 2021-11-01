@@ -12,6 +12,10 @@ use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\sendmail2;
+use App\Mail\sendmail3;
+
 
 class admin extends Controller
 {
@@ -170,6 +174,32 @@ class admin extends Controller
 
          return response()->json(['msg'=>$msg,'img'=>$img]);
     }
+    function sendtri_MSG(Request $request){
+        //  dd($request->msg_id);
+         $message=$request->message;
+         $from=$request->from;
+         $to=$request->to;
+         $msgdt=new msg_dt;
+         $msgdt->msg_type="Admin";
+         $msgdt->to=$to;
+         $msgdt->from=$from;
+         $msgdt->msg=$message;
+         $msgdt->msg_id=$request->msg_id;
+         $msgdt->trigger=1;
+         $msgdt->save();
+         $msg=$message;
+         $Fortune=Fortune::find($from);
+              $img=$Fortune->file;
+              $email_id=msg::where('id',$request->msg_id)->value('from');
+              $mail=User::where('id',$email_id)->value('email');
+              $data =$message;
+              Mail::to($mail)->send(new sendmail3($data));
+
+
+
+         return response()->json(['msg'=>$msg,'img'=>$img]);
+    }
+    
     //  function showchat(){
     //     $msg_approve=msg::where('status','!=','null')->get();
     //     $msg_na=msg::where('status',null)->where('msg_type','=','2')->get();
@@ -204,6 +234,43 @@ class admin extends Controller
 
         return view('admin/chat', ['approve_msgs' => $msg_approve, 'Napprove_msgs' => $msg_na]);
     }
+    function showchat2(){
+        
+        $arr=array();
+        $msg_na=msg::where('status', null)->where('msg_type', '=', '2')->get();
+        $msg=msg::where('status', 'Approved')->where('msg_type', '=', '2')->get();
+        foreach($msg as $row)
+        {
+                $last=msg_dt::where('msg_id',$row->id)->where('msg_type','Admin')->orderBy('id','desc')->take(1)->get();
+                 $lasty2=msg_dt::where('msg_id',$row->id)->where('msg_type','User')->orderBy('id','desc')->take(1)->get();
+            if(count($last) != 0){
+                $last_time=$last[0]->created_at;
+                $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
+                $from = \Carbon\Carbon::now();
+                $diff_in_minutes = $to_time->diffInMinutes($from);
+            
+            }
+            else{
+                $last_time=$lasty2[0]->created_at;
+                $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
+                $from = \Carbon\Carbon::now();
+                $diff_in_minutes = $to_time->diffInMinutes($from);
+
+            }
+
+            if($diff_in_minutes >= 5)
+            {
+                $arr[]=[
+                    'id'=>$row->id
+                ];
+
+            }
+        }
+            
+        return view('waiting_list' ,compact('msg_na','arr'));
+
+     
+    }
     public function admin_messages(Request $request)
     {
         
@@ -216,8 +283,17 @@ class admin extends Controller
         $img=$Fortune->file;
 
 
+            $last=msg_dt::where('msg_id',$request->msgid)->where('msg_type','User')->orderBy('id','desc')->take(1)->get();
+            $last_time=$last[0]->created_at;
+            $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
+            $from = \Carbon\Carbon::now();
+            $diff_in_minutes = $to_time->diffInMinutes($from);
 
-        return response()->json(['message'=>$message,'name'=>$get_name,'user_id'=>$user_id,'fortune_id'=>$fortune_id,'img'=>$img]);
+
+
+
+
+        return response()->json(['message'=>$message,'name'=>$get_name,'user_id'=>$user_id,'fortune_id'=>$fortune_id,'img'=>$img,'diff_in_minutes'=>$diff_in_minutes]);
      }
      
      function join(Request $request){
@@ -349,22 +425,25 @@ class admin extends Controller
         }
 
       }
-      for($j=0 ; $j<count($request->fortune_id);$j++)
-      {
+       if($request->fortune_id !=null)
+       {
+          for($j=0 ; $j<count($request->fortune_id);$j++)
+          {
 
-        $msg=msg::where('to',$request->fortune_id[$j])->get();
+            $msg=msg::where('to',$request->fortune_id[$j])->get();
 
 
 
 
-        for($k=0 ; $k<count($msg);$k++)
-        {
-          $arr[]=[
-              'id'=>intval($msg[$k]->from)
-          ];
-        }
+            for($k=0 ; $k<count($msg);$k++)
+            {
+              $arr[]=[
+                  'id'=>intval($msg[$k]->from)
+              ];
+            }
 
-      }
+          }
+       }   
 
       $final=array();
       $ky=0;
@@ -405,7 +484,7 @@ class admin extends Controller
 
 
         $fromck = Auth::user()->id;
-        if ($request->days !=null and   count($request->fortune_id) !=null) {
+        if ($request->days !=null and   $request->fortune_id !=null) {
             for ($f = 0; $f < count($final); $f++) {
                 if (msg::where('to', $final[$f]['final_id'])
                     ->where('from', $fromck)
@@ -435,6 +514,15 @@ class admin extends Controller
                     $msg_det->save();
 
                 }
+                $mail=User::where('id',$final[$f]['final_id'])->value('email');
+                $data =$request->input('msg');
+                Mail::to($mail)->send(new sendmail2($data));
+           
+     
+                
+
+
+
             }
             // dd($msg_det);
         } else {
@@ -469,15 +557,18 @@ class admin extends Controller
                     $msg_det->save();
 
                 }
-                $data = $request->input('msg');
 
-        $subscriber_emails =subscribe::pluck('email')->toArray();
-        Mail::send('dynamic_email_template',['data' => $data], function($message) use ($subscriber_emails)
-        {
-        $message->bcc($subscriber_emails)->subject('Alert');
-        });
-     // mail::to('shiahelprefrences12@gmail.com')->send(new SendMail($data));
+               
+                       
             }
+            $data =$request->input('msg');
+            $subscriber_emails =User::whereNull('role')->pluck('email')->toArray();
+            Mail::send('dynamic_email_template2',['data' => $data], function($message) use ($subscriber_emails)
+            {    
+                $message->bcc($subscriber_emails)->subject('New Message');   
+ 
+            });
+            mail::to('demo1.browntech@gmail.com')->send(new sendmail3($data));
 
         }
 

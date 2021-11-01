@@ -13,6 +13,10 @@ use App\Models\Fortune;
 
 use App\Models\User;
 use Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\sendmail2;
+use App\Mail\sendmail3;
+
 
 
 class woker extends Controller
@@ -86,15 +90,50 @@ class woker extends Controller
         $Fortune=Fortune::find($fortune_id);
         $img=$Fortune->file;
 
+        $last=msg_dt::where('msg_id',$request->msgid)->where('msg_type','User')->orderBy('id','desc')->take(1)->get();
+            $last_time=$last[0]->created_at;
+            $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
+            $from = \Carbon\Carbon::now();
+            $diff_in_minutes = $to_time->diffInMinutes($from);
 
 
-        return response()->json(['message'=>$message,'name'=>$get_name,'user_id'=>$user_id,'fortune_id'=>$fortune_id,'img'=>$img]);
+
+        return response()->json(['message'=>$message,'name'=>$get_name,'user_id'=>$user_id,'fortune_id'=>$fortune_id,'img'=>$img,'diff_in_minutes'=>$diff_in_minutes]);
      }
-    function showchat2(){
-    
+   function showchat2(){
+        
+        $arr=array();
         $msg_na=msg::where('status', null)->where('msg_type', '=', '2')->get();
-        dd($msg_na);
-        return view('waiting_list' ,compact('msg_na'));
+        $msg=msg::where('status', 'Approved')->where('msg_type', '=', '2')->get();
+        foreach($msg as $row)
+        {
+                $last=msg_dt::where('msg_id',$row->id)->where('msg_type','Admin')->orderBy('id','desc')->take(1)->get();
+                 $lasty2=msg_dt::where('msg_id',$row->id)->where('msg_type','User')->orderBy('id','desc')->take(1)->get();
+            if(count($last) != 0){
+                $last_time=$last[0]->created_at;
+                $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
+                $from = \Carbon\Carbon::now();
+                $diff_in_minutes = $to_time->diffInMinutes($from);
+            
+            }
+            else{
+                $last_time=$lasty2[0]->created_at;
+                $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
+                $from = \Carbon\Carbon::now();
+                $diff_in_minutes = $to_time->diffInMinutes($from);
+
+            }
+
+            if($diff_in_minutes >= 5)
+            {
+                $arr[]=[
+                    'id'=>$row->id
+                ];
+
+            }
+        }
+            
+        return view('waiting_list' ,compact('msg_na','arr'));
 
      
     }
@@ -123,6 +162,31 @@ class woker extends Controller
          $msg=$message;
          $Fortune=Fortune::find($from);
          $img=$Fortune->file;
+
+
+
+         return response()->json(['msg'=>$msg,'img'=>$img]);
+    }
+    function sendtri_MSG(Request $request){
+        //  dd($request->msg_id);
+         $message=$request->message;
+         $from=$request->from;
+         $to=$request->to;
+         $msgdt=new msg_dt;
+         $msgdt->msg_type="Admin";
+         $msgdt->to=$to;
+         $msgdt->from=$from;
+         $msgdt->msg=$message;
+         $msgdt->msg_id=$request->msg_id;
+         $msgdt->trigger=1;
+         $msgdt->save();
+         $msg=$message;
+         $Fortune=Fortune::find($from);
+              $img=$Fortune->file;
+              $email_id=msg::where('id',$request->msg_id)->value('from');
+              $mail=User::where('id',$email_id)->value('email');
+              $data =$message;
+              Mail::to($mail)->send(new sendmail3($data));
 
 
 

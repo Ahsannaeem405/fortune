@@ -25,7 +25,17 @@
 
                     <li class="dropdown dropdown-user nav-item">
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                            <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">Profile</span><span class="user-status text-success">{{ Auth::user()->name }}</span></div><span><img class="round" src="{{url('upload/images/' .Auth::user()->file)  }}" alt="avatar" height="40" width="40"></span>
+                            <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">Profile</span><span class="user-status text-success">{{ Auth::user()->name }}</span></div><span>
+                                
+                                @if(Auth::user()->file !=null)
+                                    <img class="round" src="{{url('upload/images/' .Auth::user()->file)  }}" alt="avatar" height="40" width="40">                                    
+                                @else
+                                   
+                                    <img class="round" src="{{asset('/images/avatar.jpg')}}" alt="avatar" height="40" width="40">
+                                    
+
+                                @endif
+                            </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="{{ url('super/setting') }}"><i class="feather icon-user"></i>Profile</a>

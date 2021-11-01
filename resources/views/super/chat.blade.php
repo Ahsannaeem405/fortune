@@ -60,7 +60,7 @@
 
 
     .request {
-        width: 30%;
+        width: 25%;
         display: inline-block !important;
         padding-top: 110px;
     }
@@ -81,7 +81,20 @@
         .request {
             display: none !important;
         }
+        .content-area-wrapper{
+            width: 100% !important;
+        }
+        .bookmark-wrapper{
+            display: none !important;
+        }
+        .nav-item2{
+        padding-top:5%;
+        display: block!important;
+
+        }
+
     }
+
     .loader {
     display: none;
     position: absolute;
@@ -137,7 +150,7 @@
     <div class="app-content content" style="margin-left:0px;display:flex;">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
-        <div class="content-area-wrapper" style="width: 70%">
+        <div class="content-area-wrapper" style="width: 75%">
             <div class="sidebar-left">
                 <div class="sidebar">
                     <!-- User Chat profile area -->
@@ -354,6 +367,9 @@
                                             <button type="button" class="btn btn-primary send"
                                                 ><i class="fa fa-paper-plane-o d-lg-none"></i>
                                                 <span class="d-none d-lg-block">Send</span></button>
+                                                <button type="button" class="btn btn-primary send_sa_tri" style="padding:1% 3% 1% 3%;display: none;" 
+                                                ><i class="fa fa-paper-plane-o d-lg-none"></i>
+                                                <span class="d-none d-lg-block">Send As Trigger</span></button>
                                         </form>
                                     </div>
                                 </div>
@@ -388,36 +404,30 @@
         </div>
         <div class="request">
             <div class="box">
-                @foreach ($Napprove_msgs as $msg)
-                    {{-- @php
-                $msg_dt=App\Models\msg_dt::where('msg_id',$msg->id)->latest()->first();
-
-                @endphp --}}
                     <div class="data">
                         <form action="{{ url('/super/join') }}" method="post" class="">
                             @csrf
+                            @foreach ($Napprove_msgs as $msg)
+                    
                             <div class="wiat_list">
-                                <div class="pr-1">
-                                    <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle"
-                                            src="{{ asset('images/avatar.jpg') }}"
-                                            height="42" width="42" alt="Generic placeholder image">
-                                        <i></i>
-                                    </span>
-                                    <input type="hidden" name="msg_id" value="{{ $msg->id }}">
-                                    <button type="submit" class="btn btn-primary" style="margin-left: 157px;">Join</button>
-                                </div><br>
-                                <div class="user-chat-info">
-                                    <div class="contact-info">
+                                <div class="pr-1" style="display: flex;">
+                                <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle"
+                                        src="{{ asset('images/avatar.jpg') }}"
+                                        height="42" width="42" alt="Generic placeholder image">
+                                    <i></i>
+                                </span>
+                                <input type="hidden" name="msg_id" value="{{ $msg->id }}">
+                                <h5 class="font-weight-bold mt-1 ml-1 mb-0">{{ $msg->getuser->name }}</h5>
 
-                                        <h5 class="font-weight-bold mb-0">{{ $msg->getuser->name }}</h5>
-
-                                    </div>
-
-                                </div>
+                                <button type="submit" class="btn btn-primary" style="margin-left:auto;">Join</button>
+                            </div>                            </div>
+                            @endforeach
+                            <div class="wiat_list1">
+                                
                             </div>    
                         </form>
                     </div>
-                @endforeach
+                
 
 
 
@@ -456,6 +466,35 @@
     <script>
         $(document).ready(function() {
 
+
+
+
+   window.setInterval(function(){
+          
+            $.ajax({
+
+                    type: 'get',
+                    async:false,
+                    url: '{{ URL::to("super/chat2") }}',
+                    success: function(data){
+
+                        console.log(data);
+
+     
+               $('.wiat_list').empty();
+               $('.wiat_list1').empty();
+                        $('.wiat_list1').append(data);
+                        
+                            
+                        
+                    },
+                })
+
+            },8000);
+
+
+
+
             <?php
             if (isset($_GET['id'])) {
             ?>
@@ -477,26 +516,47 @@
                 success: function(data) {
                     $('.all_chats').empty();
 
-                    for (var i = 0; i < data['message'].length; i++) {
+                        for (var i = 0; i < data['message'].length; i++) 
+                        {
 
                             if(data['message'][i].msg_type=='Admin')
                             {
-                                op +=
-                                '<div class="chat chat-right"><div class="chat-avatar">'+
-                                   '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
-                                       '<img src="/upload/images/'+data['img']+'" height="40" width="40" />'+
-                                    '</a>'+
-                                '</div>'+
-                                '<div class="chat-body">'+
-                                    '<div class="chat-content">'+
-                                        '<p>'+data['message'][i].msg +'</p>'+
-                                    '</div>'+
-                                '</div>';
+                                if(data['message'][i].trigger !=null)
+                                {
+                                    op +=
+                                        '<div class="chat chat-right"><div class="chat-avatar">'+
+                                           '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
+                                               '<img src="/upload/images/'+data['img']+'" height="40" width="40" />'+
+                                            '</a>'+
+                                        '</div>'+
+                                        '<div class="chat-body">'+
+                                            '<div class="chat-content">'+
+                                                '<p>'+data['message'][i].msg +'</p><small>Trigger Mesasage</small>'+
+                                            '</div>'+
+                                        '</div>';
+
+
+                                }
+                                else{
+                                    op +=
+                                        '<div class="chat chat-right"><div class="chat-avatar">'+
+                                           '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
+                                               '<img src="/upload/images/'+data['img']+'" height="40" width="40" />'+
+                                            '</a>'+
+                                        '</div>'+
+                                        '<div class="chat-body">'+
+                                            '<div class="chat-content">'+
+                                                '<p>'+data['message'][i].msg +'</p>'+
+                                            '</div>'+
+                                        '</div>';
+
+                                }
 
 
                             }
                             if(data['message'][i].msg_type=='User'){
-                                op+='<div class="chat chat-left"><div class="chat-avatar">'+
+                                
+                                 op+='<div class="chat chat-left"><div class="chat-avatar">'+
                                         '<a class="avatar m-0" data-toggle="tooltip" href="#"data-placement="left" title="" data-original-title="">'+
                                             '<img src="{{ asset("images/avatar.jpg") }}"alt="avatar" height="40" width="40" />'+
                                         '</a>'+
@@ -505,48 +565,35 @@
                                         '<div class="chat-content"><p>'+data['message'][i].msg +'</p>'+
                                         '</div>'+
                                     '</div></div>';
-
                             }
-
-
-                    }
+                        }    
                         $('.all_chats').append(op);
                         $('.user_nmae').text(data['name']);
                         $('#to').val(data['user_id']);
                         $('#from').val(data['fortune_id']);
+                        if(data['diff_in_minutes'] <= 20)
+                         {
+                            $(".send_sa_tri").css('display','none');
+
+                         } 
+                         else{
+                            $(".send_sa_tri").css('display','block');
+
+                         }
 
                     // alert(op);
 
                 },
             })
 
-            },10000);
+            },1000);
             <?php }
             ?>
-            window.setInterval(function(){
-               
-               $('.wiat_list').empty();
-                $.ajax({
 
-                    type: 'get',
-                    url: '{{ URL::to('super/chat2') }}',
-                    success: function(data){
-
-                        
-
-
-                        $('.wiat_list').html(data);
-                        
-                            
-                        
-                    },
-                })
-
-            },10000);
 
 
             // alert(msg_id);
-            var op = " ";
+            var ops= " ";
             var opp= " ";
             $.ajax({
 
@@ -562,24 +609,47 @@
 
 
                     for (var i = 0; i < data['message'].length; i++) {
+                        
                         if(data['message'][i].msg_type=='Admin')
                             {
-                                op +=
-                                '<div class="chat chat-right"><div class="chat-avatar">'+
-                                   '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
-                                       '<img src="/upload/images/'+data['img']+'" height="40" width="40" />'+
-                                    '</a>'+
-                                '</div>'+
-                                '<div class="chat-body">'+
-                                    '<div class="chat-content">'+
-                                        '<p>'+data['message'][i].msg +'</p>'+
-                                    '</div>'+
-                                '</div>';
+                                if(data['message'][i].trigger !=null)
+                                {
+                                    ops +=
+                                        '<div class="chat chat-right"><div class="chat-avatar">'+
+                                           '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
+                                               '<img src="/upload/images/'+data['img']+'" height="40" width="40" />'+
+                                            '</a>'+
+                                        '</div>'+
+                                        '<div class="chat-body">'+
+                                            '<div class="chat-content">'+
+                                                '<p>'+data['message'][i].msg +'</p><small>Trigger Mesasage</small>'+
+                                            '</div>'+
+                                        '</div>';
+
+
+                                }
+                                else{
+                                    ops +=
+                                        '<div class="chat chat-right"><div class="chat-avatar">'+
+                                           '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
+                                               '<img src="/upload/images/'+data['img']+'" height="40" width="40" />'+
+                                            '</a>'+
+                                        '</div>'+
+                                        '<div class="chat-body">'+
+                                            '<div class="chat-content">'+
+                                                '<p>'+data['message'][i].msg +'</p>'+
+                                            '</div>'+
+                                        '</div>';
+
+                                }    
+                                
 
 
                             }
+
                             if(data['message'][i].msg_type=='User'){
-                                op+='<div class="chat chat-left"><div class="chat-avatar">'+
+
+                                    ops+='<div class="chat chat-left"><div class="chat-avatar">'+
                                         '<a class="avatar m-0" data-toggle="tooltip" href="#"data-placement="left" title="" data-original-title="">'+
                                             '<img src="{{ asset("images/avatar.jpg") }}"alt="avatar" height="40" width="40" />'+
                                         '</a>'+
@@ -587,13 +657,19 @@
                                     '<div class="chat-body">'+
                                         '<div class="chat-content"><p>'+data['message'][i].msg +'</p>'+
                                         '</div>'+
-                                    '</div></div>';
-
+                                    '</div></div>';                               
                             }
-
-
                     }
-                        $('.all_chats').append(op);
+                        if(data['diff_in_minutes'] <= 20)
+                        {
+                            $(".send_sa_tri").css('display','none');
+
+                         } 
+                         else{
+                            $(".send_sa_tri").css('display','block');
+
+                         }
+                        $('.all_chats').append(ops);
                         $('.user_nmae').text(data['name']);
                         $('.name_prof').text(data['name']);
                         // $('.email').text(data['email']);
@@ -643,6 +719,46 @@
                 }
 
             });
+             $(".send_sa_tri").click(function () {
+                $(".loader").css('display','block');
+                var op=" ";
+
+                var message=$('#message').val();
+                var to=$('#to').val();
+                var from=$('#from').val();
+                var msg_id=$('#msg_id').val();
+                var _token = $("input[name='_token']").val();
+                if (message != '' && message != ' ') {
+                    $.ajax({
+                        url: "{{URL::to('/super/sendtri_MSG')}}",
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {_token: _token, 'message': message, 'from': from,'to':to,'msg_id':msg_id},
+                        success: function (data) {
+
+                            $('.user-chats').scrollTop($('.user-chats')[0].scrollHeight);
+
+
+                            $(".loader").css('display','none');
+                            $(".type_msg").val(" ");
+                            $(".send_sa_tri").css('display','none');
+
+
+                            
+                            op +='<div class="chat"><div class="chat-avatar"><a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="/upload/images/'+data.img+'"alt="avatar" height="40" width="40" /></a></div><div class="chat-body"><div class="chat-content"><p>'+data.msg + '<small>Trigger Mesasage</small></p></div></div></div>';
+                            $('.chats').append(op);
+
+
+
+                        }
+
+
+
+                    });
+                }
+
+            });
+
             // $('.a_tag').click(function(){
             //    var hh= $('.name_user').html(str);
             //    alert(hh);

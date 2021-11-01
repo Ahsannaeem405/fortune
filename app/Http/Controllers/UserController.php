@@ -12,6 +12,10 @@ use App\Models\Pointshistory;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\sendmail2;
+use App\Mail\sendmail3;
+
 use Carbon\Carbon;
 use DB;
 
@@ -80,11 +84,13 @@ function messages_fortune(Request $request){
             $id=msg::where('to', $to)
             ->where('from',$from)
             ->value('id');
+            
            $msg_det=new msg_dt();
            $msg_det->msg=$message;
            $msg_det->msg_type="User";
            $msg_det->to= $to;
            $msg_det->msg_id=$id;
+            
            $msg_det->from=Auth::user()->id;
            $msg_det->save();
         }
