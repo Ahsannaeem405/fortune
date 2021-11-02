@@ -291,7 +291,9 @@ function chat_start($id){
     }
     function count_unread(Request $request){
         $county=msg_dt::where('msg_id',$request->msg_id)->where('msg_type','Admin')->whereNull('read_to')->count();
-        return response()->json($county);
+        $point=Auth::user()->point;
+        return response()->json(['county'=>$county,'point'=>$point]);
+
 
 
     }

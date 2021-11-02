@@ -475,6 +475,8 @@
 
 
     <input type="hidden" value="{{$chat_id}}" id="chat_id">
+    <input type="text" name="" class="point" value="
+    {{Auth::user()->point}}">
 
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
@@ -769,7 +771,7 @@
 
                 var id =rec_id;
                 var _token = $("input[name='_token']").val();
-                var point="{{Auth::user()->point}}";
+                var point=$(".point").val();
                 if(point ==" " || point==0)
                 {
                     alert('Przepraszamy, że masz za mało punktów');
@@ -1070,9 +1072,10 @@
                         'msg_id': msg_id
                         },
                         success: function(data){
-                            if(data != 0)
+                            if(data.county != 0)
                             {
-                                $(".countycir"+i).text(data);
+                                $(".countycir"+i).text(data.county);
+                                $(".point").val(data.point);
                                 $('.toast').toast('show');
 
       
