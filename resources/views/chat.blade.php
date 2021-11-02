@@ -475,7 +475,7 @@
 
 
     <input type="hidden" value="{{$chat_id}}" id="chat_id">
-    <input type="text" name="" class="point" value="
+    <input type="hidden" name="" class="point" value="
     {{Auth::user()->point}}">
 
     <div id="mySidebar" class="sidebar">
