@@ -365,7 +365,7 @@
                                             <input type="text" class="form-control type_msg message mr-1 ml-50" id="message"
                                                 placeholder="Type your message" >
                                             <button type="button" class="btn btn-primary send"
-                                                ><i class="fa fa-paper-plane-o d-lg-none"></i>
+                                                style="padding: 2% 6% 2% 4%;"><i class="fa fa-paper-plane-o d-lg-none"></i>
                                                 <span class="d-none d-lg-block">Send</span></button>
                                                 <button type="button" class="btn btn-primary send_sa_tri ml-1" style="padding:1% 3% 1% 3%;display: none;" 
                                                 ><i class="fa fa-paper-plane-o d-lg-none"></i>
