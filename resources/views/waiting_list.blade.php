@@ -1,5 +1,5 @@
                             @foreach($msg_na as $msg)
-                            <div class="pr-1" style="display: flex;">
+                            <div class="pr-1 p-1" style="display: flex;">
                                 <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle"
                                         src="{{ asset('images/avatar.jpg') }}"
                                         height="42" width="42" alt="Generic placeholder image">
