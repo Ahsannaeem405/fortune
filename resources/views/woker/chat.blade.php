@@ -704,7 +704,7 @@
             },8000);
             $(".send_sa_tri").click(function () {
                 $(".loader").css('display','block');
-                var op=" ";
+                var opt=" ";
 
                 var message=$('#message').val();
                 var to=$('#to').val();
@@ -728,8 +728,8 @@
 
 
                             
-                            op +='<div class="chat"><div class="chat-avatar"><a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="/upload/images/'+data.img+'"alt="avatar" height="40" width="40" /></a></div><div class="chat-body"><div class="chat-content"><p>'+data.msg + '<small>Trigger Mesasage</small></p></div></div></div>';
-                            $('.chats').append(op);
+                            opt +='<div class="chat"><div class="chat-avatar"><a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="/upload/images/'+data.img+'"alt="avatar" height="40" width="40" /></a></div><div class="chat-body"><div class="chat-content"><p>'+data.msg + '<small>Trigger Mesasage</small></p></div></div></div>';
+                            $('.chats').append(opt);
 
 
 

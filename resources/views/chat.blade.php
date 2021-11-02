@@ -761,7 +761,7 @@
             $(document).on("click",'.Send_btn',function(){
 
 
-                $(".loader").css('display','block');
+                
 
                 var message=$('#input').val();
                 var rec_id=$('.rec_id').val();
@@ -769,34 +769,46 @@
                 var ope=" ";
                 var id =rec_id;
                 var _token = $("input[name='_token']").val();
-                $.ajax({
+                var point="{{Auth::user()->point}}";
+                if(point ==" " || point==0)
+                {
+                    alert('Przepraszamy, że masz za mało punktów');
+                    
+                }
+                else{
+                    $(".loader").css('display','block');
+                    $.ajax({
 
-                    type: 'post',
-                    url: '{{ URL::to('/messages_fortune') }}',
-                    data: {
-                        _token:_token,
-                        'id': id,'message':message
+                        type: 'post',
+                        url: '{{ URL::to('/messages_fortune') }}',
+                        data: {
+                            _token:_token,
+                            'id': id,'message':message
 
-                    },
+                        },
 
-                    success: function(data) {
+                        success: function(data) {
 
 
-                        
+                            
 
-                        $(".typing_msg").val(" ");
-                        
+                            $(".typing_msg").val(" ");
 
-                        $(".loader").css('display','none');
 
-                        $('#chat_id').val(data.msg_id);
-                   
-                        ope += '<div class="col-lg-12 message_sender"><div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
-                        $('#chat').append(ope);
-                        $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
+                            $(".loader").css('display','none');
 
-                    },
-                });
+                            $('#chat_id').val(data.msg_id);
+                       
+                            ope += '<div class="col-lg-12 message_sender"><div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
+                            $('#chat').append(ope);
+                            $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
+
+                        },
+                    });
+
+
+                }
+                
 
             });
             $(".contact1").click(function() {

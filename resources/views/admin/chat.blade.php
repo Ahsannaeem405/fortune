@@ -367,25 +367,7 @@
 
                         </section>
                       <!-- User Chat profile right area -->
-                      <div class="user-profile-sidebar">
-                        <header class="user-profile-header">
-                            <span class="close-icon">
-                                <i class="feather icon-x"></i>
-                            </span>
-                            <div class="header-profile-sidebar">
-                                <div class="avatar">
-                                    <img src="{{asset('images/avatar.jpg')}}"
-                                        alt="user_avatar" height="70" width="70">
-                                    <h4 class="chat-user-name"></h4>
-                                </div>
-                                
-                            </div>
-                        </header>
-                        <div class="user-profile-sidebar-area p-2">
-                            <h6 class="name_prof"></h6>
-                            <p class="email"></p>
-                        </div>
-                    </div>
+                     
                     <!--/ User Chat profile right area -->
 
 
@@ -683,7 +665,7 @@ if (isset($_GET['id'])) {
             });
             $(".send_sa_tri").click(function () {
                 $(".loader").css('display','block');
-                var op=" ";
+                var opt=" ";
 
                 var message=$('#message').val();
                 var to=$('#to').val();
@@ -707,8 +689,8 @@ if (isset($_GET['id'])) {
                             $(".send_sa_tri").css('display','none');
 
                             
-                            op +='<div class="chat"><div class="chat-avatar"><a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="/upload/images/'+data.img+'"alt="avatar" height="40" width="40" /></a></div><div class="chat-body"><div class="chat-content"><p>'+data.msg + '<br><small>Trigger Mesasage</small></p></div></div></div>';
-                            $('.chats').append(op);
+                            opt +='<div class="chat"><div class="chat-avatar"><a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title=""><img src="/upload/images/'+data.img+'"alt="avatar" height="40" width="40" /></a></div><div class="chat-body"><div class="chat-content"><p>'+data.msg + '<br><small>Trigger Mesasage</small></p></div></div></div>';
+                            $('.chats').append(opt);
 
 
 
