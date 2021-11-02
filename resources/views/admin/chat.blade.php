@@ -166,13 +166,13 @@
                                     </div>
                                     <div class="bullet-success bullet-sm position-absolute"></div>
                                 </div>
-                                <fieldset class="form-group position-relative has-icon-left mx-1 my-0 w-100">
+                                <!-- <fieldset class="form-group position-relative has-icon-left mx-1 my-0 w-100">
                                     <input type="text" class="form-control round" id="chat-search"
                                         placeholder="Search or start a new chat">
                                     <div class="form-control-position">
                                         <i class="feather icon-search"></i>
                                     </div>
-                                </fieldset>
+                                </fieldset> -->
                             </div>
                         </div>
                         <div id="users-list" class="chat-user-list list-group position-relative">
