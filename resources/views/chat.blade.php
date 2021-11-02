@@ -799,7 +799,6 @@
 
 
                             $('#chat_id').val(data.msg_id);
-                            alert(data.msg);
                        
                             ope += '<div class="col-lg-12 message_sender"><div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
                             alert(ope);

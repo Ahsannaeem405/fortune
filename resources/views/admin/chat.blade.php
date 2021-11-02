@@ -532,7 +532,7 @@ if (isset($_GET['id'])) {
                 },
             })
 
-            },1000);
+            },5000);
             // alert("Helloo");
 
             // alert(msg_id);
