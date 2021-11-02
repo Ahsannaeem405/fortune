@@ -765,8 +765,8 @@
 
                 var message=$('#input').val();
                 var rec_id=$('.rec_id').val();
-
                 var ope=" ";
+
                 var id =rec_id;
                 var _token = $("input[name='_token']").val();
                 var point="{{Auth::user()->point}}";
@@ -797,9 +797,12 @@
 
                             $(".loader").css('display','none');
 
+
                             $('#chat_id').val(data.msg_id);
+                            alert(data.msg);
                        
                             ope += '<div class="col-lg-12 message_sender"><div class="message"><p>'+data.msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>';
+                            alert(ope);
                             $('#chat').append(ope);
                             $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
 
@@ -920,7 +923,7 @@
 
 
                     });
-                },1000);
+                },5000);
 
 
 
@@ -1039,7 +1042,7 @@
 
                     },
                 })
-            },1000);
+            },5000);
             
             <?php }
             ?>
