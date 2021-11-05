@@ -473,7 +473,7 @@
 <body>
 
     <input type="button" value="PLAY" onclick="play()"   class="play_audio">
-    <audio id="audio" src="/beep.mp3" type="audio/mpeg"></audio>
+    <audio id="audio" src="{{asset('/beep.mp3')}}" type="audio/mpeg"></audio>
     
 
 
