@@ -5,10 +5,9 @@
                                         height="42" width="42" alt="Generic placeholder image">
                                     <i></i>
                                 </span>
-                                <input type="hidden" name="msg_id" value="{{ $msg->id }}">
                                 <h5 class="font-weight-bold mt-1 ml-1 mb-0">{{ $msg->getuser->name }}</h5>
 
-                                <button type="submit" class="btn btn-primary" style="margin-left: auto;">Join</button>
+                                <button type="button" class="btn btn-primary join_id" abc="{{$msg->id}}" style="margin-left:auto;">Join</button>
                             </div>
                             @endforeach
                             <div class="p-1"></div>
@@ -25,10 +24,9 @@
                                         height="42" width="42" alt="Generic placeholder image">
                                     <i></i>
                                 </span>
-                                <input type="hidden" name="msg_id" value="{{ $arr_msg['id']}}">
                                 <h5 class="font-weight-bold mt-1 ml-1 mb-0">{{ $msgy->getuser->name }}</h5>
 
-                                <button type="submit" class="btn btn-primary" style="margin-left: auto;">Join</button>
+                                <button type="button" class="btn btn-primary join_id" abc="{{$arr_msg['id']}}" style="margin-left:auto;">Join</button>
                             </div>
                             @endforeach
 

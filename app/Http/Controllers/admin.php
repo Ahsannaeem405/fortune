@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendmail2;
 use App\Mail\sendmail3;
+use DB;
 
 
 class admin extends Controller
@@ -155,8 +156,16 @@ class admin extends Controller
 
      }
      function sendMSG(Request $request){
-        //  dd($request->msg_id);
-         $message=$request->message;
+         
+         $user=User::find($request->to);
+
+         $message=str_replace("@name", "$user->name" , $request->message);
+         $message=str_replace("@email", "$user->email" , $message);
+         $message=str_replace("@age", "$user->dob" , $message);
+         $message=str_replace("@vocative", "$user->vocative" , $message);
+         $message=str_replace("@nameoflove", "$user->nameoflove" , $message);
+         $message=str_replace("@city", "$user->city" , $message);
+
          $from=$request->from;
          $to=$request->to;
          $msgdt=new msg_dt;
@@ -176,7 +185,14 @@ class admin extends Controller
     }
     function sendtri_MSG(Request $request){
         //  dd($request->msg_id);
-         $message=$request->message;
+        $user=User::find($request->to);
+
+         $message=str_replace("@name", "$user->name" , $request->message);
+         $message=str_replace("@email", "$user->email" , $message);
+         $message=str_replace("@age", "$user->dob" , $message);
+         $message=str_replace("@vocative", "$user->vocative" , $message);
+         $message=str_replace("@nameoflove", "$user->nameoflove" , $message);
+         $message=str_replace("@city", "$user->city" , $message);
          $from=$request->from;
          $to=$request->to;
          $msgdt=new msg_dt;
@@ -241,24 +257,16 @@ class admin extends Controller
         $msg=msg::where('status', 'Approved')->where('msg_type', '=', '2')->get();
         foreach($msg as $row)
         {
-                $last=msg_dt::where('msg_id',$row->id)->where('msg_type','Admin')->orderBy('id','desc')->take(1)->get();
-                 $lasty2=msg_dt::where('msg_id',$row->id)->where('msg_type','User')->orderBy('id','desc')->take(1)->get();
-            if(count($last) != 0){
-                $last_time=$last[0]->created_at;
-                $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
-                $from = \Carbon\Carbon::now();
-                $diff_in_minutes = $to_time->diffInMinutes($from);
             
-            }
-            else{
-                $last_time=$lasty2[0]->created_at;
-                $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
-                $from = \Carbon\Carbon::now();
-                $diff_in_minutes = $to_time->diffInMinutes($from);
+            $last=msg_dt::where('msg_id',$row->id)->orderBy('id','desc')->take(1)->get();
+            $last_time=$last[0]->created_at;
+            $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
+            $from = \Carbon\Carbon::now();
+            $diff_in_minutes = $to_time->diffInMinutes($from);
 
-            }
+            
 
-            if($diff_in_minutes >= 5)
+            if($diff_in_minutes >= 5 and $last[0]->msg_type=="User")
             {
                 $arr[]=[
                     'id'=>$row->id
@@ -275,6 +283,10 @@ class admin extends Controller
     {
         
         $message=msg_dt::where('msg_id',$request->msgid)->get();
+        DB::table('msg_dts')->where('msg_id', $request->msgid)->where('msg_type','User')
+           ->update([
+               'read_to' => 1
+            ]);
         $name=msg::where('id',$request->msgid)->get();
         $get_name=$name[0]->getuser->name;
         $user_id=$name[0]->from;
@@ -302,8 +314,7 @@ class admin extends Controller
         $msg->status='Approved';
         $msg->user_id=Auth::user()->id;
         $msg->save();
-        // dd($msg);
-        return redirect()->back()->with('success', 'Successfully Approved');
+        return redirect('admins/chat?id='.$id);
 
     }
     public function user()
@@ -619,6 +630,28 @@ class admin extends Controller
         } else {
             return back()->with('error', 'Whoops! some error encountered. Please try again.');
         }
+
+    }
+    public function update_user_by_wsa(Request $request)
+    {
+
+
+        $user=User::find($request->id);
+        $user->vocative=$request->vocative;
+        $user->bio=$request->note;
+        $user->nameoflove=$request->name_of_love;
+        $user->city=$request->city;
+        $user->update();
+         
+
+        return response()->json('success');
+    }
+    
+    function count_man_unread(Request $request){
+        $county=msg_dt::where('msg_id',$request->msg_id)->where('msg_type','User')->whereNull('read_to')->count();
+        return response()->json(['county'=>$county]);
+
+
 
     }
 

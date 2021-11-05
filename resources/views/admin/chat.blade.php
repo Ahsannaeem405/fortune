@@ -187,6 +187,8 @@
                                 }
 
                                 ?>
+                                @php $cl=0; @endphp
+
                                 @foreach ($approve_msgs as $msg)
                                     @php
                                         $msg_dt = App\Models\msg_dt::where('msg_id', $msg->id)
@@ -195,6 +197,8 @@
                                         $msg_id=$msg->id;
 
                                     @endphp
+                                    <input type="hidden" id="count_msg_id{{$cl}}" value={{ $msg->id }}>
+
                                     <a href="{{url('/admins/chat?id=' .$msg_id)}}" style="color:black" class="a_tag">
                                     <li class="@if($id == $msg->id) active @endif">
                                         <div class="pr-1">
@@ -218,6 +222,7 @@
                                                 </p>
 
                                             </div>
+                                            <div class="circle countycir{{$cl}}" style="color: #C530D6;position: absolute;right: 20%;"></div>
                                             <div class="contact-meta">
                                                 <span
                                                     class="float-right mb-25">{{ $msg_dt->created_at->format('H:i A') }}</span>
@@ -226,7 +231,10 @@
                                         </div>
                                     </li>
                                     </a>
+                                @php  $cl++; @endphp    
                                 @endforeach
+                                <input type="hidden" name="" value="{{$cl}}" class="count_lent">
+
 
                                 {{-- <li>
                                     <div class="pr-1">
@@ -366,8 +374,76 @@
                             @endif
 
                         </section>
-                      <!-- User Chat profile right area -->
-                     
+
+                    <!-- User Chat profile right area -->
+                      @php 
+                        if(isset($_GET['id'])){
+                            $ids=$_GET['id'];
+                            $msg_id=App\Models\msg::find($ids)->value('from');
+                            $user=App\MOdels\User::find($msg_id);
+                                     
+                        } 
+                        @endphp
+
+
+                        @if(isset($_GET['id']))
+                        <div class="user-profile-sidebar">
+                            <header class="user-profile-header">
+                                <span class="close-icon">
+                                    <i class="feather icon-x"></i>
+                                </span>
+                                <div class="header-profile-sidebar">
+                                    <div class="avatar">
+
+                                        <img src="{{asset('images/avatar.jpg')}}" alt="user_avatar" height="70" width="70">
+                                        <span class="avatar-status-busy avatar-status-lg"></span>
+                                    </div>
+                                    <h4 class="chat-user-name">{{$user->name}}</h4>
+                                </div>
+                            </header>
+                            <div class="user-profile-sidebar-area p-2 ps">
+                                <h6>About</h6>
+                                <form class="form form-vertical" id="update_user">
+                                    @csrf
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="first-name-vertical">Vocative</label>
+                                                            <input type="hidden" id="first-name-vertical" class="form-control" name="id" placeholder="Vocative" value="{{$user->id}}">
+                                                            <input type="text" id="first-name-vertical" class="form-control" name="vocative" placeholder="Vocative" value="{{$user->vocative}}">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="first-name-vertical">Name Of Love</label>
+                                                             <input type="text" id="first-name-vertical" class="form-control" name="name_of_love" value="{{$user->nameoflove}}" placeholder="Name Of Love">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="first-name-vertical">City</label>
+                                                             <input type="text" id="first-name-vertical" class="form-control" name="city" placeholder="City" value="{{$user->city}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="first-name-vertical">Extra Note</label>
+                                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="Textarea" name="note">{{$user->bio}}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-12">
+                                                        <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                
+                            </div>
+                        </div>
+                        @endif
                     <!--/ User Chat profile right area -->
 
 
@@ -379,7 +455,9 @@
             <div class="box">
                
                     <div class="data">
-                        <form action="{{ url('/admins/join') }}" method="post">
+                        <form action="{{ url('/admins/join') }}" method="post" id="join">
+                            <input type="hidden" name="msg_id" value="" class="msg_id">
+
                             @csrf
                             @foreach ($Napprove_msgs as $msg)
                     
@@ -390,10 +468,9 @@
                                         height="42" width="42" alt="Generic placeholder image">
                                     <i></i>
                                 </span>
-                                <input type="hidden" name="msg_id" value="{{ $msg->id }}">
                                 <h5 class="font-weight-bold mt-1 ml-1 mb-0">{{ $msg->getuser->name }}</h5>
 
-                                <button type="submit" class="btn btn-primary" style="margin-left:auto;">Join</button>
+                                <button type="button" class="btn btn-primary join_id" abc="{{$msg->id}}" style="margin-left:auto;">Join</button>
                             </div>                            </div>
                             @endforeach
                             <div class="wiat_list1">
@@ -715,6 +792,7 @@ if (isset($_GET['id'])) {
                     }
             });
 
+                       
 
 
 
@@ -748,7 +826,91 @@ if (isset($_GET['id'])) {
                 })
 
             },10000);
-    }); 
+        }); 
+            $("#update_user").submit(function(e) {
+
+                    e.preventDefault();
+                    var form = $(this);
+                
+                    $.ajax({
+                        url: '{{URL::to('/admins/update_user_by_wsa')}}',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: form.serialize(),
+                        success: function (data) {
+                            if(data == 'success')
+                            {
+                                alert('User Update')
+                                location.reload();
+
+
+                            }
+                            else
+                            {
+                                alert('Something went wrong!!')
+                            }
+
+                        }
+
+
+
+                    });
+                
+
+            });
+            $(document).on("click",'.join_id',function(){
+
+
+                 var msg_id = $(this).attr('abc');
+                 $(".msg_id").val(msg_id);
+                 $("#join").submit();
+
+            
+            });
+            window.setInterval(function(){
+                
+
+
+                var count=$(".count_lent").val();
+                for (i = 0; i < count ; i++) {
+
+                    
+                    var msg_id=$("#count_msg_id"+i).val();
+
+                    $.ajax({
+
+                        type: 'get',
+                        async: false,
+                        url: '{{ URL::to('/admins/count_man_unread') }}',
+                        data: {
+                        'msg_id': msg_id
+                        },
+                        success: function(data){
+
+                            //$(".play_audio").trigger();
+                             if(data.county != 0)
+                            {
+                                $(".countycir"+i).text(data.county);
+                                //$('.toast').toast('show');
+      
+                            }
+
+                                
+                                
+
+
+                            
+
+
+                                                    
+                                
+                            
+                        },
+                    })
+                }    
+
+            },3000);
+
 
 </script>
 </body>

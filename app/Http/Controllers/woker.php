@@ -16,6 +16,7 @@ use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendmail2;
 use App\Mail\sendmail3;
+use DB;
 
 
 
@@ -83,6 +84,10 @@ class woker extends Controller
     {
         
         $message=msg_dt::where('msg_id',$request->msgid)->get();
+        DB::table('msg_dts')->where('msg_id', $request->msgid)->where('msg_type','User')
+           ->update([
+               'read_to' => 1
+            ]);
         $name=msg::where('id',$request->msgid)->get();
         $get_name=$name[0]->getuser->name;
         $user_id=$name[0]->from;
@@ -144,12 +149,22 @@ class woker extends Controller
         $msg->user_id=Auth::user()->id;
         $msg->save();
         // dd($msg);
-        return redirect()->back()->with('success', 'Successfully Approved');
+        return redirect('woker/chat?id='.$id);
+
 
     }
      function sendMSG(Request $request){
         //  dd($request->msg_id);
-         $message=$request->message;
+         $user=User::find($request->to);
+
+         $message=str_replace("@name", "$user->name" , $request->message);
+         $message=str_replace("@email", "$user->email" , $message);
+         $message=str_replace("@age", "$user->dob" , $message);
+         $message=str_replace("@vocative", "$user->vocative" , $message);
+         $message=str_replace("@nameoflove", "$user->nameoflove" , $message);
+         $message=str_replace("@city", "$user->city" , $message);
+
+
          $from=$request->from;
          $to=$request->to;
          $msgdt=new msg_dt;
@@ -169,7 +184,15 @@ class woker extends Controller
     }
     function sendtri_MSG(Request $request){
         //  dd($request->msg_id);
-         $message=$request->message;
+         $user=User::find($request->to);
+
+         $message=str_replace("@name", "$user->name" , $request->message);
+         $message=str_replace("@email", "$user->email" , $message);
+         $message=str_replace("@age", "$user->dob" , $message);
+         $message=str_replace("@vocative", "$user->vocative" , $message);
+         $message=str_replace("@nameoflove", "$user->nameoflove" , $message);
+         $message=str_replace("@city", "$user->city" , $message);
+
          $from=$request->from;
          $to=$request->to;
          $msgdt=new msg_dt;
@@ -191,6 +214,24 @@ class woker extends Controller
 
 
          return response()->json(['msg'=>$msg,'img'=>$img]);
+    }
+    public function update_user_by_wsa(Request $request)
+    {
+
+
+        $user=User::find($request->id);
+        $user->vocative=$request->vocative;
+        $user->bio=$request->note;
+        $user->nameoflove=$request->name_of_love;
+        $user->city=$request->city;
+        $user->update();
+         
+
+        return response()->json('success');
+    }
+    function count_man_unread(Request $request){
+        $county=msg_dt::where('msg_id',$request->msg_id)->where('msg_type','User')->whereNull('read_to')->count();
+        return response()->json(['county'=>$county]);
     }
     
 }

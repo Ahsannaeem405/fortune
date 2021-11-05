@@ -471,6 +471,9 @@
 </style>
 
 <body>
+
+    <input type="button" value="PLAY" onclick="play()"   class="play_audio">
+    <audio id="audio" src="/beep.mp3" type="audio/mpeg"></audio>
     
 
 
@@ -745,8 +748,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
+        function play() {
+        var audio = document.getElementById("audio");
+        audio.play();
+        }
+        
         $(document).ready(function() {
-            
+        
 
 
             $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
@@ -1047,7 +1055,7 @@
             <?php }
             ?>
             $(document).keypress(
-                function(event){
+                    function(event){
                     if (event.which == '13') {
               
                         event.preventDefault();
@@ -1056,6 +1064,8 @@
                     }
             });
             window.setInterval(function(){
+                
+
 
                 var count=$(".count_lent").val();
                 for (i = 0; i < count ; i++) {
@@ -1072,14 +1082,20 @@
                         'msg_id': msg_id
                         },
                         success: function(data){
+                            $(".play_audio").click();
+
+
                             if(data.county != 0)
                             {
+
                                 $(".countycir"+i).text(data.county);
                                 $(".point").val(data.point);
                                 $('.toast').toast('show');
-
       
                             }
+
+                                
+                                
 
 
                             
@@ -1092,7 +1108,7 @@
                     })
                 }    
 
-            },1000);
+            },3000);
 
            
         });

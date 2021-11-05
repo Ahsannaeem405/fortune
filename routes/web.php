@@ -103,6 +103,11 @@ Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
     Route::get('/view_comments',[App\Http\Controllers\admin::class,'view_comments']);
     Route::any('/chat2',[App\Http\Controllers\admin::class,'showchat2']);
     Route::any('/sendtri_MSG',[App\Http\Controllers\admin::class,'sendtri_MSG']);
+    Route::post('/update_user_by_wsa', [App\Http\Controllers\admin::class, 'update_user_by_wsa']);
+    Route::get('/count_man_unread',[App\Http\Controllers\admin::class,'count_man_unread']);
+
+
+    
 
 
 
@@ -150,6 +155,8 @@ Route::prefix('/super')->middleware(['auth','supervisor'])->group(function (){
     Route::post('/sendMSG',[\App\Http\Controllers\super::class,'sendMSG']);
     Route::post('/join',[App\Http\Controllers\super::class,'join']);
     Route::any('/sendtri_MSG',[App\Http\Controllers\super::class,'sendtri_MSG']);
+    Route::post('/update_user_by_wsa', [App\Http\Controllers\super::class, 'update_user_by_wsa']);
+    Route::get('/count_man_unread',[App\Http\Controllers\super::class,'count_man_unread']);
 
 
 
@@ -179,6 +186,10 @@ Route::prefix('/woker')->middleware(['auth','worker'])->group(function (){
     Route::post('/join',[App\Http\Controllers\woker::class,'join']);
     Route::post('/sendMSG',[\App\Http\Controllers\woker::class,'sendMSG']);
     Route::any('/sendtri_MSG',[App\Http\Controllers\woker::class,'sendtri_MSG']);
+    Route::post('/update_user_by_wsa', [App\Http\Controllers\woker::class, 'update_user_by_wsa']);
+    Route::get('/count_man_unread',[App\Http\Controllers\woker::class,'count_man_unread']);
+
+
 
 
 
