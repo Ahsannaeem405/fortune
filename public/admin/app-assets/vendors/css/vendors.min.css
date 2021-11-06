@@ -4746,6 +4746,9 @@
     opacity: 0;
     position: absolute;
 }
+.chat-user-list{
+    overflow: hidden;
+}
 .ps {
     overflow-anchor: none;
     -ms-overflow-style: none;
