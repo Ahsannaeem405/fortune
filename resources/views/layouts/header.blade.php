@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
 
@@ -248,11 +248,20 @@ color: #f1f1f1;
   <body>
     <div class="container-fluid">
 
-<div aria-live="polite" aria-atomic="true" style="display: none; position: relative;min-height: 0px;z-index: 1;">
-  <div class="toast" style="position: absolute; top: 10; right: 20;">
-    <div class="toast-header" style="background-color:#C530D6;border-bottom: 1px solid #C530D6;color: white;">
-      <h6>You Have New Message</h6>    
-  </div>
+<div aria-live="polite" aria-atomic="true" style="position: relative;min-height: 0px;z-index: 1;">
+  <div class="toast" style="position: absolute;background-color:#C530D6;
+    right:10%;border-radius:15px;
+    margin-top:5%">
+    <div class="toast-header pt-2" style="background-color:#C530D6;border-bottom: 1px solid #C530D6;color: white;border-radius: 54px;">
+    <button type="" class="close" data-dismiss="toast" aria-label="Close" style="margin-left:auto;">
+        <span aria-hidden="true">&times;</span>
+    </button> 
+</div>
+     <div class="toast-body" style="color:white;">
+        <p class="toast-body">You Have New Message</p>
+      </div>
+
+  
     
   </div>
 </div>
@@ -520,20 +529,51 @@ color: #f1f1f1;
       }
     }
     </script>
-    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
     <script type="text/javascript">
-$(document).ready(function(){
-    $(".toast").toast({
-        delay: 50000
-
-    });
-    $('.toast').toast('show');
+    $(document).ready(function(){
+          
       
-  
-});
-</script>
+        
+
+        <?php
+            if (Auth::check()) {
+                ?>    
+            window.setInterval(function(){ 
+                $(".toast-body").empty();
+                var op=" ";    
+                $.ajax({
+                    type: 'get',
+                    url: '{{ URL::to('/user/get_poke') }}',
+                    success: function(data){
+                        var  j=0;
+                        for (var i=0; i < data.length; i++) {
+                            op += '<div style="margin-bottom:3%;font-size:15px"><b style="">&bull;&nbsp;</b>'+data[i].msg+"</div>";
+
+                        }
+                        $(".toast-body").append(op);
+                        $(".toast").toast({
+                            delay:50000,
+                        });
+                        if(data.length !=0)
+                        {
+                         $('.toast').toast('show');
+
+                        }     
+                    },
+                });
+            },60000);
+
+                        
+
+               
+
+        <?php }
+            ?>
+    });
+    </script>
+
 
 
 

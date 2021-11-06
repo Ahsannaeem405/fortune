@@ -9,6 +9,7 @@ use App\Models\msg_dt;
 use App\Models\msg;
 use App\Models\Contact_message;
 use App\Models\Pointshistory;
+use App\Models\poke_dt;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -217,8 +218,9 @@ function chat_start($id){
 
     }
     function getmessages(Request $request){
+       
     $msg_id=$request->msg_id;
-     DB::table('msg_dts')->where('id', $msg_id)->where('msg_type','Admin')
+     DB::table('msg_dts')->where('msg_id', $msg_id)->where('msg_type','Admin')
            ->update([
                'read_to' => 1
             ]);
@@ -297,6 +299,19 @@ function chat_start($id){
 
 
     }
+    function get_poke(Request $request){
+        $county=poke_dt::where('to',Auth::user()->id)->whereNull('read')->where('status','send')->get();
+         DB::table('poke_dts')->where('to', Auth::user()->id)
+           ->update([
+               'read' => 1
+            ]);
+        
+        return response()->json($county);
+
+
+
+    }
+    
 
     
 }

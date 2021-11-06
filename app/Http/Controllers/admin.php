@@ -6,6 +6,9 @@ use App\Models\Contact_message;
 use App\Models\Fortune;
 use App\Models\msg;
 use App\Models\msg_dt;
+use App\Models\poke_dt;
+
+
 use App\Models\Pointshistory;
 use App\Models\site_setting;
 use App\Models\User;
@@ -503,11 +506,13 @@ class admin extends Controller
                     $id = msg::where('to', $final[$f]['final_id'])
                         ->where('from', $fromck)
                         ->value('id');
-                    $msg_det         = new msg_dt();
+
+                    $msg_det         = new poke_dt();
                     $msg_det->msg    = $request->input('msg');
                     $msg_det->to     = $final[$f]['final_id'];
-                    $msg_det->from   = Auth::user()->id;
                     $msg_det->msg_id = $id;
+                    $msg_det->status = 'send';
+                    
                     $msg_det->save();
                 } else {
 
@@ -517,11 +522,11 @@ class admin extends Controller
                     $msg->from     = Auth::user()->id;
                     $msg->save();
 
-                    $msg_det         = new msg_dt();
+                    $msg_det         = new poke_dt();
                     $msg_det->msg_id = $msg->id;
                     $msg_det->msg    = $request->input('msg');
                     $msg_det->to     = $final[$f]['final_id'];
-                    $msg_det->from   = Auth::user()->id;
+                    $msg_det->status = 'send';
                     $msg_det->save();
 
                 }
@@ -546,11 +551,12 @@ class admin extends Controller
                         ->where('from', $fromck)
                         ->value('id');
 
-                    $msg_det         = new msg_dt();
+                    $msg_det         = new poke_dt();
                     $msg_det->msg_id = $id;
                     $msg_det->msg    = $request->input('msg');
                     $msg_det->to     = $user_idy[$ij]->id;
-                    $msg_det->from   = Auth::user()->id;
+                    $msg_det->status = 'send';
+
                     $msg_det->save();
                 } else {
 
@@ -560,11 +566,11 @@ class admin extends Controller
                     $msg->from     = Auth::user()->id;
                     $msg->save();
 
-                    $msg_det         = new msg_dt();
+                    $msg_det         = new poke_dt();
                     $msg_det->msg_id = $msg->id;
                     $msg_det->msg    = $request->input('msg');
                     $msg_det->to     = $user_idy[$ij]->id;
-                    $msg_det->from   = Auth::user()->id;
+                    $msg_det->status = 'send';
                     $msg_det->save();
 
                 }

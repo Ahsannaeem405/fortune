@@ -11,9 +11,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>Chat</title>
 </head>
 <style>
@@ -472,7 +471,7 @@
 
 <body>
 
-    <input type="button" value="PLAY" onclick="play()"   class="play_audio">
+    <input type="button" value="PLAY" class="play_audio">
     <audio id="audio" src="{{asset('/beep.mp3')}}" type="audio/mpeg"></audio>
     
 
@@ -562,17 +561,18 @@
         <button class="openbtn" onclick="openNav()">☰</button>
     </div>
 <div aria-live="polite" aria-atomic="true" style="position: relative;min-height: 0px;z-index: 1;">
-  <div class="toast" style="position: absolute; top: 10; right:0;">
-    <div class="toast-header" style="background-color:#C530D6;border-bottom: 1px solid #C530D6;color: white;">
-      <h6>You Have New Message</h6>
+  <div class="toast" style="position: absolute;     background-color: #C530D6;
+    right: 10%;border-radius: 54px;
+    margin-top: 3%">
+    <div class="toast-header pt-2" style="background-color:#C530D6;border-bottom: 1px solid #C530D6;color: white;border-radius: 54px;">
+      <h6>You Have New Message</h6> 
       <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
         <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
+      </button>   
+  </div>
     
   </div>
 </div>
-
     <div class="container p-5 ">
         
         <a href="{{url('/user')}}" class="back"><i class="fas fa-arrow-circle-left" ></i> Powrót</a>
@@ -677,6 +677,7 @@
                         <p style="color: gray;margin-top:50px;">Wybierz wrozbite z menu po lewej stronie i zadaj pytanie!</p>
                     </div>
                 </div>
+                <input type="hidden" class="c_msg" value="">
                 <div class="row specific_msg right_box" id="chat" style="margin-left:0px; margin-right: 0px;width: 100%;">
 
 
@@ -743,21 +744,31 @@
         </div>
     </div>
     </div>
-       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
+
+    
+
 
     <script>
+
         function play() {
         var audio = document.getElementById("audio");
         audio.play();
         }
         
+        
         $(document).ready(function() {
+        
+        
+
         
 
 
-            $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
 
             var for_id=$('#for_id').val();
             if (for_id!="") {
@@ -876,6 +887,7 @@
 
 
 
+
                     $(".no_message").css("display","none");
                     $(".right_box").css("display","block");
                     $(".message_type").css("display","flex");
@@ -885,6 +897,7 @@
 
 
                     var op=" ";
+                    var c_msg=0;
 
 
                     // alert(myId);
@@ -900,6 +913,7 @@
                         },
                         
                         success: function(data) {
+
                             $('#chat').empty();
                             // alert(data['fortune'].bio);
 
@@ -909,12 +923,19 @@
                                     op +='<div class="col-lg-12 message_sender"><div class="message"><p>'+data['message'][i].msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>'
                                 }
                                 else{
+                                    c_msg++;
 
                                     op +='<div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data['message'][i].msg+'</p></div></div>'
                                 }
 
 
                             }
+                            var pre_c_msg=$(".c_msg").val();
+
+
+                    
+
+                            
 
                             profile +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+' alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
                             profile2 +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+'" alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
@@ -924,20 +945,35 @@
                             // alert(data['to']);
                             $('.rec_id2').val(data['fortune'].id);
 
+                            if(c_msg > pre_c_msg)
+                            {
+
+                                $(".c_msg").val(c_msg);
+                                $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
+
+
+
+
+
+
+                            }
+
 
 
 
                         },
 
 
+
                     });
+
+                    
                 },5000);
 
 
 
                 var myId = "<?php echo $_GET['id']; ?>";
                 $(".loader").css('display','block');
-                $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
 
 
 
@@ -957,6 +993,8 @@
                 var id =myId;
                 var profile=" ";
                 var profile2=" ";
+                var c_msg=0;
+
 
 
                 $.ajax({
@@ -983,12 +1021,16 @@
                                 op +='<div class="col-lg-12 message_sender"><div class="message"><p>'+data['message'][i].msg+'</p><i class="fas fa-caret-right"></i><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""></div></div>'
                             }
                             else{
+                                c_msg++;
 
                                 op +='<div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+data['message'][i].msg+'</p></div></div>'
                             }
 
 
                         }
+
+                        $(".c_msg").val(c_msg);
+
 
                         profile +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+'" alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
                         profile2 +=' <div class="image"><img src="/upload/images/'+data['fortune'].file+'" alt=""></div><br><h5>'+data['fortune'].name+'</h5><p>'+data['fortune'].bio+'</p>';
@@ -998,6 +1040,8 @@
                         $('.p_java2').append(profile2);
 
                         $('.rec_id2').val(data['fortune'].id);
+                        $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
+
 
 
 
@@ -1006,10 +1050,13 @@
                 });
 
             <?php }else{
-            ?>    
+            ?>
+            $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
+    
              window.setInterval(function(){
                 var op = " ";
                 var chat_id=$('#chat_id').val();
+                var c_msg=0;
 
 
 
@@ -1036,17 +1083,31 @@
 
                                 }
                                 else{
+                                    c_msg++;
                                     op +=' <div class="col-lg-12 message_receiver"><div class="message1"><img src="https://microsite.hcltech.com/manufacturing/imro/img/avatar.png" class="contact_image" alt=""><i class="fas fa-caret-left"></i><p>'+dat[i].msg+'</p></div></div>';
                                 }
 
 
                         }
+                            var pre_c_msg=$(".c_msg").val();
+
+                    
+
+                            
+
                             $('#chat').append(op);
                             // $('.user_nmae').text(data['name']);
                             // $('#to').val(data['user_id']);
                             // $('#from').val(data['fortune_id']);
 
                         // alert(op);
+                        if(c_msg > pre_c_msg)
+                            {
+                                $(".c_msg").val(c_msg);
+                                $('.specific_msg').scrollTop($('.specific_msg')[0].scrollHeight);
+
+
+                            }
 
                     },
                 })
@@ -1068,7 +1129,11 @@
 
 
                 var count=$(".count_lent").val();
+
                 for (i = 0; i < count ; i++) {
+
+                var pri_cont=$(".countycir"+i).text();
+                $(".countycir"+i).text(" ");
 
                     
                     var msg_id=$("#count_msg_id"+i).val();
@@ -1083,14 +1148,32 @@
                         },
                         success: function(data){
                             $(".play_audio").click();
-
+                           
 
                             if(data.county != 0)
                             {
+                                
+                                
+                                if(data.county > pri_cont )
+                                {
+
+                                    $(".toast").toast({
+                                    delay:15000
+
+                                    });
+                                    $('.toast').toast('show');
+
+                                }
+                                
+
 
                                 $(".countycir"+i).text(data.county);
                                 $(".point").val(data.point);
-                                $('.toast').toast('show');
+
+
+                                
+                                
+                                
       
                             }
 
@@ -1125,15 +1208,10 @@
         }
     </script>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
+   
+
 </body>
 
 </html>

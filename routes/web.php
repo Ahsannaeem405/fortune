@@ -215,6 +215,8 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
 
     Route::get('/user_messages',[App\Http\Controllers\UserController::class,'getmessages']);
     Route::get('/count_unread',[App\Http\Controllers\UserController::class,'count_unread']);
+    Route::get('/get_poke',[App\Http\Controllers\UserController::class,'get_poke']);
+
     
 
 

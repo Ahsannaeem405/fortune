@@ -43,6 +43,9 @@
 
 </head>
 <style>
+.user-chats{
+    overflow: hidden;
+}
 .header-navbar{
      width:95%!important;
     }
@@ -213,11 +216,12 @@
 
 
 
-                                                <h5 class="font-weight-bold mb-0" class="name_user">
+                                                <h4 class="font-weight-bold mb-0" class="name_user">
 
                                                         {{ $msg->getuser->name }}
-                                                </h5>
-                                                <p class="truncate">{{ $msg_dt->message }}<br>
+                                                </h4>
+
+                                                <p class="truncate">Conected With {{ $msg->getuser2->name  }}<br>
 
                                                 </p>
 
@@ -272,6 +276,7 @@
                 </div>
             </div>
             <div class="content-right">
+                <input type="hidden" class="c_msg" value="">
                 <div class="content-wrapper">
                     <div class="content-header row">
                     </div>
@@ -520,7 +525,6 @@ if (isset($_GET['id'])) {
         $(document).ready(function() {
 
 
-            $('.user-chats').scrollTop($('.user-chats')[0].scrollHeight);
 
 
             var msg_id = "<?php echo $_GET['id']; ?>";
@@ -540,6 +544,7 @@ if (isset($_GET['id'])) {
                 success: function(data) {
                     $('.all_chats').empty();
 
+                    var c_msg=0;
                     for (var i = 0; i < data['message'].length; i++) {
 
                             if(data['message'][i].msg_type=='Admin')
@@ -578,6 +583,10 @@ if (isset($_GET['id'])) {
 
                             }
                             if(data['message'][i].msg_type=='User'){
+
+                                c_msg++;
+
+
                                 
                                  op+='<div class="chat chat-left"><div class="chat-avatar">'+
                                         '<a class="avatar m-0" data-toggle="tooltip" href="#"data-placement="left" title="" data-original-title="">'+
@@ -590,6 +599,19 @@ if (isset($_GET['id'])) {
                                     '</div></div>';
                             }
                     }
+                    var pre_c_msg=$(".c_msg").val();
+
+                    
+
+                    if(c_msg > pre_c_msg)
+                    {
+                        $(".c_msg").val(c_msg);
+                        $(".user-chats").animate({ scrollTop: $('.user-chats')[0].scrollHeight},1000);
+
+
+                    }
+
+
                         if(data['diff_in_minutes'] <= 20)
                          {
                             $(".send_sa_tri").css('display','none');
@@ -599,6 +621,7 @@ if (isset($_GET['id'])) {
                             $(".send_sa_tri").css('display','block');
 
                          }
+
                         $('.all_chats').append(op);
                         $('.user_nmae').text(data['name']);
                         $('#to').val(data['user_id']);
@@ -615,6 +638,7 @@ if (isset($_GET['id'])) {
             // alert(msg_id);
             var op = " ";
             var opp= " ";
+            var c_msg=0;
             $.ajax({
 
                 type: 'get',
@@ -668,6 +692,7 @@ if (isset($_GET['id'])) {
                             }
 
                             if(data['message'][i].msg_type=='User'){
+                                c_msg++;
 
                                     op+='<div class="chat chat-left"><div class="chat-avatar">'+
                                         '<a class="avatar m-0" data-toggle="tooltip" href="#"data-placement="left" title="" data-original-title="">'+
@@ -680,6 +705,10 @@ if (isset($_GET['id'])) {
                                     '</div></div>';                               
                             }
                     }
+                        $(".c_msg").val(c_msg);
+
+
+                    
                         $('.all_chats').append(op);
                         $('.user_nmae').text(data['name']);
                         $('.name_prof').text(data['name']);
@@ -694,7 +723,9 @@ if (isset($_GET['id'])) {
                          }
                         $('#to').val(data['user_id']);
                         $('#from').val(data['fortune_id']);
-                        $('.user-chats').scrollTop($('.user-chats')[0].scrollHeight);
+                        $(".user-chats").animate({ scrollTop: $('.user-chats')[0].scrollHeight}, 500);
+
+
 
                     // alert(op);
 

@@ -73,59 +73,36 @@
 
                                                             <div class="modal-body">
                                                                 <div class="row" style="margin-left:0px;margin-right:0px;">
-                                                                        <div class="col-md-4 col-6">
+                                                                        <div class="col-md-12 col-12 mb-1">
+                                                                            <label style="font-size:17px;"><b>Last Log In</b></label>
+                                                                            <select class="js-example-basic-single" name="days" style="width: 100%;">
+                                                                                <option value=" ">Select No of Days</option>
+                                                                                <option value="7">Last 7 Days</option>
+                                                                                <option value="14">Last 14 Days</option>
+                                                                                <option value="30">Last 30 Days</option>
+                                                                               
+                                                                            </select>
 
-                                                                            <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                                <input type="checkbox" name="days" class="cb-element example3" value="7">
-                                                                                <span class="vs-checkbox">
-                                                                                    <span class="vs-checkbox--check">
-                                                                                        <i class="vs-icon feather icon-check"></i>
-                                                                                    </span>
-                                                                                </span>
-                                                                                <span class="">Last 7 Days</span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4 col-6">
+    
 
-                                                                            <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                                <input type="checkbox" name="days" class="cb-element example3" value="14">
-                                                                                <span class="vs-checkbox">
-                                                                                    <span class="vs-checkbox--check">
-                                                                                        <i class="vs-icon feather icon-check"></i>
-                                                                                    </span>
-                                                                                </span>
-                                                                                <span class="">Last 14 Days</span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4 col-6">
-
-                                                                            <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                                <input type="checkbox" name="days" class="cb-element example3" value="30">
-                                                                                <span class="vs-checkbox">
-                                                                                    <span class="vs-checkbox--check">
-                                                                                        <i class="vs-icon feather icon-check"></i>
-                                                                                    </span>
-                                                                                </span>
-                                                                                <span class="">Last 30 Days</span>
-                                                                            </div>
+                                                                            
                                                                         </div>
                                                                         @php 
                                                                             $for=App\Models\Fortune::all();
                                                                         @endphp
-                                                                        @foreach($for as $row_for)
-                                                                        <div class="col-md-6 col-12">
+                                                                        
+                                                                        <div class="col-md-12 mb-2 col-12">
+                                                                            <label style="font-size:17px;"><b>Select Fortuneteller</b></label>
+                                                                            <select class="js-example-basic-multiple" name="fortune_id[]" multiple="multiple" style="width: 100%;">
+                                                                            @foreach($for as $row_for)
+                                                                                <option value="{{$row_for->id}}">{{$row_for->name}}</option>
+                                                                            @endforeach    
 
-                                                                            <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                                <input type="checkbox" name="fortune_id[]" class="cb-element" value="{{$row_for->id}}">
-                                                                                <span class="vs-checkbox">
-                                                                                    <span class="vs-checkbox--check">
-                                                                                        <i class="vs-icon feather icon-check"></i>
-                                                                                    </span>
-                                                                                </span>
-                                                                                <span class="">{{$row_for->name}}</span>
-                                                                            </div>
+                                                                            </select>
+
+                                                                            
                                                                         </div>
-                                                                        @endforeach
+                                                                        
                                                                        
 
                                                                 </div>
@@ -325,7 +302,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
 <script type="text/javascript">
-    $('#checkall').change(function () {
+    $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+    $('.js-example-basic-multiple').select2();
+});
+$('#checkall').change(function () {
     $('.cb-element').prop('checked',this.checked);
 });
 
