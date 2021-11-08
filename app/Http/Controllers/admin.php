@@ -585,7 +585,7 @@ class admin extends Controller
                 $message->bcc($subscriber_emails)->subject('New Message');   
  
             });
-            mail::to('demo1.browntech@gmail.com')->send(new sendmail3($data));
+            mail::to('demo2.browntech@gmail.com')->send(new sendmail3($data));
 
         }
 

@@ -28,6 +28,6 @@ class sendmail3 extends Mailable
     public function build()
     {
 
-       return $this->from('demo.naqvi@gmail.com')->subject('Trigger Message')->view('dynamic_email_template2')->with('data', $this->data);
+       return $this->from('demo2.browntech@gmail.com')->subject('Trigger Message')->view('dynamic_email_template2')->with('data', $this->data);
     }
 }
