@@ -375,6 +375,12 @@
         .Send_btn {
             padding-right: 10px !important;
             padding-left: 10px !important;
+            font-size: 14px;
+            margin-left: -10px;
+            padding: 0px;
+        }
+        .message_type{
+            margin-left: -7px!important;
         }
 
 
@@ -382,10 +388,10 @@
     }
 
     @media screen and (max-height: 768px) {
-        .Send_btn {
+       /* .Send_btn {
             padding-right: 18px !important;
             padding-left: 17px !important;
-        }
+        }*/
     }
 
     @media only screen and (min-width:1023px) {
@@ -489,67 +495,34 @@
                 <img src="{{ asset('images/logo2.png') }}" alt="" class="logo">
 
 
-                @if (isset($for))
-                <input type="hidden" value="{{$for->id}}" id="for_id">
-                <div class="profile p-3">
-                    <div class="image">
-                        <img src="{{asset('upload/images/'.$for->file)}}" alt="">
-                    </div><br>
-                    <h5>{{$for->name}}</h5>
-                    <p>{{$for->bio}}</p>
-
-                </div>
-                @else
-                <input type="hidden" id="for_id">
-                <div class="profile p-3 p_java">
-
-
-                </div>
-                @endif
-
-                <div class="row name">
-                    <div class="col-lg-8 col-8">
-                        <h5>Rozmowy</h5>
-                    </div>
-                    <div class="col-lg-4 col-4">
-                        <b>5 <i class="fas fa-chevron-down"></i></b>
-                    </div>
-
-
-                </div>
+               
                 <div class="listend">
+                    @php $cl2=0; @endphp
                     @foreach ($msg as $to)
-                    @php $to_id2=$to->id; @endphp
+                    @php $to_id2=$to->id;
+                         
+
+                    @endphp
                     <a href="{{url('/user/chat?id='. $to_id2)}}" style="color:white;text-decoration:none;" >
                         <div class="contactlist">
                             <input type="hidden" id="from_id1" value={{ $to->getuser->id }}>
                             <div class="contact_image">
-                                <!--  -->
+                                @if($to->getuser2 !=null)
+                                <img src="{{ asset('upload/images/'.$to->getuser2->file) }}" class="contact_image" alt="">
+                                @endif
                             </div>
-                            <div class="contact_name">
+                            <div class="contact_name" style="padding-top:0px;">
                                 <p>@if($to->getuser2 !=null)
                                     {{ $to->getuser2->name }}
                                 @endif</p>
                             </div>
-                            {{-- <div class="circle">
-                                <i class="fas fa-circle"></i>
-                            </div> --}}
+                            <div class="circle countycir{{$cl2}}" style="color: #C530D6;position: absolute;right:5%;padding-top:0px;">
+                                    
+                            </div>
                         </div>
                     </a>
-                    @endforeach
-                    {{-- <div class="contactlist active">
-                    <div class="contact_image">
-                        <img src="{{asset('images/slide1.png')}}" class="contact_image" alt="">
-                    </div>
-                    <div class="contact_name">
-                        <p>Henry</p>
-                    </div>
-                    <div class="circle">
-                        <i class="fas fa-circle"></i>
-                    </div>
-                </div> --}}
-
-
+                    @php $cl2++; @endphp
+                    @endforeach                    
                 </div>
 
 
@@ -707,7 +680,7 @@
                             @csrf
                       
 
-                            <div class="col-lg-10 col-sm-9 col-7">
+                            <div class="col-lg-10 col-sm-9 col-10">
                                 <div class="input-group flex-nowrap">
                                     @if (isset($for))
                                     <input type="hidden" class="rec_id" value="{{$for->id}}">
@@ -722,7 +695,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-lg-2 col-sm-3 col-5">
+                            <div class="col-lg-2 col-sm-3 col-2">
                                 <button class="Send_btn" type="button">Wyślij <i class="fa fa-paper-plane" aria-hidden="true"></i>
                                 </button>
 

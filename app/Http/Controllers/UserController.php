@@ -42,9 +42,10 @@ function deleteuser($id){
     $user->delete();
     return redirect('/');
 }
-function chat(){
+function chat()
+{
     $id=Auth::user()->id;
-    $msg=msg::where('to',$id )->orwhere('from',$id)->get();
+    $msg=msg::where('from',$id)->where('msg_type','2')->get();
     $chat_detail=msg_dt::where('to',$id)->get();
     $for=Fortune::find(0);
     $no_chat=1;
@@ -211,7 +212,7 @@ function chat_start($id){
 
     $fortune_id=$id;
     $id=Auth::user()->id;
-    $msg=msg::where('to',$id )->orwhere('from',$id)->get();
+    $msg=msg::where('msg_type',2)->where('from',$id)->get();
     $chat_detail=msg_dt::where('to',$id)->get();
     return view('chat',['chat_detail'=>$chat_detail,'msg'=>$msg, 'for'=>$for,'msg_details'=>$msg_detail,'fortune_id'=>$fortune_id,'chat_id'=>$chat_id,'no_chat'=>$no_chat]);
 

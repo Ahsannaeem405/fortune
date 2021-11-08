@@ -409,7 +409,7 @@
                                     <h4 class="chat-user-name">{{$user->name}}</h4>
                                 </div>
                             </header>
-                            <div class="user-profile-sidebar-area p-2 ps">
+                            <div class="user-profile-sidebar-area p-2 ps" style="overflow:hidden;">
                                 <h6>About</h6>
                                 <form class="form form-vertical" id="update_user">
                                     @csrf
