@@ -545,7 +545,7 @@
                                     op +=
                                         '<div class="chat chat-right"><div class="chat-avatar">'+
                                            '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
-                                               '<img src="/upload/images/'+data['img']+'" height="40" width="40" />'+
+                                               '<img src="{{ asset("images/avatar.jpg") }}"alt="avatar" height="40" width="40" />'+
                                             '</a>'+
                                         '</div>'+
                                         '<div class="chat-body">'+
@@ -560,7 +560,7 @@
                                     op +=
                                         '<div class="chat chat-right"><div class="chat-avatar">'+
                                            '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
-                                               '<img src="/upload/images/'+data['img']+'" height="40" width="40" />'+
+                                               '<img src="{{ asset("images/avatar.jpg") }}"alt="avatar" height="40" width="40" />'+
                                             '</a>'+
                                         '</div>'+
                                         '<div class="chat-body">'+
@@ -634,7 +634,7 @@
                                     ops +=
                                         '<div class="chat chat-right"><div class="chat-avatar">'+
                                            '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
-                                               '<img src="/upload/images/'+data['img']+'" height="40" width="40" />'+
+                                               '<img src="{{ asset("images/avatar.jpg") }}"alt="avatar" height="40" width="40" />'+
                                             '</a>'+
                                         '</div>'+
                                         '<div class="chat-body">'+
@@ -649,7 +649,7 @@
                                     ops +=
                                         '<div class="chat chat-right"><div class="chat-avatar">'+
                                            '<a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">'+
-                                               '<img src="/upload/images/'+data['img']+'" height="40" width="40" />'+
+                                               '<img src="{{ asset("images/avatar.jpg") }}"alt="avatar" height="40" width="40" />'+
                                             '</a>'+
                                         '</div>'+
                                         '<div class="chat-body">'+

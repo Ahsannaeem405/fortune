@@ -5,7 +5,7 @@
         <ul class="nav navbar-nav flex-row">
             <li class="nav-item mr-auto"><a class="navbar-brand" href="html/ltr/vertical-menu-template/index.html">
                     <div class="">
-                     @if($site[0]->file != null)
+                          @if($site[0]->file != null)
 
                           <img src="{{url('upload/images/' .$site[0]->file)  }}" style="width:30px;">
                           @else
