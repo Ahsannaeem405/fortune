@@ -196,7 +196,7 @@
                                     @endphp
                                     <input type="hidden" id="count_msg_id{{$cl}}" value={{ $msg->id }}>
 
-                                    <a href="{{url('/woker/chat?id=' .$msg_id)}}" style="color:black" class="a_tag">
+                                    <a href="{{url('/woker/chat?id=' .$msg->id)}}" style="color:black" class="a_tag">
                                     <li class="@if($id == $msg->id) active @endif">
                                         <div class="pr-1">
                                             <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle"
