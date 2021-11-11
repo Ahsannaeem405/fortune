@@ -19,6 +19,7 @@ use App\Mail\sendmail3;
 
 use Carbon\Carbon;
 use DB;
+use Session;
 
 class UserController extends Controller
 {
@@ -26,10 +27,8 @@ function profile(){
     $user_id=Auth::user()->id;
 
 $user=User::find($user_id);
+
 $age = Carbon::parse($user->dob)->diff(Carbon::now())->y;
-// dd($user);
-// dd($age. " Years");
-// dd($user);
 return view('profile',['user'=>$user,'age'=>$age]);
 }
 function loggedinHome(){
@@ -271,6 +270,10 @@ function chat_start($id){
                     return redirect()->back()->with('error', 'Confirm_Password Does Not Match');
                 }
             }
+            else{
+                return redirect()->back()->with('error', 'New Password Does Not Match');
+
+            }
         }
         else{
             return redirect()->back()->with('error', 'Wrong Current Password');
@@ -301,6 +304,12 @@ function chat_start($id){
 
     }
     function get_poke(Request $request){
+
+        if (Session::has('poke')){
+            session()->forget('poke');
+
+     
+        }
         $county=poke_dt::where('to',Auth::user()->id)->whereNull('read')->where('status','send')->get();
          DB::table('poke_dts')->where('to', Auth::user()->id)
            ->update([
@@ -312,6 +321,7 @@ function chat_start($id){
 
 
     }
+    
     
 
     

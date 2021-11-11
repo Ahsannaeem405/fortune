@@ -73,7 +73,7 @@
                                                                         <span>Image</span>
                                                                     </div>
                                                                     <div class="col-md-8">
-                                                                        <input type="file" id="img" name="file" class="form-control" accept="image/*" required>
+                                                                        <input type="file" id="img" name="file" class="form-control" accept=".jpg, .jpeg, .png" required>
                                                                     </div>
                                                                 </div>
                                                             </div>

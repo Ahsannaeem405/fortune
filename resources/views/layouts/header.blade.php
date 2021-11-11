@@ -539,7 +539,36 @@ color: #f1f1f1;
 
         <?php
             if (Auth::check()) {
-                ?>    
+                ?>
+            <?php
+            if(Session::has('poke')) {
+                ?>
+                $(".toast-body").empty();
+                var op=" ";    
+                $.ajax({
+                    type: 'get',
+                    url: '{{ URL::to('/user/get_poke') }}',
+                    success: function(data){
+                        var  j=0;
+                        for (var i=0; i < data.length; i++) {
+                            op += '<div style="margin-bottom:3%;font-size:15px"><b style="">&bull;&nbsp;</b>'+data[i].msg+"</div>";
+
+                        }
+                        $(".toast-body").append(op);
+                        $(".toast").toast({
+                            delay:50000,
+                        });
+                        if(data.length !=0)
+                        {
+                         $('.toast').toast('show');
+
+                        }     
+                    },
+                });
+
+            <?php }
+            ?>  
+                  
             window.setInterval(function(){ 
                 $(".toast-body").empty();
                 var op=" ";    

@@ -39,6 +39,12 @@
     <link rel="stylesheet" type="text/css" href="{{asset('admin/app-assets/fonts/line-awesome/css/line-awesome.min.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{asset('admin/app-assets/vendors/css/pickers/pickadate/pickadate.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/datepicker.css')}}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" rel="stylesheet" type="text/css">
+
+
+    
         
 
 
@@ -94,56 +100,9 @@
             @endif
         </p>
     </footer>
-@section("js_link")
+@include('admin.layouts.app')
 
-<script src="{{ asset('admin/app-assets/vendors/js/vendors.min.js') }}"></script>
-<script src="{{asset('admin/app-assets/js/scripts/datatables/datatable.js') }}"></script>
-
-
-
-
-<script src="{{asset('admin/app-assets/vendors/js/tables/datatable/pdfmake.min.js') }}"></script>
-<script src="{{asset('admin/app-assets/vendors/js/tables/datatable/vfs_fonts.js') }}"></script>
-<script src="{{asset('admin/app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
-<script src="{{asset('admin/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js') }}"></script>
-<script src="{{asset('admin/app-assets/vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
-<script src="{{asset('admin/app-assets/vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
-<script src="{{asset('admin/app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js') }}"></script>
-<script src="{{asset('admin/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
-
-
-<script src="{{ asset('admin/app-assets/vendors/js/extensions/tether.min.js') }}"></script>
-<script src="{{ asset('admin/app-assets/js/core/app-menu.js') }}"></script>
-<script src="{{ asset('admin/app-assets/js/core/app.js') }}"></script>
-<script src="{{ asset('admin/vendors/js/forms/select/select2.full.min.js')}}"></script>
-<script src="{{asset('admin/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
-<script src="{{asset('admin/app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
-<script src="{{asset('admin/app-assets/vendors/vendors/js/ui/jquery.sticky.js')}}"></script>
-<script src="{{asset('admin/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js')}}"></script>
-<script src="{{ asset('admin/app-assets/js/scripts/components.js') }}"></script>
-<script src="{{ asset('admin/app-assets/js/sweetalert.min.js') }}"></script>
-<script src="{{ asset('admin/app-assets/js/scripts/ui/data-list-view.js') }}"></script>
-<script src="{{ asset('admin/app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
-
-        <script src="{{ asset('admin/app-assets/js/scripts/extensions/toastr.js')}}"></script>
-
-
- <script src="{{ asset('admin/js/scripts/forms/select/form-select2.js')}}"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script><!-- javascript -->
-
-
-
-<script src="{{asset('admin/app-assets/vendors/js/extensions/jquery.steps.min.js')}}"></script>
-<script src="{{asset('admin/app-assets/vendors/js/forms/validation/jquery.validate.min.js')}}"></script>
-<script src="{{asset('admin/app-assets/js/scripts/forms/wizard-steps.js')}}"></script>
- <script src="{{ asset('admin/app-assets/js/scripts/pages/app-chat.js')}}"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.min.js"></script>
- <script src="{{asset('tableHTMLExport.js')}}"></script>
  
-@show
 @yield('js')
 
 
@@ -159,6 +118,9 @@
     @if(session('success'))
     toastr.success("{{ session('success') }}");
     @endif
+    @if(session('errory'))
+    toastr.error("{{ session('errory') }}");
+    @endif
 
     @if(session('errors'))
 
@@ -167,6 +129,7 @@
 
             @endforeach
     @endif
+
 
 
 

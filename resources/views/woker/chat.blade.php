@@ -51,7 +51,9 @@
         display: block!important;
 
     }
-
+.user-chats{
+    overflow: hidden;
+}
 
     .request {
         width: 25%;
@@ -455,7 +457,7 @@
                             @csrf
                             @foreach ($Napprove_msgs as $msg)
                     
-                            <div class="wiat_list">
+                            <div class="wiat_list p-1">
                                 <div class="pr-1" style="display: flex;">
                                 <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle"
                                         src="{{ asset('images/avatar.jpg') }}"
@@ -603,8 +605,7 @@
             })
 
             },5000);
-            <?php }
-            ?>
+           
             
 
 
@@ -704,6 +705,8 @@
 
 
             });
+            <?php }
+            ?>
             $(".send").click(function () {
                 $(".loader").css('display','block');
                 var message=$('#message').val();
@@ -869,6 +872,15 @@
                 }    
 
             },3000);
+            $(document).keypress(
+                function(event){
+                    if (event.which == '13') {
+              
+                        event.preventDefault();
+                        $(".send").click();
+
+                    }
+            });
 
             
 

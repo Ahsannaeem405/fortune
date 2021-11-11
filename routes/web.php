@@ -31,6 +31,8 @@ use App\Models\msg;
 
 
 
+Route::get('/get_user',[App\Http\Controllers\admin::class,'get_user']);
+    Route::get('/get_user_for',[App\Http\Controllers\admin::class,'get_user_for']);
 
 
 Route::get('/', function () {
@@ -105,6 +107,22 @@ Route::prefix('/admins')->middleware(['auth','admin'])->group(function (){
     Route::any('/sendtri_MSG',[App\Http\Controllers\admin::class,'sendtri_MSG']);
     Route::post('/update_user_by_wsa', [App\Http\Controllers\admin::class, 'update_user_by_wsa']);
     Route::get('/count_man_unread',[App\Http\Controllers\admin::class,'count_man_unread']);
+    Route::get('/chat_history',[App\Http\Controllers\admin::class,'chat_history']);
+    Route::get('/show_chat_his',[App\Http\Controllers\admin::class,'show_chat_his']);
+    Route::get('/get_msg_his',[App\Http\Controllers\admin::class,'get_msg_his']);
+    Route::get('/point_date',[App\Http\Controllers\admin::class,'point_date']);
+    Route::get('/stat',[App\Http\Controllers\admin::class,'stat']);
+    Route::get('/get_list_stat/{id}',[App\Http\Controllers\admin::class,'get_list_stat']);
+    Route::get('/stat_msg/{id}/{mn_id}',[App\Http\Controllers\admin::class,'stat_msg']);
+    Route::get('/waiting',[App\Http\Controllers\admin::class,'waiting']);
+    Route::get('/waiting_msg',[App\Http\Controllers\admin::class,'waiting_msg']);
+
+
+
+
+
+
+
 
 
     
@@ -157,6 +175,9 @@ Route::prefix('/super')->middleware(['auth','supervisor'])->group(function (){
     Route::any('/sendtri_MSG',[App\Http\Controllers\super::class,'sendtri_MSG']);
     Route::post('/update_user_by_wsa', [App\Http\Controllers\super::class, 'update_user_by_wsa']);
     Route::get('/count_man_unread',[App\Http\Controllers\super::class,'count_man_unread']);
+    Route::get('/stat',[App\Http\Controllers\super::class,'stat']);
+    Route::get('/get_list_stat/{id}',[App\Http\Controllers\super::class,'get_list_stat']);
+    Route::get('/stat_msg/{id}/{mn_id}',[App\Http\Controllers\super::class,'stat_msg']);
 
 
 
@@ -188,6 +209,10 @@ Route::prefix('/woker')->middleware(['auth','worker'])->group(function (){
     Route::any('/sendtri_MSG',[App\Http\Controllers\woker::class,'sendtri_MSG']);
     Route::post('/update_user_by_wsa', [App\Http\Controllers\woker::class, 'update_user_by_wsa']);
     Route::get('/count_man_unread',[App\Http\Controllers\woker::class,'count_man_unread']);
+    Route::get('/stat',[App\Http\Controllers\woker::class,'stat']);
+    Route::get('/stat_msg/{id}',[App\Http\Controllers\woker::class,'stat_msg']);
+
+
 
 
 
@@ -216,6 +241,7 @@ Route::prefix('/user')->middleware(['auth','user'])->group(function (){
     Route::get('/user_messages',[App\Http\Controllers\UserController::class,'getmessages']);
     Route::get('/count_unread',[App\Http\Controllers\UserController::class,'count_unread']);
     Route::get('/get_poke',[App\Http\Controllers\UserController::class,'get_poke']);
+
 
     
 

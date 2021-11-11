@@ -4,7 +4,7 @@
         display: none;
 
     }
-
+   
 </style>
 <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-light navbar-shadow">
     <div class="navbar-wrapper">
@@ -18,7 +18,7 @@
                 </div>
                 <ul class="nav navbar-nav float-right">
                     <li class="nav-item nav-item2">
-                            <a class="" href="{{ url('admins/') }}">Back To Home</a>
+                            <a class="" href="{{ url('admins/') }}"><i class="feather icon-arrow-left" style="font-size:20px;"></i>Back To Home</a>
                         
                     </li>
 

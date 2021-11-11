@@ -132,7 +132,7 @@
         height: 700px;
     }
 
-    .message_sender {
+    .message_sender{
         text-align: right;
         /* display: flex; */
 
@@ -477,7 +477,7 @@
 
 <body>
 
-    <input type="button" value="PLAY" class="play_audio">
+    <input type="button" value="PLAY" class="play_audio" style="display: none;">
     <audio id="audio" src="{{asset('/beep.mp3')}}" type="audio/mpeg"></audio>
     
 

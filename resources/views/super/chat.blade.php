@@ -43,6 +43,9 @@
 
 </head>
 <style>
+.user-chats{
+    overflow: hidden;
+}
 .header-navbar{
      width:95%!important;
     }
@@ -645,8 +648,7 @@
             })
 
             },5000);
-            <?php }
-            ?>
+            
 
 
 
@@ -745,6 +747,8 @@
 
 
             });
+            <?php }
+            ?>
             $(".send").click(function () {
                 (".loader").css('display','none');
                 var message=$('#message').val();
@@ -823,6 +827,15 @@
 
 
         });
+            $(document).keypress(
+                function(event){
+                    if (event.which == '13') {
+              
+                        event.preventDefault();
+                        $(".send").click();
+
+                    }
+            });
             $(document).on("click",'.join_id',function(){
 
 
@@ -895,6 +908,7 @@
                 }    
 
             },3000);
+
 
     </script>
     

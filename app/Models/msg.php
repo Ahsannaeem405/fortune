@@ -16,4 +16,8 @@ class msg extends Model
 
         return $this->belongsTo('App\Models\Fortune', 'to');
     }
+    public function msg_his(){
+
+        return $this->hasMany('App\Models\msghistory');
+    }
 }

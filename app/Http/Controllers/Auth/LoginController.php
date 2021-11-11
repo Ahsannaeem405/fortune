@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\User;
 use Auth;
+use Session;
 
 class LoginController extends Controller
 {
@@ -29,6 +30,9 @@ class LoginController extends Controller
      * @var string
      */
     protected function redirectTo(){
+        Session::put('poke', 1);
+        
+
         if(Auth::user()->role=='1')
         {
             return 'admins/';

@@ -61,8 +61,25 @@
 
            <li class=""><a href="{{url('admins/chat')}}" class="{{ (request()->is('admins/chat')) ? 'active' : '' }}"><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Dashboard">Chat</span></a>
             </li>
-            <li class=""><a href="{{url('admins/pointshistory')}}" class="{{ (request()->is('admins/pointshistory')) ? 'active' : '' }}"><i class="la la-usd"></i><span class="menu-title" data-i18n="Dashboard">Points history</span></a>
+            <li class=""><a href="{{url('admins/chat_history')}}" class="{{ (request()->is('admins/chat_history')) ? 'active' : '' }}"><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Dashboard">Chat History</span></a>
             </li>
+           
+            <li class=""><a href="{{url('admins/pointshistory')}}" class="{{ (request()->is('admins/pointshistory')) ? 'active' : '' }}"><i class="la la-usd"></i><span class="menu-title" data-i18n="Dashboard">Points History</span></a>
+            </li>
+            <li class="nav-item {{ (  request()->is('admins/stat')) ? 'open' : '' }} {{ (  request()->is('admins/waiting')) ? 'open' : '' }}
+                "><a href=""><i class="feather icon-user"></i><span class="menu-title" data-i18n="profile">Reports</span></a>
+                <ul class="menu-content">
+                    <li><a href="{{url('admins/stat')}}" class="{{ (request()->is('admins/stat')) ? 'active' : '' }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Analytics">Message Statistics</span></a>
+                    </li>
+                    <li><a href="{{url('admins/waiting')}}" class="{{ (request()->is('admins/waiting')) ? 'active' : '' }}"><i class="feather icon-message-square"></i><span class="menu-item" data-i18n="Analytics">Waiting Time</span></a>
+                    </li>
+
+
+                </ul>
+
+            </li>
+
+            
                
 
 

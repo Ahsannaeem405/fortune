@@ -8,9 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\msg;
 use App\Models\msg_dt;
+use App\Models\msghistory;
 use App\Models\Fortune;
-
-
 use App\Models\User;
 use Auth;
 use Illuminate\Support\Facades\Mail;
@@ -107,29 +106,21 @@ class woker extends Controller
      }
    function showchat2(){
         
-        $arr=array();
+                $arr=array();
         $msg_na=msg::where('status', null)->where('msg_type', '=', '2')->get();
         $msg=msg::where('status', 'Approved')->where('msg_type', '=', '2')->get();
         foreach($msg as $row)
         {
-                $last=msg_dt::where('msg_id',$row->id)->where('msg_type','Admin')->orderBy('id','desc')->take(1)->get();
-                 $lasty2=msg_dt::where('msg_id',$row->id)->where('msg_type','User')->orderBy('id','desc')->take(1)->get();
-            if(count($last) != 0){
-                $last_time=$last[0]->created_at;
-                $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
-                $from = \Carbon\Carbon::now();
-                $diff_in_minutes = $to_time->diffInMinutes($from);
             
-            }
-            else{
-                $last_time=$lasty2[0]->created_at;
-                $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
-                $from = \Carbon\Carbon::now();
-                $diff_in_minutes = $to_time->diffInMinutes($from);
+            $last=msg_dt::where('msg_id',$row->id)->orderBy('id','desc')->take(1)->get();
+            $last_time=$last[0]->created_at;
+            $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
+            $from = \Carbon\Carbon::now();
+            $diff_in_minutes = $to_time->diffInMinutes($from);
 
-            }
+            
 
-            if($diff_in_minutes >= 5)
+            if($diff_in_minutes >= 5 and $last[0]->msg_type=="User")
             {
                 $arr[]=[
                     'id'=>$row->id
@@ -148,7 +139,21 @@ class woker extends Controller
         $msg->status='Approved';
         $msg->user_id=Auth::user()->id;
         $msg->save();
-        // dd($msg);
+        if(msghistory::where('user_id',$msg->from)
+            ->where('manager_id',Auth::user()->id)
+            ->where('msg_id',$msg->id)
+            ->exists()
+        )
+        {
+
+        }
+        else{
+            $his=new msghistory();
+            $his->msg_id=$msg->id;
+            $his->user_id=$msg->from;
+            $his->manager_id=Auth::user()->id;
+            $his->save();
+        }
         return redirect('woker/chat?id='.$id);
 
 
@@ -156,6 +161,8 @@ class woker extends Controller
      function sendMSG(Request $request){
         //  dd($request->msg_id);
          $user=User::find($request->to);
+         $last_msg=msg_dt::where('msg_id',$request->msg_id)->orderBy('id', 'DESC')->first();
+
 
          $message=str_replace("@name", "$user->name" , $request->message);
          $message=str_replace("@email", "$user->email" , $message);
@@ -167,13 +174,36 @@ class woker extends Controller
 
          $from=$request->from;
          $to=$request->to;
+         
          $msgdt=new msg_dt;
          $msgdt->msg_type="Admin";
          $msgdt->to=$to;
          $msgdt->from=$from;
          $msgdt->msg=$message;
          $msgdt->msg_id=$request->msg_id;
+         $msgdt->sendby=Auth::user()->id;
          $msgdt->save();
+         $last=msg_dt::where('msg_id',$request->msg_id)->where('msg_type','User')->orderBy('id', 'DESC')->first();
+         if($last->sendby !='null')
+         {
+            DB::table('msg_dts')->where('id',$last->id)
+            ->update([
+               'sendby' =>Auth::user()->id 
+            ]);
+         }
+         if($last_msg->msg_type == 'User')
+         {
+            $to_time =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_msg->created_at);
+            $fromy = \Carbon\Carbon::now();
+            $diff_in_minutes = $to_time->diffInSeconds($fromy);
+
+            DB::table('msg_dts')->where('id',$last_msg->id)
+            ->update([
+               'waiting_time' =>$diff_in_minutes
+            ]);
+
+
+         }
          $msg=$message;
          $Fortune=Fortune::find($from);
          $img=$Fortune->file;
@@ -192,6 +222,8 @@ class woker extends Controller
          $message=str_replace("@vocative", "$user->vocative" , $message);
          $message=str_replace("@nameoflove", "$user->nameoflove" , $message);
          $message=str_replace("@city", "$user->city" , $message);
+         $last_msg=msg_dt::where('msg_id',$request->msg_id)->orderBy('id', 'DESC')->first();
+
 
          $from=$request->from;
          $to=$request->to;
@@ -201,13 +233,35 @@ class woker extends Controller
          $msgdt->from=$from;
          $msgdt->msg=$message;
          $msgdt->msg_id=$request->msg_id;
+         $msgdt->sendby=Auth::user()->id;
          $msgdt->trigger=1;
          $msgdt->save();
+         $last=msg_dt::where('msg_id',$request->msg_id)->where('msg_type','User')->orderBy('id', 'DESC')->first();
+         if($last->sendby !='null')
+         {
+            DB::table('msg_dts')->where('id',$last->id)
+            ->update([
+               'sendby' =>Auth::user()->id 
+            ]);
+         }
+         if($last_msg->msg_type == 'User')
+         {
+            $to_time =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_msg->created_at);
+            $fromy = \Carbon\Carbon::now();
+            $diff_in_minutes = $to_time->diffInSeconds($fromy);
+
+            DB::table('msg_dts')->where('id',$last_msg->id)
+            ->update([
+               'waiting_time' =>$diff_in_minutes
+            ]);
+
+
+         }
          $msg=$message;
          $Fortune=Fortune::find($from);
               $img=$Fortune->file;
               $email_id=msg::where('id',$request->msg_id)->value('from');
-              $mail=User::where('id',$email_id)->value('email');
+              $mail=User::where('id',$email_id)->whereNotNull('notification')->value('email');
               $data =$message;
               Mail::to($mail)->send(new sendmail3($data));
 
@@ -233,5 +287,23 @@ class woker extends Controller
         $county=msg_dt::where('msg_id',$request->msg_id)->where('msg_type','User')->whereNull('read_to')->count();
         return response()->json(['county'=>$county]);
     }
+    function stat()
+    {
+        $msg=msghistory::where('manager_id',Auth::user()->id)->get();
+        $msg_list_chek=0;
+        return view('woker/chat_stat' ,compact('msg','msg_list_chek'));
+        
+    }
+    function stat_msg($id)
+    {
+        $msg=msghistory::where('manager_id',Auth::user()->id)->get();
+        $msg_list=msg_dt::where('msg_id',$id)->where('msg_type','User')->where('sendby',Auth::user()->id)->get();
+        $msg_list_chek=1;
+        
+
+        return view('woker/chat_stat' ,compact('msg','msg_list','msg_list_chek'));
+        
+    }
+    
     
 }

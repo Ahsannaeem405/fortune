@@ -126,12 +126,12 @@ input:checked + .slider:before {
 
                   <div class="form-group">
                     <label style="color: white;">Email</label>
-                      <input type="text" class="form-control input " placeholder="Address e-mail" value="{{$user->email}}" id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                      @error('email')
+                      <input type="text" class="form-control input " placeholder="Address e-mail" value="{{$user->email}}" id="email" name="email"  required ="email" autofocus>
+                        @error('email')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
-                      @enderror
+                        @enderror
                   </div>
 
                   {{-- <div class="form-group">
@@ -237,7 +237,7 @@ input:checked + .slider:before {
                   </form>
                   <div class="row">
                     <div class="col-md-12 " style="text-align: center">
-                        <a href="{{url('user/delete',$user->id)}}"  class="del">Usuń konto</a>
+                        <a href="{{url('user/delete',$user->id)}}"  class="del" onclick="return confirm('Czy na pewno chcesz usunąć swoje konto?')">Usuń konto</a>
                       </div>
                   </div>
 

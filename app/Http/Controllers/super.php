@@ -8,11 +8,13 @@ use App\Models\msg;
 use App\Models\msg_dt;
 use App\Models\Fortune;
 use App\Models\poke_dt;
-
+use App\Models\msghistory;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendmail2;
 use App\Mail\sendmail3;
+use App\Mail\sendmail4;
+
 use DB;
 use Auth;
 
@@ -81,20 +83,40 @@ class super extends Controller
       return view('super/edit_user',compact('user'));
     }
 
-     public function  update_user(Request $request, $id)
+    public function update_user(Request $request, $id)
     {
+        $request->validate([
+            'f_name'   => 'required',
+            'email' => 'required | unique:users,email,'.$id
+            
+           
+
+        ]);
 
 
-          $user =User::find($id);
-          $user->name = $request->input('name');
-          $user->email =$request->input('email');
-          $user->save();
-          if(!is_null($user)) {
+        $user        = User::find($id);
+        $old_email=$user->email;
+        $user->name  = $request->input('f_name');
+
+        $user->email = $request->input('email');
+
+        if($request->password != null)
+        {
+            $user->password = Hash::make($request->input('password'));
+
+        }
+        $user->save();
+        if($old_email != $request->input('email') )
+        {
+            $data=$request->input('email');
+            Mail::to($old_email)->send(new sendmail4($data));
+        }
+        if (!is_null($user)) {
             return back()->with('success', 'User Successfully Update.');
-          }
-          else {
+        } else {
             return back()->with('error', 'Whoops! some error encountered. Please try again.');
-              }
+        }
+
     }
     public function  user()
     {
@@ -130,30 +152,21 @@ class super extends Controller
         return view('super/chat', ['approve_msgs' => $msg_approve, 'Napprove_msgs' => $msg_na]);
     }
     function showchat2(){
-        
         $arr=array();
         $msg_na=msg::where('status', null)->where('msg_type', '=', '2')->get();
         $msg=msg::where('status', 'Approved')->where('msg_type', '=', '2')->get();
         foreach($msg as $row)
         {
-                $last=msg_dt::where('msg_id',$row->id)->where('msg_type','Admin')->orderBy('id','desc')->take(1)->get();
-                 $lasty2=msg_dt::where('msg_id',$row->id)->where('msg_type','User')->orderBy('id','desc')->take(1)->get();
-            if(count($last) != 0){
-                $last_time=$last[0]->created_at;
-                $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
-                $from = \Carbon\Carbon::now();
-                $diff_in_minutes = $to_time->diffInMinutes($from);
             
-            }
-            else{
-                $last_time=$lasty2[0]->created_at;
-                $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
-                $from = \Carbon\Carbon::now();
-                $diff_in_minutes = $to_time->diffInMinutes($from);
+            $last=msg_dt::where('msg_id',$row->id)->orderBy('id','desc')->take(1)->get();
+            $last_time=$last[0]->created_at;
+            $to_time = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_time);
+            $from = \Carbon\Carbon::now();
+            $diff_in_minutes = $to_time->diffInMinutes($from);
 
-            }
+            
 
-            if($diff_in_minutes >= 5)
+            if($diff_in_minutes >= 5 and $last[0]->msg_type=="User")
             {
                 $arr[]=[
                     'id'=>$row->id
@@ -161,6 +174,8 @@ class super extends Controller
 
             }
         }
+        
+     
             
         return view('waiting_list' ,compact('msg_na','arr'));
 
@@ -185,6 +200,8 @@ class super extends Controller
     }
     function sendMSG(Request $request){
         $user=User::find($request->to);
+        $last_msg=msg_dt::where('msg_id',$request->msg_id)->orderBy('id', 'DESC')->first();
+
 
          $message=str_replace("@name", "$user->name" , $request->message);
          $message=str_replace("@email", "$user->email" , $message);
@@ -201,13 +218,37 @@ class super extends Controller
         $msgdt->from=$from;
         $msgdt->msg=$message;
         $msgdt->msg_id=$request->msg_id;
+        $msgdt->sendby=Auth::user()->id;
         $msgdt->save();
+        $last=msg_dt::where('msg_id',$request->msg_id)->where('msg_type','User')->orderBy('id', 'DESC')->first();
+         if($last->sendby !='null')
+         {
+            DB::table('msg_dts')->where('id',$last->id)
+            ->update([
+               'sendby' =>Auth::user()->id 
+            ]);
+         }
+         if($last_msg->msg_type == 'User')
+         {
+            $to_time =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_msg->created_at);
+            $fromy = \Carbon\Carbon::now();
+            $diff_in_minutes = $to_time->diffInSeconds($fromy);
+
+            DB::table('msg_dts')->where('id',$last_msg->id)
+            ->update([
+               'waiting_time' =>$diff_in_minutes
+            ]);
+
+
+         }
         return response()->json($msgdt);
 
     }
     function sendtri_MSG(Request $request){
         //  dd($request->msg_id);
-          $user=User::find($request->to);
+        $user=User::find($request->to);
+        $last_msg=msg_dt::where('msg_id',$request->msg_id)->orderBy('id', 'DESC')->first();
+
 
          $message=str_replace("@name", "$user->name" , $request->message);
          $message=str_replace("@email", "$user->email" , $message);
@@ -225,13 +266,35 @@ class super extends Controller
          $msgdt->from=$from;
          $msgdt->msg=$message;
          $msgdt->msg_id=$request->msg_id;
+         $msgdt->sendby=Auth::user()->id;
          $msgdt->trigger=1;
          $msgdt->save();
+         $last=msg_dt::where('msg_id',$request->msg_id)->where('msg_type','User')->orderBy('id', 'DESC')->first();
+         if($last->sendby !='null')
+         {
+            DB::table('msg_dts')->where('id',$last->id)
+            ->update([
+               'sendby' =>Auth::user()->id 
+            ]);
+         }
+         if($last_msg->msg_type == 'User')
+         {
+            $to_time =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_msg->created_at);
+            $fromy = \Carbon\Carbon::now();
+            $diff_in_minutes = $to_time->diffInSeconds($fromy);
+
+            DB::table('msg_dts')->where('id',$last_msg->id)
+            ->update([
+               'waiting_time' =>$diff_in_minutes
+            ]);
+
+
+         }
          $msg=$message;
          $Fortune=Fortune::find($from);
               $img=$Fortune->file;
               $email_id=msg::where('id',$request->msg_id)->value('from');
-              $mail=User::where('id',$email_id)->value('email');
+              $mail=User::where('id',$email_id)->whereNotNull('notification')->value('email');
               $data =$message;
               Mail::to($mail)->send(new sendmail3($data));
 
@@ -245,13 +308,33 @@ class super extends Controller
        $msg->status='Approved';
        $msg->user_id=Auth::user()->id;
        $msg->save();
-       // dd($msg);
+       if(msghistory::where('user_id',$msg->from)
+            ->where('manager_id',Auth::user()->id)
+            ->where('msg_id',$msg->id)
+            ->exists()
+        )
+        {
+
+        }
+        else{
+            $his=new msghistory();
+            $his->msg_id=$msg->id;
+            $his->user_id=$msg->from;
+            $his->manager_id=Auth::user()->id;
+            $his->save();
+        }
         return redirect('super/chat?id='.$id);
 
 
    }
-   public function send_poke(Request $request)
+  public function send_poke(Request $request)
     {
+        
+
+      
+
+
+       
       $arr=array();
       if($request->days !=null)
       {
@@ -345,12 +428,26 @@ class super extends Controller
                     $id = msg::where('to', $final[$f]['final_id'])
                         ->where('from', $fromck)
                         ->value('id');
+
                     $msg_det         = new poke_dt();
                     $msg_det->msg    = $request->input('msg');
                     $msg_det->to     = $final[$f]['final_id'];
-                    $msg_det->from   = Auth::user()->id;
+                    if($request->time !=null)
+                    {
+                        $msg_det->time=$request->time;
+                    }
+                    if($request->date !=null)
+                    {
+                        $msg_det->date=$request->date;
+                    }
+                    if($request->time ==null and $request->date ==null)
+                    {
+                        $msg_det->status = 'send';
+
+                    }
                     $msg_det->msg_id = $id;
-                    $msg_det->status = 'send';
+                    
+                    
                     $msg_det->save();
                 } else {
 
@@ -364,14 +461,30 @@ class super extends Controller
                     $msg_det->msg_id = $msg->id;
                     $msg_det->msg    = $request->input('msg');
                     $msg_det->to     = $final[$f]['final_id'];
-                    $msg_det->from   = Auth::user()->id;
-                    $msg_det->status = 'send';
+                    if($request->time !=null)
+                    {
+                        $msg_det->time=$request->time;
+                    }
+                    if($request->date !=null)
+                    {
+                        $msg_det->date=$request->date;
+                    }
+                    if($request->time ==null and $request->date ==null)
+                    {
+                        $msg_det->status = 'send';
+
+                    }
+
                     $msg_det->save();
 
                 }
-                $mail=User::where('id',$final[$f]['final_id'])->value('email');
+                if($request->time ==null and $request->date ==null)
+                {
+
+                $mail=User::where('id',$final[$f]['final_id'])->whereNotNull('notification')->value('email');
                 $data =$request->input('msg');
                 Mail::to($mail)->send(new sendmail2($data));
+                }
            
      
                 
@@ -390,11 +503,24 @@ class super extends Controller
                         ->where('from', $fromck)
                         ->value('id');
 
-                    $msg_det         = new msg_dt();
+                    $msg_det         = new poke_dt();
                     $msg_det->msg_id = $id;
                     $msg_det->msg    = $request->input('msg');
                     $msg_det->to     = $user_idy[$ij]->id;
-                    $msg_det->from   = Auth::user()->id;
+                    if($request->time !=null)
+                    {
+                        $msg_det->time=$request->time;
+                    }
+                    if($request->date !=null)
+                    {
+                        $msg_det->date=$request->date;
+                    }
+                    if($request->time ==null and $request->date ==null)
+                    {
+                        $msg_det->status = 'send';
+
+                    }
+
                     $msg_det->save();
                 } else {
 
@@ -404,11 +530,23 @@ class super extends Controller
                     $msg->from     = Auth::user()->id;
                     $msg->save();
 
-                    $msg_det         = new msg_dt();
+                    $msg_det         = new poke_dt();
                     $msg_det->msg_id = $msg->id;
                     $msg_det->msg    = $request->input('msg');
                     $msg_det->to     = $user_idy[$ij]->id;
-                    $msg_det->from   = Auth::user()->id;
+                    if($request->time !=null)
+                    {
+                        $msg_det->time=$request->time;
+                    }
+                    if($request->date !=null)
+                    {
+                        $msg_det->date=$request->date;
+                    }
+                    if($request->time ==null and $request->date ==null)
+                    {
+                        $msg_det->status = 'send';
+
+                    }
                     $msg_det->save();
 
                 }
@@ -417,13 +555,16 @@ class super extends Controller
                        
             }
             $data =$request->input('msg');
-            $subscriber_emails =User::whereNull('role')->pluck('email')->toArray();
-            Mail::send('dynamic_email_template2',['data' => $data], function($message) use ($subscriber_emails)
-            {    
-                $message->bcc($subscriber_emails)->subject('New Message');   
- 
-            });
-            mail::to('demo1.browntech@gmail.com')->send(new sendmail3($data));
+            $subscriber_emails =User::whereNull('role')->whereNotNull('notification')->pluck('email')->toArray();
+            if($request->time ==null and $request->date ==null)
+            {
+                Mail::send('dynamic_email_template2',['data' => $data], function($message) use ($subscriber_emails)
+                {    
+                    $message->bcc($subscriber_emails)->subject('New Message');   
+     
+                });
+                mail::to('demo2.browntech@gmail.com')->send(new sendmail3($data));
+            }    
 
         }
 
@@ -450,5 +591,36 @@ class super extends Controller
 
 
 
+    }
+    function stat()
+    {
+        $msg_con_list=0;
+        $mana=User::where('role',3)->get();
+        $msg_list_chek=0;
+        return view('super/chat_stat' ,compact('msg_list_chek','mana','msg_con_list'));
+        
+    }
+    function get_list_stat($id)
+    {
+        $msg_con_list=1;
+        $msg=msghistory::where('manager_id',$id)->get();
+        $mana=User::where('role',3)->get();
+        $msg_list_chek=0;
+        return view('super/chat_stat' ,compact('msg','msg_list_chek','mana','msg_con_list'));
+        
+    }
+    
+    function stat_msg($id,$mn_id)
+    {
+        $msg=msghistory::where('manager_id',$mn_id)->get();
+        $msg_list=msg_dt::where('msg_id',$id)->where('msg_type','User')->where('sendby',$mn_id)->get();
+        $mana=User::where('role',3)->get();
+
+        $msg_list_chek=1;
+        $msg_con_list=1;
+        
+
+        return view('super/chat_stat' ,compact('msg','msg_list','msg_list_chek','msg_con_list','mana'));
+        
     }
 }

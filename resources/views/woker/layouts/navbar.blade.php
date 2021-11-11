@@ -4,6 +4,12 @@
         display: none;
 
     }
+    .navbar-light .navbar-nav li {
+    margin-left: auto;
+    }
+    .navbar-nav{
+        width: 100%;
+    }
 </style>
 <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-light navbar-shadow">
     <div class="navbar-wrapper">
@@ -31,8 +37,12 @@
                                 @endif
                             </span>
                         </a>
+                        
+                        
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="{{ url('woker/setting') }}"><i class="feather icon-user"></i>Profile</a>
+                            <a class="dropdown-item" href="{{ url('woker/stat') }}"><i class="fa fa-cog"></i>Statistic</a>
+                            
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i class="feather icon-user"></i>Logout</a>

@@ -8,6 +8,32 @@
     #DataTables_Table_4_wrapper{
         visibility: collapse;
     }
+    .modal-dialog-scrollable .modal-body::-webkit-scrollbar {
+        width: 10px;
+
+    }
+
+
+    /* Track */
+    .modal-dialog-scrollable .modal-body::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px gray;
+        border-radius: 15px;
+    }
+
+
+    /* Handle */
+    .modal-dialog-scrollable .modal-body::-webkit-scrollbar-thumb {
+        background: #7367F0;
+        border-radius: 15px;
+        height: 50px;
+
+    }
+
+    /* Handle on hover */
+    .modal-dialog-scrollable .modal-body::-webkit-scrollbar-thumb:hover {
+        background: #7367F0;
+    }
+
 </style>
 <section id="basic-datatable">
     <div class="row">
@@ -20,10 +46,120 @@
                 </div>
            
            
-                <button type="button" class="btn btn-primary mr-1 waves-effect waves-light" data-toggle="modal" data-target="#pri" style="width:20%;margin-left:auto;float: right;">
+                <div class="row" style="margin-left:0px;margin-right:0px;">
+                    <div class="col-md-5 col-12 mb-1">
+                        <label style="font-size:17px;"><b>Last Log In</b></label>
+                        <select class="day_change form-control"  name="days" style="width: 100%;">
+                            <option value=" ">Select No of Days</option>
+                            <option value="7">Last 7 Days</option>
+                            <option value="14">Last 14 Days</option>
+                            <option value="30">Last 30 Days</option>
+                           
+                        </select>
+
+
+
+                        
+                    </div>
+                    @php 
+                        $for=App\Models\Fortune::all();
+                    @endphp
+                    
+                    <div class="col-md-5 mb-2 col-12">
+                        <label style="font-size:17px;"><b>Select Fortuneteller</b></label>
+                        <select class="form-control fortune" name="fortune_id" style="width: 100%;">
+                        @foreach($for as $row_for)
+                            <option value="{{$row_for->id}}">{{$row_for->name}}</option>
+                        @endforeach    
+
+                        </select>
+
+                        
+                    </div>
+                    <div class="col-md-2 mt-2"><button type="button" class="btn btn-primary mr-1 waves-effect waves-light" data-toggle="modal" data-target="#pri" style="width:100%;margin-left:auto;float: right;">
                     Poke Message
-                </button>
-               
+                    </button></div>
+                </div>
+                <form class="form form-horizontal" method="POST" action="{{ url('super/send_poke') }}">
+                        @csrf  
+                    <div class="modal fade text-left show" id="pri" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" style="padding-right: 17px;" aria-modal="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-primary white">
+                                    <h5 class="modal-title" id="myModalLabel160">Message</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                     <div class="row" style="margin-left:0px;margin-right:0px;">
+                                            <div class="col-md-12 col-12 mb-1">
+                                                <label style="font-size:17px;"><b>Last Log In</b></label>
+                                                <select class="js-example-basic-single" name="days" style="width: 100%;">
+                                                    <option value=" ">Select No of Days</option>
+                                                    <option value="7">Last 7 Days</option>
+                                                    <option value="14">Last 14 Days</option>
+                                                    <option value="30">Last 30 Days</option>
+                                                   
+                                                </select>
+
+
+
+                                                
+                                            </div>
+                                            @php 
+                                                $for=App\Models\Fortune::all();
+                                            @endphp
+                                            
+                                            <div class="col-md-12 mb-2 col-12">
+                                                <label style="font-size:17px;"><b>Select Fortuneteller</b></label>
+                                                <select class="js-example-basic-multiple" name="fortune_id[]" multiple="multiple" style="width: 100%;">
+                                                @foreach($for as $row_for)
+                                                    <option value="{{$row_for->id}}">{{$row_for->name}}</option>
+                                                @endforeach    
+
+                                                </select>
+
+                                                
+                                            </div>
+                                            
+                                           
+
+                                    </div>
+                                    <div class="col-md-12 col-12">
+                                        <div class="form-label-group">
+
+
+                                            <input type="time" id="helperText" class="form-control" placeholder="Name" name="time">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-12">
+                                        <div class="form-label-group">
+
+                                            <input type='text' class="form-control pickadate-months-year" / name="date">
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-12 col-12">
+                                        <div class="form-label-group">
+
+
+                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="Textarea" name="msg"></textarea>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">send</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+            
 
                 <div class="card-content">
                     <div class="card-body card-dashboard">
@@ -35,8 +171,7 @@
                                 <button class="btn btn-secondary make_print" tabindex="0" aria-controls="DataTables_Table_4"><span>Print</span></button> 
                             </div>
                             
-                        <form class="form form-horizontal" method="POST" action="{{ url('super/send_poke') }}">
-                        @csrf    
+                         
                             <table class="table zero-configuration dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                                 
                             
@@ -61,70 +196,7 @@
                                 </thead>
                                 <tbody>
 
-                                                 <div class="modal fade text-left show" id="pri" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" style="padding-right: 17px;" aria-modal="true">
-                                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header bg-primary white">
-                                                                <h5 class="modal-title" id="myModalLabel160">Message</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">×</span>
-                                                                </button>
-                                                            </div>
-
-                                                            <div class="modal-body">
-                                                                 <div class="row" style="margin-left:0px;margin-right:0px;">
-                                                                        <div class="col-md-12 col-12 mb-1">
-                                                                            <label style="font-size:17px;"><b>Last Log In</b></label>
-                                                                            <select class="js-example-basic-single" name="days" style="width: 100%;">
-                                                                                <option value=" ">Select No of Days</option>
-                                                                                <option value="7">Last 7 Days</option>
-                                                                                <option value="14">Last 14 Days</option>
-                                                                                <option value="30">Last 30 Days</option>
-                                                                               
-                                                                            </select>
-
-    
-
-                                                                            
-                                                                        </div>
-                                                                        @php 
-                                                                            $for=App\Models\Fortune::all();
-                                                                        @endphp
-                                                                        
-                                                                        <div class="col-md-12 mb-2 col-12">
-                                                                            <label style="font-size:17px;"><b>Select Fortuneteller</b></label>
-                                                                            <select class="js-example-basic-multiple" name="fortune_id[]" multiple="multiple" style="width: 100%;">
-                                                                            @foreach($for as $row_for)
-                                                                                <option value="{{$row_for->id}}">{{$row_for->name}}</option>
-                                                                            @endforeach    
-
-                                                                            </select>
-
-                                                                            
-                                                                        </div>
-                                                                        
-                                                                       
-
-                                                                </div>
-
-
-
-                                                                <div class="col-md-12 col-12">
-                                                                    <div class="form-label-group">
-
-
-                                                                        <textarea class="form-control" id="basicTextarea" rows="3" placeholder="Textarea" name="msg"></textarea>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-primary waves-effect waves-light">send</button>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
 
 
 
@@ -335,6 +407,46 @@ $('.point').click(function(){
   
     $("#DataTables_Table_4").tableHTMLExport({type:'csv',filename:'sample.csv'});
   })
+  $(document).on("change",'.day_change' , function(){
+            var  days=$(".day_change").val();
+            
+                
+
+
+           $.ajax({
+            type: 'get',
+            url:"{{ url('/get_user') }}",
+          
+           data: {'days':days},
+
+            success: function (data) {
+               
+                  $('.card-content').empty();
+                   $('.card-content').append(data);
+              
+            },
+          });                        
+        });
+    $(document).on("change",'.fortune' , function(){
+            var  fort=$(".fortune").val();
+            
+                
+
+
+           $.ajax({
+            type: 'get',
+            url:"{{ url('/get_user_for') }}",
+          
+           data: {'fort':fort},
+
+            success: function (data) {
+               
+                  $('.card-content').empty();
+                   $('.card-content').append(data);
+              
+            },
+          });                        
+        });
  
   </script>
   <script>

@@ -18,7 +18,7 @@ class Extendusers extends Migration
             $table->string('nameoflove')->nullable();
             $table->text('bio')->nullable();
             $table->string('city')->nullable();
-            $table->string('notification')->nullable();
+            $table->string('notification')->default(1);
 
 
         });

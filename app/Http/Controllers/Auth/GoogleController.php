@@ -41,19 +41,27 @@ class GoogleController extends Controller
                return redirect('/user');
      
             }else{
-                $newUser = User::create([
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'google_id'=> $user->id,
-                    'point'=>1,
-                    'password' => encrypt('123456dummy'),
-                    'email_verified_at' =>date('Y-m-d H:i:s'),
-                ]);
-    
-                Auth::login($newUser);
-     
-                return redirect('/user');
-            }
+
+                if (User::where('email',$user->email)->exists())
+                {
+                    
+                }
+                else{
+                    $newUser = User::create([
+                        'name' => $user->name,
+                        'email' => $user->email,
+                        'google_id'=> $user->id,
+                        'point'=>1,
+                        'password' => encrypt('123456dummy'),
+                        'email_verified_at' =>date('Y-m-d H:i:s'),
+                    ]);
+        
+                    Auth::login($newUser);
+         
+                    return redirect('/user');
+                    }
+
+                }    
     
         } catch (Exception $e) {
             dd($e->getMessage());

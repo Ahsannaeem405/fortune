@@ -7,8 +7,7 @@ use App\Models\Fortune;
 use App\Models\msg;
 use App\Models\msg_dt;
 use App\Models\poke_dt;
-
-
+use App\Models\msghistory;
 use App\Models\Pointshistory;
 use App\Models\site_setting;
 use App\Models\User;
@@ -18,6 +17,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendmail2;
 use App\Mail\sendmail3;
+use App\Mail\sendmail4;
+
+
 use DB;
 
 
@@ -63,6 +65,13 @@ class admin extends Controller
     }
     public function add_fortune(Request $request)
     {
+        $request->validate([
+            'name'   => 'required',
+            'file' => 'mimes:jpeg,jpg,png,gif|max:10000',// max 10000kb
+           
+
+        ]);
+
         $fortune = new Fortune();
         if ($request->hasFile('file')) {
             $file      = $request->file('file');
@@ -161,6 +170,7 @@ class admin extends Controller
      function sendMSG(Request $request){
          
          $user=User::find($request->to);
+         $last_msg=msg_dt::where('msg_id',$request->msg_id)->orderBy('id', 'DESC')->first();
 
          $message=str_replace("@name", "$user->name" , $request->message);
          $message=str_replace("@email", "$user->email" , $message);
@@ -177,7 +187,30 @@ class admin extends Controller
          $msgdt->from=$from;
          $msgdt->msg=$message;
          $msgdt->msg_id=$request->msg_id;
+         $msgdt->sendby=Auth::user()->id;
          $msgdt->save();
+         $last=msg_dt::where('msg_id',$request->msg_id)->where('msg_type','User')->orderBy('id', 'DESC')->first();
+
+         if($last->sendby !='null')
+         {
+            DB::table('msg_dts')->where('id',$last->id)
+            ->update([
+               'sendby' =>Auth::user()->id 
+            ]);
+         }
+         if($last_msg->msg_type == 'User')
+         {
+            $to_time =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_msg->created_at);
+            $fromy = \Carbon\Carbon::now();
+            $diff_in_minutes = $to_time->diffInSeconds($fromy);
+            DB::table('msg_dts')->where('id',$last_msg->id)
+            ->update([
+               'waiting_time' =>$diff_in_minutes
+            ]);
+
+
+         }
+
          $msg=$message;
          $Fortune=Fortune::find($from);
          $img=$Fortune->file;
@@ -188,7 +221,8 @@ class admin extends Controller
     }
     function sendtri_MSG(Request $request){
         //  dd($request->msg_id);
-        $user=User::find($request->to);
+          $user=User::find($request->to);
+          $last_msg=msg_dt::where('msg_id',$request->msg_id)->orderBy('id', 'DESC')->first();
 
          $message=str_replace("@name", "$user->name" , $request->message);
          $message=str_replace("@email", "$user->email" , $message);
@@ -203,14 +237,38 @@ class admin extends Controller
          $msgdt->to=$to;
          $msgdt->from=$from;
          $msgdt->msg=$message;
+         $msgdt->sendby=Auth::user()->id;
          $msgdt->msg_id=$request->msg_id;
          $msgdt->trigger=1;
          $msgdt->save();
+         $last=msg_dt::where('msg_id',$request->msg_id)->where('msg_type','User')->orderBy('id', 'DESC')->first();
+         if($last->sendby !='null')
+         {
+            DB::table('msg_dts')->where('id',$last->id)
+            ->update([
+               'sendby' =>Auth::user()->id 
+            ]);
+         }
+         if($last_msg->msg_type == 'User')
+         {
+            $to_time =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $last_msg->created_at);
+            $fromy = \Carbon\Carbon::now();
+
+
+            $diff_in_minutes = $to_time->diffInSeconds($fromy);
+
+            DB::table('msg_dts')->where('id',$last_msg->id)
+            ->update([
+               'waiting_time' =>$diff_in_minutes
+            ]);
+
+
+         }
          $msg=$message;
          $Fortune=Fortune::find($from);
               $img=$Fortune->file;
               $email_id=msg::where('id',$request->msg_id)->value('from');
-              $mail=User::where('id',$email_id)->value('email');
+              $mail=User::where('id',$email_id)->whereNotNull('notification')->value('email');
               $data =$message;
               Mail::to($mail)->send(new sendmail3($data));
 
@@ -218,6 +276,30 @@ class admin extends Controller
 
          return response()->json(['msg'=>$msg,'img'=>$img]);
     }
+    function chat_history()
+    {
+        $mana=User::whereNotNull('role')->where('id','!=',1)->get();
+        return view('admin/chat_history' ,compact('mana'));
+        
+    }
+    
+    function show_chat_his(Request $request)
+    {
+        $mana=User::whereNotNull('role')->where('id','!=',1)->get();
+        $msg=msghistory::where('manager_id',$request->id)->get();
+        return view('admin/chat_history_list' ,compact('msg'));
+        
+    }
+    function get_msg_his(Request $request)
+    {
+       
+        $msg=msg_dt::where('msg_id',$request->id)->get();
+        $manager_id=$request->manager_id;
+        return view('admin/chat_history_msg' ,compact('msg','manager_id'));
+        
+    }
+    
+    
     
     //  function showchat(){
     //     $msg_approve=msg::where('status','!=','null')->get();
@@ -317,6 +399,22 @@ class admin extends Controller
         $msg->status='Approved';
         $msg->user_id=Auth::user()->id;
         $msg->save();
+
+        if(msghistory::where('user_id',$msg->from)
+            ->where('manager_id',Auth::user()->id)
+            ->where('msg_id',$msg->id)
+            ->exists()
+        )
+        {
+
+        }
+        else{
+            $his=new msghistory();
+            $his->msg_id=$msg->id;
+            $his->user_id=$msg->from;
+            $his->manager_id=Auth::user()->id;
+            $his->save();
+        }
         return redirect('admins/chat?id='.$id);
 
     }
@@ -339,18 +437,34 @@ class admin extends Controller
 
     public function update_user(Request $request, $id)
     {
+        $request->validate([
+            'f_name'   => 'required',
+            'email' => 'required | unique:users,email,'.$id
+            
+           
+
+        ]);
+
 
         $user        = User::find($id);
+        $old_email=$user->email;
         $user->name  = $request->input('f_name');
+
         $user->email = $request->input('email');
+
         if($request->password != null)
         {
             $user->password = Hash::make($request->input('password'));
 
         }
         $user->save();
+        if($old_email != $request->input('email'))
+        {
+            $data=$request->input('email');
+            Mail::to($old_email)->send(new sendmail4($data));
+        }
         if (!is_null($user)) {
-            return back()->with('success', 'User Successfully Add.');
+            return back()->with('success', 'User Successfully Update.');
         } else {
             return back()->with('error', 'Whoops! some error encountered. Please try again.');
         }
@@ -413,6 +527,12 @@ class admin extends Controller
     }
     public function send_poke(Request $request)
     {
+        
+
+      
+
+
+       
       $arr=array();
       if($request->days !=null)
       {
@@ -510,8 +630,21 @@ class admin extends Controller
                     $msg_det         = new poke_dt();
                     $msg_det->msg    = $request->input('msg');
                     $msg_det->to     = $final[$f]['final_id'];
+                    if($request->time !=null)
+                    {
+                        $msg_det->time=$request->time;
+                    }
+                    if($request->date !=null)
+                    {
+                        $msg_det->date=$request->date;
+                    }
+                    if($request->time ==null and $request->date ==null)
+                    {
+                        $msg_det->status = 'send';
+
+                    }
                     $msg_det->msg_id = $id;
-                    $msg_det->status = 'send';
+                    
                     
                     $msg_det->save();
                 } else {
@@ -526,13 +659,35 @@ class admin extends Controller
                     $msg_det->msg_id = $msg->id;
                     $msg_det->msg    = $request->input('msg');
                     $msg_det->to     = $final[$f]['final_id'];
-                    $msg_det->status = 'send';
+                    if($request->time !=null)
+                    {
+                        $msg_det->time=$request->time;
+                    }
+                    if($request->date !=null)
+                    {
+                        $msg_det->date=$request->date;
+                    }
+                    if($request->time ==null and $request->date ==null)
+                    {
+                        $msg_det->status = 'send';
+
+                    }
+
                     $msg_det->save();
 
                 }
-                $mail=User::where('id',$final[$f]['final_id'])->value('email');
+                if($request->time ==null and $request->date ==null)
+                {
+
+                $mail=User::where('id',$final[$f]['final_id'])->whereNotNull('notification')->value('email');
                 $data =$request->input('msg');
-                Mail::to($mail)->send(new sendmail2($data));
+               
+                    Mail::to($mail)->send(new sendmail2($data));
+                
+
+                
+                
+                }
            
      
                 
@@ -555,7 +710,19 @@ class admin extends Controller
                     $msg_det->msg_id = $id;
                     $msg_det->msg    = $request->input('msg');
                     $msg_det->to     = $user_idy[$ij]->id;
-                    $msg_det->status = 'send';
+                    if($request->time !=null)
+                    {
+                        $msg_det->time=$request->time;
+                    }
+                    if($request->date !=null)
+                    {
+                        $msg_det->date=$request->date;
+                    }
+                    if($request->time ==null and $request->date ==null)
+                    {
+                        $msg_det->status = 'send';
+
+                    }
 
                     $msg_det->save();
                 } else {
@@ -570,7 +737,19 @@ class admin extends Controller
                     $msg_det->msg_id = $msg->id;
                     $msg_det->msg    = $request->input('msg');
                     $msg_det->to     = $user_idy[$ij]->id;
-                    $msg_det->status = 'send';
+                    if($request->time !=null)
+                    {
+                        $msg_det->time=$request->time;
+                    }
+                    if($request->date !=null)
+                    {
+                        $msg_det->date=$request->date;
+                    }
+                    if($request->time ==null and $request->date ==null)
+                    {
+                        $msg_det->status = 'send';
+
+                    }
                     $msg_det->save();
 
                 }
@@ -579,13 +758,19 @@ class admin extends Controller
                        
             }
             $data =$request->input('msg');
-            $subscriber_emails =User::whereNull('role')->pluck('email')->toArray();
-            Mail::send('dynamic_email_template2',['data' => $data], function($message) use ($subscriber_emails)
-            {    
-                $message->bcc($subscriber_emails)->subject('New Message');   
- 
-            });
-            mail::to('demo2.browntech@gmail.com')->send(new sendmail3($data));
+            $subscriber_emails =User::whereNull('role')->whereNotNull('notification')->pluck('email')->toArray();
+            
+            
+                
+            if($request->time ==null and $request->date ==null)
+            {
+                Mail::send('dynamic_email_template2',['data' => $data], function($message) use ($subscriber_emails)
+                {    
+                    $message->bcc($subscriber_emails)->subject('New Message');   
+     
+                });
+                mail::to('demo2.browntech@gmail.com')->send(new sendmail3($data));
+            }    
 
         }
 
@@ -640,6 +825,14 @@ class admin extends Controller
     }
     public function update_user_by_wsa(Request $request)
     {
+        // $request->validate([
+        //     'f_name'   => 'required',
+        //     'email' => 'required | unique:users,email,'.$id
+            
+           
+
+        // ]);
+
 
 
         $user=User::find($request->id);
@@ -660,5 +853,112 @@ class admin extends Controller
 
 
     }
+    
+    public function point_date(Request $request)
+    {
+        $Pointshistory = Pointshistory::whereDate('created_at', '>=' ,$request->start )->whereDate('created_at', '<=' ,$request->end )->get();
+        return view('pointshistory_table', ['Pointshistory' => $Pointshistory]);
+    }
+    public function get_user(Request $request)
+    {
+        $arr=array();
+        if($request->days !=null)
+        {
+            if($request->days==7)
+            {
+              $day_cal=date('Y-m-d', strtotime('-7 days'));
+            }
+            elseif($request->days==14)
+            {
+              $day_cal=date('Y-m-d', strtotime('-14 days'));
+
+            }
+            elseif($request->days==30)
+            {
+              $day_cal=date('Y-m-d', strtotime('-30 days'));
+
+            }
+            $days=User::whereDate('login_time','>=',$day_cal)->get();
+            for($i=0 ; $i<count($days);$i++)
+            {
+                $arr[]=[
+                  'id'=>$days[$i]->id
+                ];
+            }
+        } 
+        
+        return view('user_table', ['arr' => $arr]);
+    }
+    public function get_user_for(Request $request)
+    {
+        $arr=array();
+         if($request->fort !=null)
+        {
+
+            $msg=msg::where('to',$request->fort)->get();
+
+
+
+
+            for($k=0 ; $k<count($msg);$k++)
+            {
+              $arr[]=[
+                  'id'=>intval($msg[$k]->from)
+              ];
+            }
+        } 
+        
+        return view('user_table', ['arr' => $arr]);
+    }
+    function stat()
+    {
+        $msg_con_list=0;
+        $mana=User::where('role',3)->get();
+        $msg_list_chek=0;
+        return view('admin/chat_stat' ,compact('msg_list_chek','mana','msg_con_list'));
+        
+    }
+    function get_list_stat($id)
+    {
+        $msg_con_list=1;
+        $msg=msghistory::where('manager_id',$id)->get();
+        $mana=User::where('role',3)->get();
+        $msg_list_chek=0;
+        return view('admin/chat_stat' ,compact('msg','msg_list_chek','mana','msg_con_list'));
+        
+    }
+    
+    function stat_msg($id,$mn_id)
+    {
+        $msg=msghistory::where('manager_id',$mn_id)->get();
+        $msg_list=msg_dt::where('msg_id',$id)->where('msg_type','User')->where('sendby',$mn_id)->get();
+        $mana=User::where('role',3)->get();
+
+        $msg_list_chek=1;
+        $msg_con_list=1;
+        
+
+        return view('admin/chat_stat' ,compact('msg','msg_list','msg_list_chek','msg_con_list','mana'));
+        
+    }
+    function waiting()
+    {
+       
+        
+        $msg=msg::where('msg_type','2')->get();
+        return view('admin/waiting' , compact('msg'));
+        
+    }
+    function waiting_msg(Request $request)
+    {
+       
+        
+        $msg=msg::where('from',$request->start)->get();
+        return view('admin/waiting_list' , compact('msg'));
+        
+    }
+    
+    
+    
 
 }

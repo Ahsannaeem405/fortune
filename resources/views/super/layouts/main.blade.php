@@ -37,6 +37,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('admin/app-assets/fonts/line-awesome/css/line-awesome.min.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{asset('admin/app-assets/vendors/css/pickers/pickadate/pickadate.css')}}">
+    
     <!-- END: Page CSS-->
     @yield('css')
 
@@ -126,6 +128,11 @@
 <script src="{{asset('admin//app-assets/vendors/js/forms/validation/jquery.validate.min.js')}}"></script>
 <script src="{{asset('admin/app-assets/js/scripts/forms/wizard-steps.js')}}"></script>
 <script src="{{asset('tableHTMLExport.js')}}"></script>
+ <script src="{{asset('admin/app-assets/vendors/js/pickers/pickadate/picker.js')}}"></script>
+    <script src="{{asset('admin/app-assets/vendors/js/pickers/pickadate/picker.date.js')}}"></script>
+    <script src="{{asset('admin/app-assets/vendors/js/pickers/pickadate/picker.time.js')}}"></script>
+    <script src="{{asset('admin/app-assets/vendors/js/pickers/pickadate/legacy.js')}}"></script>
+        <script src="{{asset('admin/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js')}}"></script>
 <script type="text/javascript">
      @if(session('success'))
     toastr.success("{{ session('success') }}");
